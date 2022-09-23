@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import saveItem from '../helpers/storage';
 import USER, { DRINKS_TOKEN, MEALSTOKEN } from '../services/variables';
 
 const MIN_PASSWORD_CHARACTERS = 6;
 const REGEXP_EMAIL = /\S+@\S+\.\S+/;
 
-export default function Login() {
+export default function Login({ history }) {
   const [{ email, password }, setLogin] = useState({
     email: '',
     password: '',
@@ -24,6 +25,7 @@ export default function Login() {
     saveItem(USER, { email });
     saveItem(MEALSTOKEN, 1);
     saveItem(DRINKS_TOKEN, 1);
+    history.push('/meals');
   };
 
   return (
@@ -61,3 +63,7 @@ export default function Login() {
     </form>
   );
 }
+
+Login.propTypes = {
+  history: propTypes.instanceOf(Object),
+}.isRequired;
