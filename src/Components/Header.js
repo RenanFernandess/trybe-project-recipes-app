@@ -59,6 +59,7 @@ export default function Header({ title }) {
         && <input
           type="text"
           data-testid="search-input"
+          placeholder="Digite aqui sua busca"
         /> }
       </div>
     </div>
