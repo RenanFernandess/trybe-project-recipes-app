@@ -65,5 +65,7 @@ export default function Login({ history }) {
 }
 
 Login.propTypes = {
-  history: propTypes.instanceOf(Object),
+  history: propTypes.shape({
+    push: propTypes.func,
+  }),
 }.isRequired;
