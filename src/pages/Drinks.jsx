@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function Drinks() {
   return (
-    <div>Drinks</div>
+    <h1>Drinks</h1>
   );
 }
