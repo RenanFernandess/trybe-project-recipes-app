@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
+import appContext from '../context/appContext';
 
 const PAGES_TITLE = ['Meals', 'Drinks'];
 export default function Header({ title }) {
   const history = useHistory();
+
+  const {
+    searchBarBoolean,
+    setSearchBarBoolean,
+  } = useContext(appContext);
+
+  const handleSearchBoolean = () => {
+    if (searchBarBoolean === false) {
+      setSearchBarBoolean(true);
+    } else {
+      setSearchBarBoolean(false);
+    }
+  };
+
   return (
     <div>
       <h2
@@ -27,14 +42,26 @@ export default function Header({ title }) {
         />
       </button>
       {PAGES_TITLE.some((item) => item === title) && (
-        <img
-          className="profile-search"
-          data-testid="search-top-btn"
-          src={ imageSearch }
-          alt="imagesSearch"
-        />
+        <button
+          type="button"
+          onClick={ handleSearchBoolean }
+        >
+          <img
+            className="profile-search"
+            data-testid="search-top-btn"
+            src={ imageSearch }
+            alt="imagesSearch"
+          />
+        </button>
       )}
-
+      <div>
+        { searchBarBoolean
+        && <input
+          type="text"
+          data-testid="search-input"
+          placeholder="Digite aqui sua busca"
+        /> }
+      </div>
     </div>
 
   );
