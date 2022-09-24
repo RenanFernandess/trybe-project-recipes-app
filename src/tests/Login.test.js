@@ -1,10 +1,13 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testa a tela de Login', () => {
+  const EMAIL = 'xablau@gmail.com';
+  const SENHA = '123456';
+
   let returned;
   beforeEach(() => {
     returned = renderWithRouter(<App />);
@@ -22,8 +25,8 @@ describe('Testa a tela de Login', () => {
     const email = screen.getByRole('textbox', { name: /email/i });
     const password = screen.getByRole('textbox', { name: /senha/i });
 
-    userEvent.type(email, 'xablau@gmail.com');
-    userEvent.type(password, '123456');
+    userEvent.type(email, EMAIL);
+    userEvent.type(password, SENHA);
 
     expect(screen.getByRole('button', { name: /enter/i })).toBeDisabled();
 
@@ -37,10 +40,26 @@ describe('Testa a tela de Login', () => {
     const email = screen.getByRole('textbox', { name: /email/i });
     const password = screen.getByRole('textbox', { name: /senha/i });
 
-    userEvent.type(email, 'xablau@gmail.com');
-    userEvent.type(password, '1234567');
+    userEvent.type(email, EMAIL);
+    userEvent.type(password, SENHA);
     userEvent.click(screen.getByRole('button', { name: /enter/i }));
 
-    expect(history.location.pathname).toBe('/meals');
+    waitFor(() => expect(history.location.pathname).toEqual('/meals'));
+  });
+  it('Verifica se clicar no botão de "Enter" é redirecionado para pagina de Drinks', () => {
+    const { history } = returned;
+    const email = screen.getByRole('textbox', { name: /email/i });
+    const password = screen.getByRole('textbox', { name: /senha/i });
+
+    userEvent.type(email, EMAIL);
+    userEvent.type(password, SENHA);
+    userEvent.click(screen.getByRole('button', { name: /enter/i }));
+
+    waitFor(() => expect(history.location.pathname).toEqual('/drinks'));
+  });
+  it('Testa se há um cabeçalho com o nome Meals', () => {
+    // const titleMeals = screen.getByText(/meals/i);
+    // tentativa de fazer tdd, aguardar o resto do código.
+    // expect(titleMeals).toBeInTheDocument();
   });
 });
