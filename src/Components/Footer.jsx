@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 export default function Footer() {
   const history = useHistory();
   return (
-    <footer data-testid="footer" id="footer">
+    <footer data-testid="footer" className="footer">
       <nav>
 
         <button type="button" onClick={ () => history.push('/drinks') }>
