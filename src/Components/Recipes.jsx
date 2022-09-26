@@ -5,7 +5,6 @@ import RecipeCard from './RecipeCard';
 export default function Recipes({ meals, drinks }) {
   const recipes = meals || drinks;
 
-  console.log(recipes);
   return (
     <section>
       {
