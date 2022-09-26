@@ -36,7 +36,10 @@
   font-size: 3em;
   font-weight: 900;
 }
-
+#footer{
+ position: fixed;
+ bottom: 0;
+}
 @keyframes shake {
 
   0% {
