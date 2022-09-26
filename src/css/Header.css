@@ -1,0 +1,8 @@
+.radios-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-button {
+    max-width: 100px ;
+}

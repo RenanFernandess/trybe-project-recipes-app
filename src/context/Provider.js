@@ -4,13 +4,10 @@ import appContext from './appContext';
 
 export default function Provider({ children }) {
   const [history, setHistory] = useState({});
-  const [searchBarBoolean, setSearchBarBoolean] = useState(false);
 
   const contextType = {
     history,
     setHistory,
-    searchBarBoolean,
-    setSearchBarBoolean,
   };
 
   return (
