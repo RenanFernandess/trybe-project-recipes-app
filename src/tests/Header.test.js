@@ -18,7 +18,7 @@ describe('Testa o Header', () => {
     userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
     expect(screen.getByRole('textbox')).toBeInTheDocument();
     userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
-    expect(screen.getByRole('textbox')).not.toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
   it('Testa se ao clicar no botão de perfil, o usuário é redirecionado para a paǵina de perfil', () => {
     const { history } = returned;
