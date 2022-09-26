@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import Recipes from '../Components/Recipes';
 import { DRINKS_ENDPOINT, FIRST_TWELVE } from '../services/variables';
-import fetchAPI from '../hooks/useFetchAPI';
+import fetchAPI from '../helpers/fetchAPI';
+import Footer from '../Components/Footer';
 
 export default function Drinks() {
   const [drinks, setDrinks] = useState([]);
@@ -17,6 +18,7 @@ export default function Drinks() {
     <div>
       <Header title="Drinks" />
       <Recipes drinks={ drinks } />
+      <Footer />
     </div>
   );
 }
