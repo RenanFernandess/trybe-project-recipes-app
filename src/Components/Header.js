@@ -23,7 +23,7 @@ export default function Header({ title }) {
   };
 
   return (
-    <div>
+    <section>
       <h2
         className="profile-title"
         data-testid="page-title"
@@ -54,15 +54,48 @@ export default function Header({ title }) {
           />
         </button>
       )}
-      <div>
+      <section>
         { searchBarBoolean
         && <input
           type="text"
           data-testid="search-input"
           placeholder="Digite aqui sua busca"
         /> }
-      </div>
-    </div>
+      </section>
+      <section>
+        <label htmlFor="ingredient">
+          Ingredientes
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            id="ingredient"
+          />
+        </label>
+        <label htmlFor="name">
+          Nome
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            id="name"
+          />
+        </label>
+        <label htmlFor="first-letter">
+          Primeira letra
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            id="first-letter"
+          />
+        </label>
+        <button
+          type="submit"
+          data-testid="exec-search-btn"
+          id="button"
+        >
+          Busca
+        </button>
+      </section>
+    </section>
 
   );
 }
