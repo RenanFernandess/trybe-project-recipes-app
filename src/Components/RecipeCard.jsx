@@ -5,6 +5,7 @@ export default function RecipeCard({ name, thumb, index }) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <img
+        width={ 150 }
         src={ thumb }
         alt={ name }
         data-testid={ `${index}-card-img` }
