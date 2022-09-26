@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 // import appContext from '../context/appContext';
+import Footer from '../Components/Footer';
 import Recipes from '../Components/Recipes';
 import fetchAPI from '../hooks/useFetchAPI';
 import { MEALS_ENDPOINT, FIRST_TWELVE } from '../services/variables';
+
 
 export default function Meals() {
   const [meals, setMeals] = useState([]);
@@ -17,6 +19,7 @@ export default function Meals() {
   return (
     <div>
       <Header title="Meals" />
+      <Footer />
       <Recipes meals={ meals } />
     </div>
   );
