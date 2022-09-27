@@ -17,6 +17,9 @@ export default function Meals() {
 
   useEffect(() => {
     fetchAPI(endPoint, ({ meals: result }) => {
+      if (!result) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
       setMeals(result.slice(0, FIRST_TWELVE));
     });
   }, [endPoint]);

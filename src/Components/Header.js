@@ -71,7 +71,6 @@ export default function Header({ title }) {
     const { category } = radioSearch;
     const { name } = searchTerm;
     const getEndPoint = URLS_BY_PAGE[title][category];
-    console.log(getEndPoint);
     setURL(getEndPoint(name));
   };
 
