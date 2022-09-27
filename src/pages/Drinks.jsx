@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import propTypes from 'prop-types';
 import Header from '../Components/Header';
 import Recipes from '../Components/Recipes';
 import {
@@ -12,7 +13,7 @@ import fetchAPI from '../helpers/fetchAPI';
 import Footer from '../Components/Footer';
 import appContext from '../context/appContext';
 
-export default function Drinks() {
+export default function Drinks({ history }) {
   const { URL, setURL } = useContext(appContext);
   const [drinks, setDrinks] = useState([]);
   const [categorys, setCategorys] = useState([]);
@@ -21,13 +22,20 @@ export default function Drinks() {
   useEffect(() => {
     fetchAPI(END_POINT, ({ drinks: recipes }) => {
       const result = recipes || [];
+      if (!result.length) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (result.length === 1) {
+        const { idDrink } = result[0];
+        history.push(`/drinks/${idDrink}`);
+      }
       const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
       setDrinks(result.slice(0, LAST_INDEX));
     });
     fetchAPI(DRINKS_CATEGORY_ENDPOINT, ({ drinks: result }) => {
       setCategorys(result.slice(0, FIRST_FIVE));
     });
-  }, [END_POINT, URL]);
+  }, [END_POINT, URL, history]);
 
   useEffect(() => () => { setURL(''); }, [setURL]);
 
@@ -47,3 +55,7 @@ export default function Drinks() {
     </div>
   );
 }
+
+Drinks.propTypes = {
+  history: propTypes.instanceOf(Object),
+}.isRequired;
