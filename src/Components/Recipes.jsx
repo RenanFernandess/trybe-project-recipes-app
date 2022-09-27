@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
+import appContext from '../context/appContext';
 
 export default function Recipes({ recipes, categorys, filterByCategory }) {
   console.log(categorys);
+  const { setURL } = useContext(appContext);
   return (
     <section>
       <aside>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => { setURL(''); } }
+        >
+          All
+        </button>
         {
           categorys.map(({ strCategory }) => (
             <button
