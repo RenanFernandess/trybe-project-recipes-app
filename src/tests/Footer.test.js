@@ -18,8 +18,8 @@ describe('Realiza os testes no componente Footer', () => {
     expect(drinksIcon).toBeInTheDocument();
     expect(mealsIcon).toBeInTheDocument();
     expect(footer).toBeInTheDocument();
-    expect(drinksIcon).toHaveAttribute('src', '../images/drinkIcon.svg');
-    expect(mealsIcon).toHaveAttribute('src', '../images/mealIcon.svg');
+    expect(drinksIcon).toHaveAttribute('src', 'drinkIcon.svg');
+    expect(mealsIcon).toHaveAttribute('src', 'mealIcon.svg');
   });
 
   test('Verifica o icone de drink faz o redirec correto', () => {
