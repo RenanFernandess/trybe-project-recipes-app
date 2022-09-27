@@ -4,10 +4,13 @@ import appContext from './appContext';
 
 export default function Provider({ children }) {
   const [history, setHistory] = useState({});
+  const [URL, setURL] = useState('');
 
   const contextType = {
     history,
     setHistory,
+    URL,
+    setURL,
   };
 
   return (
