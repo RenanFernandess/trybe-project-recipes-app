@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 
-export default function Recipes({ recipes, categorys }) {
+export default function Recipes({ recipes, categorys, filterByCategory }) {
   console.log(categorys);
   return (
     <section>
@@ -13,6 +13,8 @@ export default function Recipes({ recipes, categorys }) {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
+              onClick={ filterByCategory }
+              value={ strCategory }
             >
               { strCategory }
             </button>
@@ -47,4 +49,6 @@ export default function Recipes({ recipes, categorys }) {
 
 Recipes.propTypes = {
   meals: propTypes.arrayOf({}),
+  categorys: propTypes.arrayOf({}),
+  filterByCategory: propTypes.func,
 }.isRequired;
