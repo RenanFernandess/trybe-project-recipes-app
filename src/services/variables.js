@@ -15,3 +15,5 @@ export const DRINKS_FILTER_BY_CATEGOTY_ENDPOINT = 'https://www.thecocktaildb.com
 
 export const FIRST_TWELVE = 12;
 export const FIRST_FIVE = 5;
+
+export const NO_RECIPES_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';
