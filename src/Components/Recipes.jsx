@@ -3,17 +3,18 @@ import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 
 export default function Recipes({ recipes, categorys }) {
+  console.log(categorys);
   return (
     <section>
       <aside>
         {
-          categorys.map(({ strCategor }) => (
+          categorys.map(({ strCategory }) => (
             <button
               type="button"
-              key={ strCategor }
-              data-testid={ `${strCategor}-category-filter` }
+              key={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
             >
-              { strCategor }
+              { strCategory }
             </button>
           ))
         }
