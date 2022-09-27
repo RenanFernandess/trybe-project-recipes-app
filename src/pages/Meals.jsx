@@ -11,6 +11,7 @@ import {
   MEALS_CATEGORY_ENDPOINT,
   FIRST_FIVE,
   MEALS_FILTER_BY_CATEGOTY_ENDPOINT,
+  NO_RECIPES_ERROR,
 } from '../services/variables';
 
 export default function Meals({ history }) {
@@ -23,7 +24,7 @@ export default function Meals({ history }) {
     fetchAPI(END_POINT, ({ meals: recipes }) => {
       const result = recipes || [];
       if (!result.length) {
-        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        return global.alert(NO_RECIPES_ERROR);
       }
       if (result.length === 1 && searched) {
         setSearched(false);

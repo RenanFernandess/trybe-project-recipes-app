@@ -8,6 +8,7 @@ import {
   DRINKS_FILTER_BY_CATEGOTY_ENDPOINT,
   FIRST_FIVE,
   FIRST_TWELVE,
+  NO_RECIPES_ERROR,
 } from '../services/variables';
 import fetchAPI from '../helpers/fetchAPI';
 import Footer from '../Components/Footer';
@@ -23,7 +24,7 @@ export default function Drinks({ history }) {
     fetchAPI(END_POINT, ({ drinks: recipes }) => {
       const result = recipes || [];
       if (!result.length) {
-        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        return global.alert(NO_RECIPES_ERROR);
       }
       if (result.length === 1 && searched) {
         setSearched(false);
