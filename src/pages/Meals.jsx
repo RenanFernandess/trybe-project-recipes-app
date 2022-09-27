@@ -14,7 +14,7 @@ import {
 } from '../services/variables';
 
 export default function Meals({ history }) {
-  const { URL, setURL } = useContext(appContext);
+  const { URL, setURL, searched, setSearched } = useContext(appContext);
   const [categorys, setCategorys] = useState([]);
   const [meals, setMeals] = useState([]);
   const END_POINT = URL || MEALS_ENDPOINT;
@@ -25,8 +25,9 @@ export default function Meals({ history }) {
       if (!result.length) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
       }
-      if (result.length === 1) {
-        const { idMeal } = result[0];
+      if (result.length === 1 && searched) {
+        setSearched(false);
+        const [{ idMeal }] = result;
         history.push(`/meals/${idMeal}`);
       }
       const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
@@ -35,12 +36,12 @@ export default function Meals({ history }) {
     fetchAPI(MEALS_CATEGORY_ENDPOINT, ({ meals: result }) => {
       setCategorys(result.slice(0, FIRST_FIVE));
     });
-  }, [END_POINT, URL, history]);
+  }, [END_POINT, URL, history, searched, setSearched]);
 
   useEffect(() => () => { setURL(''); }, [setURL]);
 
-  const filterByCategory = ({ target: { value } }) => {
-    setURL(`${MEALS_FILTER_BY_CATEGOTY_ENDPOINT}${value}`);
+  const filterByCategory = (category) => {
+    setURL(`${MEALS_FILTER_BY_CATEGOTY_ENDPOINT}${category}`);
   };
 
   return (

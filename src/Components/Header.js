@@ -50,6 +50,7 @@ export default function Header({ title }) {
 
   const {
     setURL,
+    setSearched,
   } = useContext(appContext);
   const handleSearchBoolean = () => {
     if (searchBarBoolean === false) {
@@ -71,10 +72,9 @@ export default function Header({ title }) {
     const { category } = radioSearch;
     const { name } = searchTerm;
     const getEndPoint = URLS_BY_PAGE[title][category];
+    setSearched(true);
     setURL(getEndPoint(name));
   };
-
-  console.log(radioSearch);
 
   return (
     <section>

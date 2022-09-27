@@ -1,18 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 import appContext from '../context/appContext';
 
+const ALL = 'All';
 export default function Recipes({ recipes, categorys, filterByCategory }) {
-  console.log(categorys);
+  console.log('recipes: ', recipes);
+  const [category, setCategory] = useState(ALL);
   const { setURL } = useContext(appContext);
+
+  const toggleCategory = ({ target: { value } }) => {
+    if (category === value || value === ALL) {
+      setCategory(ALL);
+      return setURL('');
+    }
+    setCategory(value);
+    filterByCategory(value);
+  };
+
   return (
     <section>
       <aside>
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => { setURL(''); } }
+          value="All"
+          onClick={ toggleCategory }
         >
           All
         </button>
@@ -22,7 +35,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ filterByCategory }
+              onClick={ toggleCategory }
               value={ strCategory }
             >
               { strCategory }
