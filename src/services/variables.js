@@ -12,3 +12,4 @@ export const MEALS_CATEGORY_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/
 export const DRINKS_CATEGORY_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 
 export const FIRST_TWELVE = 12;
+export const FIRST_FIVE = 5;
