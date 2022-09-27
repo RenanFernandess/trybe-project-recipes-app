@@ -16,6 +16,9 @@ export default function Drinks() {
 
   useEffect(() => {
     fetchAPI(endPoint, ({ drinks: result }) => {
+      if (!result) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
       setDrinks(result.slice(0, FIRST_TWELVE));
     });
   }, [endPoint]);
