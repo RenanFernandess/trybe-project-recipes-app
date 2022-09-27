@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import propTypes from 'prop-types';
 import Header from '../Components/Header';
 import appContext from '../context/appContext';
 import Footer from '../Components/Footer';
@@ -6,7 +7,7 @@ import Recipes from '../Components/Recipes';
 import fetchAPI from '../helpers/fetchAPI';
 import { MEALS_ENDPOINT, FIRST_TWELVE } from '../services/variables';
 
-export default function Meals() {
+export default function Meals({ history }) {
   const {
     URL,
   } = useContext(appContext);
@@ -19,10 +20,13 @@ export default function Meals() {
     fetchAPI(endPoint, ({ meals: result }) => {
       if (!result) {
         return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } if (result.length === 1) {
+        const { idMeal } = result[0];
+        history.push(`/meals/${idMeal}`);
       }
       setMeals(result.slice(0, FIRST_TWELVE));
     });
-  }, [endPoint]);
+  }, [endPoint, history]);
 
   return (
     <div>
@@ -32,3 +36,7 @@ export default function Meals() {
     </div>
   );
 }
+
+Meals.propTypes = {
+  history: propTypes.instanceOf(Object),
+}.isRequired;
