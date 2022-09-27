@@ -29,11 +29,11 @@ export default function Meals() {
   return (
     <div>
       <Header title="Meals" />
-      <Footer />
       <Recipes
         recipes={ meals }
         categorys={ categorys }
       />
+      <Footer />
     </div>
   );
 }
