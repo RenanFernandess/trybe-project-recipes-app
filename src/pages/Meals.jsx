@@ -16,22 +16,24 @@ export default function Meals() {
   const { URL, setURL } = useContext(appContext);
   const [categorys, setCategorys] = useState([]);
   const [meals, setMeals] = useState([]);
-  const endPoint = URL || MEALS_ENDPOINT;
-
-  const filterByCategory = ({ target: { value } }) => {
-    setURL(`${MEALS_FILTER_BY_CATEGOTY_ENDPOINT}${value}`);
-  };
+  const END_POINT = URL || MEALS_ENDPOINT;
 
   useEffect(() => {
-    console.log('ok');
-    fetchAPI(endPoint, ({ meals: result }) => {
+    fetchAPI(END_POINT, ({ meals: recipes }) => {
+      const result = recipes || [];
       const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
       setMeals(result.slice(0, LAST_INDEX));
     });
     fetchAPI(MEALS_CATEGORY_ENDPOINT, ({ meals: result }) => {
       setCategorys(result.slice(0, FIRST_FIVE));
     });
-  }, [endPoint, URL]);
+  }, [END_POINT, URL]);
+
+  useEffect(() => () => { setURL(''); }, [setURL]);
+
+  const filterByCategory = ({ target: { value } }) => {
+    setURL(`${MEALS_FILTER_BY_CATEGOTY_ENDPOINT}${value}`);
+  };
 
   return (
     <div>
