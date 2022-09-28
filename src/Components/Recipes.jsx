@@ -5,7 +5,6 @@ import appContext from '../context/appContext';
 
 const ALL = 'All';
 export default function Recipes({ recipes, categorys, filterByCategory }) {
-  console.log('recipes: ', recipes);
   const [category, setCategory] = useState(ALL);
   const { setURL } = useContext(appContext);
 
@@ -50,16 +49,20 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
             strDrinkThumb,
             strMeal,
             strDrink,
+            idMeal,
+            idDrink,
           }, index) => {
             const thumb = strMealThumb || strDrinkThumb;
             const name = strMeal || strDrink;
+            const id = idMeal || idDrink;
 
             return (
               <RecipeCard
-                key={ name }
+                key={ id }
                 name={ name }
                 thumb={ thumb }
                 index={ index }
+                id={ id }
               />
             );
           })
