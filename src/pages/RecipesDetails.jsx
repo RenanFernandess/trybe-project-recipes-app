@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import fetchAPI from '../helpers/fetchAPI';
-import { DRINK_DETAILS, MEALS_DETAILS } from '../services/variables';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS,
@@ -13,27 +12,20 @@ import {
 import RecommendationCard from '../Components/RecommendationCard';
 
 export default function RecipesDetails({ match }) {
-  const [recipe, setRecipe] = useState({});
+  const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
   const { params: { id }, path } = match;
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
-  console.log(RECIPE_ENDPOINT);
-  
-  useEffect(() => {
-    fetchAPI(`${RECIPE_ENDPOINT}${id}`, (data) => {
-      setRecipe(data);
-    });
-    fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
-      const result = meals || drinks;
-      setRecommendations(result.slice(0, FIRST_SIX));
-    });
-  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
-  const getIngredientsAndMeasure = () => {
-    if (meals) {
-      const arrayOfKeys = Object.entries(meals[0]);
+  useEffect(() => {
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ({ meals, drinks }) => {
+      const result = meals || drinks;
+      setRecipe(result);
+      const arrayOfKeys = Object.entries(result[0]);
       const regexIngredients = /^stringredient/i;
       const regexMeasure = /^strmeasure/i;
       const ingredientsArray = arrayOfKeys
@@ -42,51 +34,70 @@ export default function RecipesDetails({ match }) {
         .filter(([key, value]) => regexMeasure.test(key) && value !== '');
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
-    }
-  };
+    });
+    fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
+      const result = meals || drinks;
+      setRecommendations(result.slice(0, FIRST_SIX));
+    });
+  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
-  const { meals } = recipe;
   return (
     <div>
       <h1>RecipesDetails</h1>
 
-      {meals.map((meal, i) => {
+      {recipe?.map((meal, i) => {
         const {
           strMealThumb,
+          strDrinkThumb,
+          strDrink,
           strMeal,
           strCategory,
           strYoutube,
           strInstructions,
-          // strMeasure1,
-          // strIngredient,
+          strAlcoholic,
         } = meal;
 
-        const URL_CODE = strYoutube.split('=')[1];
+        const URL_CODE = checkPath && strYoutube.split('=')[1];
 
         return (
           <main key={ i }>
             <h2
               data-testid="recipe-title"
             >
-              {strMeal}
+              {strMeal || strDrink}
             </h2>
             <img
-              src={ strMealThumb }
+              src={ strMealThumb || strDrinkThumb }
               width="100"
               alt={ strMeal }
               data-testid="recipe-photo"
+              tagName={ strMeal || strDrink }
             />
             <p data-testid="recipe-category">
-              Categoria:
-              {strCategory}
+              { strCategory }
+              { ' ' }
+              { strAlcoholic }
             </p>
             <article data-testid="instructions">
-              Instruções:
+              <h3>Instruções</h3>
               {strInstructions}
             </article>
-
-            <YouTubeEmbed videoID={ URL_CODE } />
-
+            <section>
+              <h3>Ingredientes</h3>
+              { ingredients.map((ingredient, index) => (
+                <p
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  { ingredient }
+                  :
+                  { measures[index] }
+                </p>
+              ))}
+            </section>
+            <section>
+              { checkPath && <YouTubeEmbed videoID={ URL_CODE } />}
+            </section>
           </main>
         );
       })}
