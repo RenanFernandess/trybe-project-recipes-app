@@ -6,11 +6,13 @@ import {
   MEALS_DETAILS,
   DRINKS_ENDPOINT,
   MEALS_ENDPOINT,
+  FIRST_SIX,
 } from '../services/variables';
+import RecommendationCard from '../Components/RecommendationCard';
 
 export default function RecipesDetails({ match }) {
   const [recipe, setRecipe] = useState({});
-  const [recommendation, setRecommendation] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const { params: { id }, path } = match;
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
@@ -25,14 +27,44 @@ export default function RecipesDetails({ match }) {
     fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
       const result = meals || drinks;
       console.log(result);
-      setRecommendation(result);
+      setRecommendations(result.slice(0, FIRST_SIX));
     });
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   return (
     <div>
-      RecipesDetails
+      <div
+        style={ {
+          display: 'flex',
+          gap: '10px',
+          padding: '20px',
+          width: '80vw',
+          overflow: 'scroll',
+        } }
+      >
+        { recommendations.map(({
+          strMealThumb,
+          strDrinkThumb,
+          strMeal,
+          strDrink,
+          idMeal,
+          idDrink,
+        }, index) => {
+          const image = strMealThumb || strDrinkThumb;
+          const title = strMeal || strDrink;
+          const idRecipe = idMeal || idDrink;
+          return (
 
+            <RecommendationCard
+              key={ idRecipe }
+              image={ image }
+              title={ title }
+              id={ idRecipe }
+              index={ index }
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
