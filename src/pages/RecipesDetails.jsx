@@ -35,14 +35,40 @@ export default function RecipesDetails({ match }) {
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
     });
+    
     fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
       const result = meals || drinks;
       setRecommendations(result.slice(0, FIRST_SIX));
     });
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
+  const isRecipeDone = (recipeId) => {
+    const storage = localStorage.getItem('doneRecipes') || '[]';
+    const doneRecipes = JSON.parse(storage);
+
+    const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
+
+    return checkTrue;
+  };
   return (
     <div>
+
+      RecipeDetails
+      {
+        !isRecipeDone(id)
+          ? (
+            <button
+              data-testid="start-recipe-btn"
+              name="Start Recipe"
+              type="button"
+              className="start-recipe-btn"
+            >
+              Start Recipe
+            </button>
+          )
+          : null
+      }
+
       <h1>RecipesDetails</h1>
 
       {recipe?.map((meal, i) => {
