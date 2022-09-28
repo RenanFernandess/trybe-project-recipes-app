@@ -8,13 +8,14 @@ import {
   DRINKS_FILTER_BY_CATEGOTY_ENDPOINT,
   FIRST_FIVE,
   FIRST_TWELVE,
+  NO_RECIPES_ERROR,
 } from '../services/variables';
 import fetchAPI from '../helpers/fetchAPI';
 import Footer from '../Components/Footer';
 import appContext from '../context/appContext';
 
 export default function Drinks({ history }) {
-  const { URL, setURL } = useContext(appContext);
+  const { URL, setURL, searched, setSearched } = useContext(appContext);
   const [drinks, setDrinks] = useState([]);
   const [categorys, setCategorys] = useState([]);
   const END_POINT = URL || DRINKS_ENDPOINT;
@@ -23,10 +24,11 @@ export default function Drinks({ history }) {
     fetchAPI(END_POINT, ({ drinks: recipes }) => {
       const result = recipes || [];
       if (!result.length) {
-        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        return global.alert(NO_RECIPES_ERROR);
       }
-      if (result.length === 1) {
-        const { idDrink } = result[0];
+      if (result.length === 1 && searched) {
+        setSearched(false);
+        const [{ idDrink }] = result;
         history.push(`/drinks/${idDrink}`);
       }
       const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
@@ -35,12 +37,12 @@ export default function Drinks({ history }) {
     fetchAPI(DRINKS_CATEGORY_ENDPOINT, ({ drinks: result }) => {
       setCategorys(result.slice(0, FIRST_FIVE));
     });
-  }, [END_POINT, URL, history]);
+  }, [END_POINT, URL, history, searched, setSearched]);
 
   useEffect(() => () => { setURL(''); }, [setURL]);
 
-  const filterByCategory = ({ target: { value } }) => {
-    setURL(`${DRINKS_FILTER_BY_CATEGOTY_ENDPOINT}${value}`);
+  const filterByCategory = (category) => {
+    setURL(`${DRINKS_FILTER_BY_CATEGOTY_ENDPOINT}${category}`);
   };
 
   return (

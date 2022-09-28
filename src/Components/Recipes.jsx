@@ -1,18 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 import appContext from '../context/appContext';
 
+const ALL = 'All';
 export default function Recipes({ recipes, categorys, filterByCategory }) {
-  console.log(categorys);
+  const [category, setCategory] = useState(ALL);
   const { setURL } = useContext(appContext);
+
+  const toggleCategory = ({ target: { value } }) => {
+    if (category === value || value === ALL) {
+      setCategory(ALL);
+      return setURL('');
+    }
+    setCategory(value);
+    filterByCategory(value);
+  };
+
   return (
     <section>
       <aside>
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => { setURL(''); } }
+          value="All"
+          onClick={ toggleCategory }
         >
           All
         </button>
@@ -22,7 +34,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
               type="button"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ filterByCategory }
+              onClick={ toggleCategory }
               value={ strCategory }
             >
               { strCategory }
@@ -37,16 +49,20 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
             strDrinkThumb,
             strMeal,
             strDrink,
+            idMeal,
+            idDrink,
           }, index) => {
             const thumb = strMealThumb || strDrinkThumb;
             const name = strMeal || strDrink;
+            const id = idMeal || idDrink;
 
             return (
               <RecipeCard
-                key={ name }
+                key={ id }
                 name={ name }
                 thumb={ thumb }
                 index={ index }
+                id={ id }
               />
             );
           })
