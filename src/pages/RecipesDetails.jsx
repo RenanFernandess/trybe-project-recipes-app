@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import fetchAPI from '../helpers/fetchAPI';
-import { DRINK_DETAILS, MEALS_DETAILS } from '../services/variables';
+import {
+  DRINK_DETAILS,
+  MEALS_DETAILS,
+  DRINKS_ENDPOINT,
+  MEALS_ENDPOINT,
+} from '../services/variables';
 
 export default function RecipesDetails({ match }) {
   const [recipe, setRecipe] = useState({});
+  const [recommendation, setRecommendation] = useState([]);
   const { params: { id }, path } = match;
-  const regex = /^\/meals/i;
-  const urlTest = regex.test(path) ? MEALS_DETAILS : DRINK_DETAILS;
-  console.log(urlTest);
+  const checkPath = path === '/meals/:id';
+  const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
+  const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
+  console.log(RECIPE_ENDPOINT);
 
   useEffect(() => {
-    fetchAPI(`${urlTest}${id}`, (data) => {
-      console.log(data);
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, (data) => {
+    //   console.log(data);
       setRecipe(data);
     });
-  }, [urlTest, id]);
+    fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
+      const result = meals || drinks;
+      console.log(result);
+      setRecommendation(result);
+    });
+  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   return (
     <div>
