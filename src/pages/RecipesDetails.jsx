@@ -12,15 +12,35 @@ export default function RecipesDetails({ match }) {
 
   useEffect(() => {
     fetchAPI(`${urlTest}${id}`, (data) => {
-      console.log(data);
       setRecipe(data);
     });
   }, [urlTest, id]);
 
+  const isRecipeDone = (recipeId) => {
+    const storage = localStorage.getItem('doneRecipes') || '[]';
+    const doneRecipes = JSON.parse(storage);
+
+    const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
+
+    return checkTrue;
+  };
   return (
     <div>
-      RecipesDetails
-
+      RecipeDetails
+      {
+        !isRecipeDone(id)
+          ? (
+            <button
+              data-testid="start-recipe-btn"
+              name="Start Recipe"
+              type="button"
+              className="start-recipe-btn"
+            >
+              Start Recipe
+            </button>
+          )
+          : null
+      }
     </div>
   );
 }
