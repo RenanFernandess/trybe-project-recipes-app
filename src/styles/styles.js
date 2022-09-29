@@ -6,7 +6,7 @@ const DefaultCard = styled.aside`
   border-radius: 5px;
   height: 166px;
   text-decoration: none;
-  width: 163px;
+  width: 164px;
 
   img {
     border-radius: 5px 5px 0 0;
@@ -25,6 +25,11 @@ export const RecipesContainer = styled.section`
   align-items: center;
   display: flex;
   flex-flow: row wrap;
-  gap: 6px;
-  padding: 5px;
+  gap: 10px;
+  padding: 10px 0;
+`;
+
+export const Container = styled.div`
+  padding: 10px;
+  width: 100vw;
 `;
