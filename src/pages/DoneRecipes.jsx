@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
-import Footer from '../Components/Footer';
 import { getItem } from '../helpers/storage';
 import { DONE_RECIPES } from '../services/variables';
 import DoneRecipeCard from '../Components/DoneRecipeCard';
@@ -62,7 +61,6 @@ export default function DoneRecipes() {
           }
         </section>
       </main>
-      <Footer />
     </div>
   );
 }
