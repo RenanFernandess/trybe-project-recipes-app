@@ -8,8 +8,12 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: #F5F5F5;
-    color: #1A1B1C;
+    background-color: ${({ theme: { white } }) => white.colors.background};
+    color: ${({ theme: { white } }) => white.colors.text.primary};
     font-family: 'Epilogue', sans-serif;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
