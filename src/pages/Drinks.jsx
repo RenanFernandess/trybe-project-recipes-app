@@ -6,11 +6,8 @@ import {
   DRINKS_CATEGORY_ENDPOINT,
   DRINKS_ENDPOINT,
   DRINKS_FILTER_BY_CATEGOTY_ENDPOINT,
-  FIRST_FIVE,
-  FIRST_TWELVE,
-  NO_RECIPES_ERROR,
 } from '../services/variables';
-import fetchAPI from '../helpers/fetchAPI';
+import { fetchRecipes, fetchCategory } from '../helpers/fetchAPI';
 import Footer from '../Components/Footer';
 import appContext from '../context/appContext';
 
@@ -21,22 +18,14 @@ export default function Drinks({ history }) {
   const END_POINT = URL || DRINKS_ENDPOINT;
 
   useEffect(() => {
-    fetchAPI(END_POINT, ({ drinks: recipes }) => {
-      const result = recipes || [];
-      if (!result.length) {
-        return global.alert(NO_RECIPES_ERROR);
-      }
-      if (result.length === 1 && searched) {
+    fetchRecipes(END_POINT, (recipes) => {
+      if (recipes.length === 1 && searched) {
         setSearched(false);
-        const [{ idDrink }] = result;
-        history.push(`/drinks/${idDrink}`);
+        return history.push(`/drinks/${recipes[0].idDrink}`);
       }
-      const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
-      setDrinks(result.slice(0, LAST_INDEX));
+      setDrinks(recipes);
     });
-    fetchAPI(DRINKS_CATEGORY_ENDPOINT, ({ drinks: result }) => {
-      setCategorys(result.slice(0, FIRST_FIVE));
-    });
+    fetchCategory(DRINKS_CATEGORY_ENDPOINT, setCategorys);
   }, [END_POINT, URL, history, searched, setSearched]);
 
   useEffect(() => () => { setURL(''); }, [setURL]);
