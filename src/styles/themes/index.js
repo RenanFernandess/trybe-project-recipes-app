@@ -1,17 +1,17 @@
 export default {
-  whith: {
+  white: {
     colors: {
       primary: '#FCC436',
       secundary: '#41197F',
+
+      text: {
+        primary: '#1A1B1C',
+        secundary: '#797D86',
+      },
+
+      border: '#B1B1B1',
+
+      background: '#F5F5F5',
     },
-
-    textColors: {
-      primary: '#1A1B1C',
-      secundary: '#797D86',
-    },
-
-    borderColor: '#B1B1B1',
-
-    backgroundColor: '#F5F5F5',
   },
 };
