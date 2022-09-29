@@ -12,4 +12,8 @@ export default createGlobalStyle`
     color: ${({ theme: { white } }) => white.colors.text.primary};
     font-family: 'Epilogue', sans-serif;
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
