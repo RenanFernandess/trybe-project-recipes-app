@@ -10,16 +10,20 @@ import {
   FIRST_SIX,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
+import shareIcon from '../images/shareIcon.svg';
 
-export default function RecipesDetails({ match }) {
+export default function RecipesDetails({ match, history }) {
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const { params: { id }, path } = match;
+  const { params: { id }, path, url } = match;
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
+  const [linkCopied, setLinkCopied] = useState(false);
+  const { location: { pathname } } = history;
+  console.log(pathname);
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ({ meals, drinks }) => {
@@ -50,6 +54,10 @@ export default function RecipesDetails({ match }) {
 
     return checkTrue;
   };
+  const copyBoard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${url}`);
+    setLinkCopied(true);
+  };
   return (
     <div>
 
@@ -70,6 +78,27 @@ export default function RecipesDetails({ match }) {
       }
 
       <h1>RecipesDetails</h1>
+
+      <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+          onClick={ copyBoard }
+        >
+          <img
+            alt="share"
+            src={ shareIcon }
+          />
+        </button>
+        {linkCopied && <p>Link copied!</p> }
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Favorite
+
+        </button>
+      </div>
 
       {recipe?.map((meal, i) => {
         const {
