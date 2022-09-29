@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 import appContext from '../context/appContext';
+import { RecipesContainer } from '../styles/styles';
 
 const ALL = 'All';
 export default function Recipes({ recipes, categorys, filterByCategory }) {
@@ -42,7 +43,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
           ))
         }
       </aside>
-      <section>
+      <RecipesContainer>
         {
           recipes.map(({
             strMealThumb,
@@ -67,7 +68,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
             );
           })
         }
-      </section>
+      </RecipesContainer>
     </section>
   );
 }
