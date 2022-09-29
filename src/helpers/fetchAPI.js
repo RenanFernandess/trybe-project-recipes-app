@@ -8,10 +8,11 @@ export default function fetchAPI(URL, callback) {
     });
 }
 
-export function fetchRecipes(endPoint, callback) {
+export function fetchRecipes(endPoint, callback, numberOfElements = FIRST_TWELVE) {
   fetchAPI(endPoint, (result) => {
-    if (!result.length) return global.alert(NO_RECIPES_ERROR);
-    const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
+    const resultLength = result.length;
+    if (!resultLength) return global.alert(NO_RECIPES_ERROR);
+    const LAST_INDEX = resultLength < numberOfElements ? resultLength : numberOfElements;
     callback(result.slice(0, LAST_INDEX));
   });
 }
