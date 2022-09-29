@@ -19,5 +19,12 @@ const DefaultCard = styled.aside`
     color: ${({ theme: { white } }) => white.colors.text.primary};
   }
 `;
-
 export default DefaultCard;
+
+export const RecipesContainer = styled.section`
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 6px;
+  padding: 5px;
+`;
