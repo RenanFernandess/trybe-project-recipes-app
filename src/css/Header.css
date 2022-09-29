@@ -6,3 +6,10 @@
 .search-button {
   max-width: 100px;
 }
+
+
+.start-recipe-btn{
+  bottom: 0;
+  position: fixed;
+ 
+}

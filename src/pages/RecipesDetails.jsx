@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import fetchAPI from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
+// import saveItem from '../helpers/storage';
 import {
   DRINK_DETAILS,
   MEALS_DETAILS,
@@ -38,6 +39,15 @@ export default function RecipesDetails({ match, history }) {
         .filter(([key, value]) => regexMeasure.test(key) && value !== '');
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
+      /* saveItem('inProgressRecipes', {
+        drinks: {
+          15997: ['lista-de-ingredientes-utilizados'],
+        },
+        meals: {
+          52977: ['lista-de-ingredientes-utilizados'],
+
+        },
+      }); */
     });
 
     fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
@@ -47,35 +57,30 @@ export default function RecipesDetails({ match, history }) {
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   const isRecipeDone = (recipeId) => {
-    const storage = localStorage.getItem('doneRecipes') || '[]';
-    const doneRecipes = JSON.parse(storage);
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
 
     const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
 
     return checkTrue;
   };
+
+  const isRecipeInProgress = (recId) => {
+    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
+    const inProgressRecipesArray = Object.values(recipes);
+
+    return inProgressRecipesArray
+      .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
+  };
+
   const copyBoard = () => {
     navigator.clipboard.writeText(`http://localhost:3000${url}`);
     setLinkCopied(true);
   };
+  
   return (
     <div>
 
       RecipeDetails
-      {
-        !isRecipeDone(id)
-          ? (
-            <button
-              data-testid="start-recipe-btn"
-              name="Start Recipe"
-              type="button"
-              className="start-recipe-btn"
-            >
-              Start Recipe
-            </button>
-          )
-          : null
-      }
 
       <h1>RecipesDetails</h1>
 
@@ -126,7 +131,7 @@ export default function RecipesDetails({ match, history }) {
               width="100"
               alt={ strMeal }
               data-testid="recipe-photo"
-              tagName={ strMeal || strDrink }
+              tagname={ strMeal || strDrink }
             />
             <p data-testid="recipe-category">
               { strCategory }
@@ -187,6 +192,28 @@ export default function RecipesDetails({ match, history }) {
           );
         })}
       </div>
+      {
+
+        !isRecipeDone(id)
+
+          ? (
+            <button
+              data-testid="start-recipe-btn"
+              name="Start Recipe"
+              type="button"
+              className="start-recipe-btn"
+              onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+            >
+
+              {(isRecipeInProgress(id)
+                ? 'Continue Recipe' : 'Start Recipe'
+
+              )}
+
+            </button>
+          )
+          : null
+      }
     </div>
   );
 }
