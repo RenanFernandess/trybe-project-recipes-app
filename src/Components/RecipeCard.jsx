@@ -1,12 +1,13 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
+import DefaultCard from '../styles/styles';
 
 export default function RecipeCard({ name, thumb, index, id }) {
   const { location: { pathname } } = useHistory();
   return (
     <Link to={ `${pathname}/${id}` }>
-      <div data-testid={ `${index}-recipe-card` }>
+      <DefaultCard data-testid={ `${index}-recipe-card` }>
         <img
           width={ 150 }
           src={ thumb }
@@ -18,7 +19,7 @@ export default function RecipeCard({ name, thumb, index, id }) {
         >
           { name }
         </p>
-      </div>
+      </DefaultCard>
     </Link>
   );
 }
