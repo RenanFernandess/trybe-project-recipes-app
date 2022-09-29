@@ -35,7 +35,7 @@ export default function RecipesDetails({ match }) {
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
     });
-    
+
     fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
       const result = meals || drinks;
       setRecommendations(result.slice(0, FIRST_SIX));
