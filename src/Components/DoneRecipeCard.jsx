@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 export default function RecommendationCard({
-  image, title, index, category, date, tag, share,
+  image, name, index, category, date, tags, share,
 }) {
   return (
     <div
@@ -19,7 +19,7 @@ export default function RecommendationCard({
       <p
         data-testid={ `${index}-horizontal-name` }
       >
-        {title}
+        {name}
       </p>
       <p
         data-testid={ `${index}-horizontal-top-text` }
@@ -37,16 +37,23 @@ export default function RecommendationCard({
       >
         { share }
       </button>
-      <p
-        data-testid={ `${index}-${tag}-horizontal-tag` }
-      >
-        { tag }
-      </p>
+      <div>
+        {
+          tags.map((tag) => (
+            <p
+              key={ tag }
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </p>
+          ))
+        }
+      </div>
     </div>
   );
 }
 RecommendationCard.propTypes = {
   image: propTypes.string,
-  title: propTypes.string,
+  name: propTypes.string,
   index: propTypes.number,
 }.isRequired;
