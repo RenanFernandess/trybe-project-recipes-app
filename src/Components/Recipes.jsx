@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
 import appContext from '../context/appContext';
-import { RecipesContainer } from '../styles/styles';
+import { RecipesContainer, Container } from '../styles/styles';
 
 const ALL = 'All';
 export default function Recipes({ recipes, categorys, filterByCategory }) {
@@ -19,7 +19,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
   };
 
   return (
-    <section>
+    <Container>
       <aside>
         <button
           type="button"
@@ -69,7 +69,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
           })
         }
       </RecipesContainer>
-    </section>
+    </Container>
   );
 }
 
