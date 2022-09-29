@@ -9,6 +9,7 @@ import Favorites from './pages/Favorites';
 import DoneRecipes from './pages/DoneRecipes';
 import RecipesDetails from './pages/RecipesDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
+import './App.css';
 
 function App() {
   return (
