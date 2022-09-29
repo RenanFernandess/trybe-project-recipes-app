@@ -7,6 +7,7 @@ import renderWithRouter from './helpers/renderWithRouter';
 const EMAIL = 'xablau@gmail.com';
 const SENHA = '1234567';
 const RECIPE_ID = '52977';
+console.log(RECIPE_ID);
 
 describe('Testa a página de detalhes da receita', () => {
   let returned;
@@ -28,5 +29,6 @@ describe('Testa a página de detalhes da receita', () => {
 
     const { history } = returned;
     expect(history.location.pathname).toBe('/meals/52977');
+    expect(history.location.pathname).toBe('RECIPE_ID');
   });
 });
