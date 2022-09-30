@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import fetchAPI from '../helpers/fetchAPI';
+import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 // import saveItem from '../helpers/storage';
 import {
@@ -13,52 +13,39 @@ import {
 import RecommendationCard from '../Components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function RecipesDetails({ match, history }) {
+const regexIngredients = /^stringredient/i;
+const regexMeasure = /^strmeasure/i;
+export default function RecipesDetails({
+  match: { params: { id }, path, url }, history: { location: { pathname }, push },
+}) {
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const { params: { id }, path, url } = match;
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
   const [linkCopied, setLinkCopied] = useState(false);
-  const { location: { pathname } } = history;
   console.log(pathname);
 
   useEffect(() => {
-    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ({ meals, drinks }) => {
-      const result = meals || drinks;
+    console.log('ok');
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, (result) => {
       setRecipe(result);
       const arrayOfKeys = Object.entries(result[0]);
-      const regexIngredients = /^stringredient/i;
-      const regexMeasure = /^strmeasure/i;
       const ingredientsArray = arrayOfKeys
         .filter(([key, value]) => regexIngredients.test(key) && value !== '');
       const measureArray = arrayOfKeys
         .filter(([key, value]) => regexMeasure.test(key) && value !== '');
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
-      /* saveItem('inProgressRecipes', {
-        drinks: {
-          15997: ['lista-de-ingredientes-utilizados'],
-        },
-        meals: {
-          52977: ['lista-de-ingredientes-utilizados'],
-
-        },
-      }); */
     });
 
-    fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
-      const result = meals || drinks;
-      setRecommendations(result.slice(0, FIRST_SIX));
-    });
+    fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   const isRecipeDone = (recipeId) => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
-
     const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
 
     return checkTrue;
@@ -76,13 +63,10 @@ export default function RecipesDetails({ match, history }) {
     navigator.clipboard.writeText(`http://localhost:3000${url}`);
     setLinkCopied(true);
   };
-  
+
   return (
     <div>
-
-      RecipeDetails
-
-      <h1>RecipesDetails</h1>
+      <h1>RecipeDetails</h1>
 
       <div>
         <button
@@ -101,7 +85,6 @@ export default function RecipesDetails({ match, history }) {
           data-testid="favorite-btn"
         >
           Favorite
-
         </button>
       </div>
 
@@ -193,23 +176,18 @@ export default function RecipesDetails({ match, history }) {
         })}
       </div>
       {
-
         !isRecipeDone(id)
-
           ? (
             <button
               data-testid="start-recipe-btn"
               name="Start Recipe"
               type="button"
               className="start-recipe-btn"
-              onClick={ () => history.push(`${history.location.pathname}/in-progress`) }
+              onClick={ () => push(`${pathname}/in-progress`) }
             >
-
               {(isRecipeInProgress(id)
                 ? 'Continue Recipe' : 'Start Recipe'
-
               )}
-
             </button>
           )
           : null
@@ -217,6 +195,7 @@ export default function RecipesDetails({ match, history }) {
     </div>
   );
 }
+
 RecipesDetails.propTypes = {
   history: propTypes.instanceOf(Object),
 }.isRequired;

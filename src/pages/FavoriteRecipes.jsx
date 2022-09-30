@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Header from '../Components/Header';
 import { getItem } from '../helpers/storage';
-import { DONE_RECIPES } from '../services/variables';
-import DoneRecipeCard from '../Components/DoneRecipeCard';
+import FavoriteCard from '../Components/FavoriteCard';
+import { FAVORITE_RECIPES } from '../services/variables';
 
-export default function DoneRecipes() {
-  const savedRecipes = getItem(DONE_RECIPES) || [];
+export default function FavoriteRecipes() {
+  const savedRecipes = getItem(FAVORITE_RECIPES) || [];
   const [recipes, setRecipes] = useState(savedRecipes);
 
   const filterRecipes = ({ target: { name } }) => {
@@ -52,25 +52,21 @@ export default function DoneRecipes() {
             recipes.map(({
               alcoholicOrNot,
               category,
-              doneDate,
               id,
               image,
               name,
               nationality,
-              tags,
               type,
             }, index) => (
-              <DoneRecipeCard
+              <FavoriteCard
                 key={ id }
                 alcoholicOrNot={ alcoholicOrNot }
                 category={ category }
-                date={ doneDate }
                 id={ id }
                 index={ index }
                 image={ image }
                 name={ name }
                 nationality={ nationality }
-                tags={ tags }
                 type={ type }
               />
             ))

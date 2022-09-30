@@ -3,8 +3,8 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function RecommendationCard({
-  image, name, index, category, date, tags, nationality, alcoholicOrNot, id, type,
+export default function FavoriteCard({
+  image, name, index, category, nationality, alcoholicOrNot, id, type,
 }) {
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -50,29 +50,13 @@ export default function RecommendationCard({
           {' '}
           { alcoholicOrNot }
         </p>
-        <p
-          data-testid={ `${index}-horizontal-done-date` }
-        >
-          { date }
-        </p>
-        <div>
-          {
-            tags.map((tag) => (
-              <p
-                key={ tag }
-                data-testid={ `${index}-${tag}-horizontal-tag` }
-              >
-                { tag }
-              </p>
-            ))
-          }
-        </div>
       </section>
     </div>
   );
 }
-RecommendationCard.propTypes = {
+FavoriteCard.propTypes = {
   image: propTypes.string,
   name: propTypes.string,
   index: propTypes.number,
+  id: propTypes.string,
 }.isRequired;
