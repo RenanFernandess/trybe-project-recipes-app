@@ -13,6 +13,7 @@ const NAME_LENGTH_ERROR = 'Your search must have only 1 (one) character';
 export const URLS_BY_PAGE = {
   Meals: {
     nome(name) {
+      // console.log('name, header', name);
       return `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
     },
     ingredient(name) {
