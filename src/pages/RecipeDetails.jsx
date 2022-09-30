@@ -44,7 +44,7 @@ export default function RecipeDetails({
     });
     fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
     checkFavorite(id);
-  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
+  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT, checkFavorite]);
 
   const isRecipeDone = (recipeId) => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
