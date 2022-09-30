@@ -4,7 +4,7 @@ import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
-  FIRST_SIX, REGEX_INGREDIENT, REGEX_MEASURE,
+  FIRST_SIX, REGEX_INGREDIENT, REGEX_MEASURE, FAVORITE_RECIPES,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
@@ -14,21 +14,19 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
+  const getFavRecipes = JSON.parse(localStorage.getItem(FAVORITE_RECIPES) || '[]');
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [
+    isFavorite,
+    setIsFavorite,
+  ] = useState(getFavRecipes.some((favRecipe) => favRecipe.id === id));
   const [linkCopied, setLinkCopied] = useState(false);
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
-  const getFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
-
-  const checkFavorite = (favId) => {
-    const checkTrue = getFavRecipes.some((favRecipe) => favRecipe.id === favId);
-    setIsFavorite(checkTrue);
-  };
 
   useEffect(() => {
     console.log('ok');
@@ -43,8 +41,7 @@ export default function RecipeDetails({
       setMeasures(measureArray);
     });
     fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
-    checkFavorite(id);
-  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT, checkFavorite]);
+  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   const isRecipeDone = (recipeId) => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
