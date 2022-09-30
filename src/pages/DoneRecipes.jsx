@@ -40,22 +40,28 @@ export default function DoneRecipes() {
           <p>p</p>
           {
             recipes.map(({
-              id,
+              alcoholicOrNot,
               category,
-              name,
-              image,
-              tags,
               doneDate,
+              id,
+              image,
+              name,
+              nationality,
+              tags,
+              type,
             }, index) => (
               <DoneRecipeCard
                 key={ id }
-                name={ name }
-                index={ index }
-                id={ id }
-                image={ image }
+                alcoholicOrNot={ alcoholicOrNot }
                 category={ category }
                 date={ doneDate }
+                id={ id }
+                index={ index }
+                image={ image }
+                name={ name }
+                nationality={ nationality }
                 tags={ tags }
+                type={ type }
               />
             ))
           }
