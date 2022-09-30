@@ -7,6 +7,12 @@ import USER from '../services/variables';
 
 export default function Profile({ history: { push } }) {
   const { email } = getItem(USER) || {};
+
+  const logout = () => {
+    localStorage.clear();
+    push('/');
+  };
+
   return (
     <div>
       <Header title="Profile" />
@@ -30,6 +36,7 @@ export default function Profile({ history: { push } }) {
           <button
             type="button"
             data-testid="profile-logout-btn"
+            onClick={ logout }
           >
             Logout
           </button>
