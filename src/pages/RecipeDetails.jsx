@@ -2,31 +2,33 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
-// import saveItem from '../helpers/storage';
 import {
-  DRINK_DETAILS,
-  MEALS_DETAILS,
-  DRINKS_ENDPOINT,
-  MEALS_ENDPOINT,
-  FIRST_SIX,
+  DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
+  FIRST_SIX, REGEX_INGREDIENT, REGEX_MEASURE,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const regexIngredients = /^stringredient/i;
-const regexMeasure = /^strmeasure/i;
-export default function RecipesDetails({
+export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
-  const [linkCopied, setLinkCopied] = useState(false);
-  console.log(pathname);
+  const getFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
+
+  const checkFavorite = (favId) => {
+    const checkTrue = getFavRecipes.some((favRecipe) => favRecipe.id === favId);
+    setIsFavorite(checkTrue);
+  };
 
   useEffect(() => {
     console.log('ok');
@@ -34,27 +36,25 @@ export default function RecipesDetails({
       setRecipe(result);
       const arrayOfKeys = Object.entries(result[0]);
       const ingredientsArray = arrayOfKeys
-        .filter(([key, value]) => regexIngredients.test(key) && value !== '');
+        .filter(([key, value]) => REGEX_INGREDIENT.test(key) && value !== '');
       const measureArray = arrayOfKeys
-        .filter(([key, value]) => regexMeasure.test(key) && value !== '');
+        .filter(([key, value]) => REGEX_MEASURE.test(key) && value !== '');
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
     });
-
     fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
+    checkFavorite(id);
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   const isRecipeDone = (recipeId) => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
     const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
-
     return checkTrue;
   };
 
   const isRecipeInProgress = (recId) => {
     const recipes = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
     const inProgressRecipesArray = Object.values(recipes);
-
     return inProgressRecipesArray
       .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
   };
@@ -64,10 +64,38 @@ export default function RecipesDetails({
     setLinkCopied(true);
   };
 
+  const saveFavoriteRecipe = () => {
+    if (isFavorite) {
+      const newFavLS = getFavRecipes
+        .filter((favRecipe) => favRecipe.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavLS));
+      return setIsFavorite(false);
+    }
+    const [{
+      strArea, strCategory,
+      idMeal, idDrink, strAlcoholic, strMeal,
+      strDrink, strDrinkThumb, strMealThumb,
+    }] = recipe;
+    const favStorageFormat = {
+      id: idMeal || idDrink,
+      type: checkPath ? 'meal' : 'drink',
+      nationality: strArea || '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic || '',
+      name: strMeal || strDrink,
+      image: strMealThumb || strDrinkThumb,
+    };
+    const union = [...getFavRecipes, favStorageFormat];
+    const saveRecipe = localStorage
+      .setItem('favoriteRecipes', JSON
+        .stringify(union));
+    setIsFavorite(true);
+    return saveRecipe;
+  };
+
   return (
     <div>
       <h1>RecipeDetails</h1>
-
       <div>
         <button
           type="button"
@@ -83,25 +111,25 @@ export default function RecipesDetails({
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ saveFavoriteRecipe }
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
         >
+          { isFavorite ? (
+            <img alt="not-favorite" src={ blackHeartIcon } />
+          ) : (
+            <img alt="not-favorite" src={ whiteHeartIcon } />)}
           Favorite
         </button>
       </div>
 
       {recipe?.map((meal, i) => {
         const {
-          strMealThumb,
-          strDrinkThumb,
-          strDrink,
-          strMeal,
-          strCategory,
-          strYoutube,
-          strInstructions,
-          strAlcoholic,
+          strMealThumb, strDrinkThumb, strDrink,
+          strMeal, strCategory, strYoutube,
+          strInstructions, strAlcoholic,
         } = meal;
 
         const URL_CODE = checkPath && strYoutube.split('=')[1];
-
         return (
           <main key={ i }>
             <h2
@@ -154,12 +182,9 @@ export default function RecipesDetails({
         } }
       >
         { recommendations.map(({
-          strMealThumb,
-          strDrinkThumb,
-          strMeal,
-          strDrink,
-          idMeal,
-          idDrink,
+          strMealThumb, strDrinkThumb,
+          strMeal, strDrink,
+          idMeal, idDrink,
         }, index) => {
           const image = strMealThumb || strDrinkThumb;
           const title = strMeal || strDrink;
@@ -196,6 +221,6 @@ export default function RecipesDetails({
   );
 }
 
-RecipesDetails.propTypes = {
+RecipeDetails.propTypes = {
   history: propTypes.instanceOf(Object),
 }.isRequired;

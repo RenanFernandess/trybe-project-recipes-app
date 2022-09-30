@@ -20,3 +20,6 @@ export const FIRST_FIVE = 5;
 export const FIRST_SIX = 6;
 
 export const NO_RECIPES_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';
+
+export const REGEX_INGREDIENT = /^stringredient/i;
+export const REGEX_MEASURE = /^strmeasure/i;
