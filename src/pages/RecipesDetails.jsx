@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import fetchAPI from '../helpers/fetchAPI';
+import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
@@ -11,7 +11,11 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-export default function RecipesDetails({ match, history }) {
+const regexIngredients = /^stringredient/i;
+const regexMeasure = /^strmeasure/i;
+export default function RecipesDetails({
+  match: { params: { id }, path, url }, history: { location: { pathname }, push },
+}) {
   const [recipe, setRecipe] = useState([]);
   const [recommendations, setRecommendations] = useState([]);
   const [ingredients, setIngredients] = useState([]);
@@ -30,9 +34,15 @@ export default function RecipesDetails({ match, history }) {
     setIsFavorite(checkTrue);
   };
 
+  const checkPath = path === '/meals/:id';
+  const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
+  const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
+  const [linkCopied, setLinkCopied] = useState(false);
+  console.log(pathname);
+
   useEffect(() => {
-    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ({ meals, drinks }) => {
-      const result = meals || drinks;
+    console.log('ok');
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, (result) => {
       setRecipe(result);
       const arrayOfKeys = Object.entries(result[0]);
       const ingredientsArray = arrayOfKeys
@@ -42,10 +52,7 @@ export default function RecipesDetails({ match, history }) {
       setIngredients(ingredientsArray);
       setMeasures(measureArray);
     });
-    fetchAPI(RECOMMENDATION_ENDPOINT, ({ meals, drinks }) => {
-      const result = meals || drinks;
-      setRecommendations(result.slice(0, FIRST_SIX));
-    });
+    fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
     checkFavorite(id);
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
@@ -98,7 +105,7 @@ export default function RecipesDetails({ match, history }) {
 
   return (
     <div>
-      <h1>RecipesDetails</h1>
+      <h1>RecipeDetails</h1>
       <div>
         <button
           type="button"
@@ -121,6 +128,7 @@ export default function RecipesDetails({ match, history }) {
             <img alt="not-favorite" src={ blackHeartIcon } />
           ) : (
             <img alt="not-favorite" src={ whiteHeartIcon } />)}
+          Favorite
         </button>
       </div>
 
@@ -210,7 +218,7 @@ export default function RecipesDetails({ match, history }) {
               name="Start Recipe"
               type="button"
               className="start-recipe-btn"
-              onClick={ () => history.push(`${pathname}/in-progress`) }
+              onClick={ () => push(`${pathname}/in-progress`) }
             >
               {(isRecipeInProgress(id)
                 ? 'Continue Recipe' : 'Start Recipe'
@@ -222,6 +230,7 @@ export default function RecipesDetails({ match, history }) {
     </div>
   );
 }
+
 RecipesDetails.propTypes = {
   history: propTypes.instanceOf(Object),
 }.isRequired;
