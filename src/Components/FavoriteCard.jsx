@@ -2,9 +2,20 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function FavoriteCard({
-  image, name, index, category, nationality, alcoholicOrNot, id, type,
+  image,
+  name,
+  index,
+  category,
+  nationality,
+  alcoholicOrNot,
+  id,
+  type,
+  isFavorite,
+  removeFavorite,
 }) {
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -29,18 +40,37 @@ export default function FavoriteCard({
         </p>
       </Link>
       <section>
-        <button
-          type="button"
-          onClick={ copyBoard }
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-        >
-          <img
-            alt="share"
+        <div>
+          <button
+            type="button"
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            onClick={ () => { removeFavorite(id); } }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          >
+            { isFavorite ? (
+              <img
+                alt="favorite"
+                src={ blackHeartIcon }
+              />
+            ) : (
+              <img
+                alt="not-favorite"
+                src={ whiteHeartIcon }
+              />)}
+          </button>
+          <button
+            type="button"
+            onClick={ copyBoard }
+            data-testid={ `${index}-horizontal-share-btn` }
             src={ shareIcon }
-          />
-        </button>
-        {linkCopied && <p>Link copied!</p> }
+          >
+            <img
+              alt="share"
+              src={ shareIcon }
+            />
+          </button>
+          {linkCopied && <p>Link copied!</p> }
+        </div>
         <p
           data-testid={ `${index}-horizontal-top-text` }
         >

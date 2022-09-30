@@ -1,20 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
-import { getItem } from '../helpers/storage';
+import saveItem, { getItem } from '../helpers/storage';
 import FavoriteCard from '../Components/FavoriteCard';
 import { FAVORITE_RECIPES } from '../services/variables';
 
 export default function FavoriteRecipes() {
-  const savedRecipes = getItem(FAVORITE_RECIPES) || [];
-  const [recipes, setRecipes] = useState(savedRecipes);
+  const [recipes, setRecipes] = useState(getItem(FAVORITE_RECIPES) || []);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [filterValue, setFilterValue] = useState('All');
+
+  useEffect(() => {
+    setFilteredRecipes(
+      recipes.filter(({ type }) => type === filterValue || filterValue === 'All'),
+    );
+  }, [setFilteredRecipes, recipes, filterValue]);
 
   const filterRecipes = ({ target: { name } }) => {
-    setRecipes(
-      savedRecipes.filter(({ type }) => type === name || name === 'All'),
-    );
+    setFilterValue(name);
   };
 
-  console.log(recipes);
+  const removeFavorite = (recipeId) => {
+    const savedRecipes = getItem(FAVORITE_RECIPES) || [];
+    const recipesList = savedRecipes.filter(({ id }) => recipeId !== id);
+    saveItem(FAVORITE_RECIPES, recipesList);
+    setRecipes(recipesList);
+  };
 
   return (
     <div>
@@ -47,9 +57,8 @@ export default function FavoriteRecipes() {
           </button>
         </div>
         <section>
-          <p>p</p>
           {
-            recipes.map(({
+            filteredRecipes.map(({
               alcoholicOrNot,
               category,
               id,
@@ -65,8 +74,10 @@ export default function FavoriteRecipes() {
                 id={ id }
                 index={ index }
                 image={ image }
+                isFavorite={ recipes.some(({ id: recipeId }) => recipeId === id) }
                 name={ name }
                 nationality={ nationality }
+                removeFavorite={ removeFavorite }
                 type={ type }
               />
             ))
