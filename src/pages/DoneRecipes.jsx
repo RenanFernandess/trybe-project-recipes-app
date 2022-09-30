@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../Components/Header';
 import { getItem } from '../helpers/storage';
 import { DONE_RECIPES } from '../services/variables';
 import DoneRecipeCard from '../Components/DoneRecipeCard';
 
 export default function DoneRecipes() {
-  const [recipes, setRecipes] = useState([]);
+  const savedRecipes = getItem(DONE_RECIPES) || [];
+  const [recipes, setRecipes] = useState(savedRecipes);
 
-  useEffect(() => {
-    const savedRecipes = getItem(DONE_RECIPES) || [];
-    setRecipes(savedRecipes);
-  }, []);
+  const filterRecipes = ({ target: { name } }) => {
+    setRecipes(
+      savedRecipes.filter(({ type }) => type === name || name === 'All'),
+    );
+  };
+
+  console.log(recipes);
 
   return (
     <div>
@@ -20,18 +24,24 @@ export default function DoneRecipes() {
           <button
             type="button"
             data-testid="filter-by-all-btn"
+            name="All"
+            onClick={ filterRecipes }
           >
             All
           </button>
           <button
             data-testid="filter-by-meal-btn"
             type="button"
+            name="meal"
+            onClick={ filterRecipes }
           >
             Meals
           </button>
           <button
             data-testid="filter-by-drink-btn"
             type="button"
+            name="drink"
+            onClick={ filterRecipes }
           >
             Drinks
           </button>
