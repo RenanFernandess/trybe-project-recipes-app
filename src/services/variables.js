@@ -17,6 +17,6 @@ export const DRINK_DETAILS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup
 
 export const FIRST_TWELVE = 12;
 export const FIRST_FIVE = 5;
-export const FIRST_SIX = 6;
+export const FIRST_SIX = [6];
 
 export const NO_RECIPES_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';

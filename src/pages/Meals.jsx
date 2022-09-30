@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
+import { act } from 'react-dom/test-utils';
 import Header from '../Components/Header';
 import appContext from '../context/appContext';
 import Footer from '../Components/Footer';
@@ -32,11 +33,19 @@ export default function Meals({ history }) {
         history.push(`/meals/${idMeal}`);
       }
       const LAST_INDEX = (result.length < FIRST_TWELVE) ? result.length : FIRST_TWELVE;
-      setMeals(result.slice(0, LAST_INDEX));
+      // https:// reactjs.org/docs/test-utils.html#act estava dando warning, e agora está ok depois que coloquei o act
+      act(() => {
+        const lastIndex = result.slice(0, LAST_INDEX);
+        setMeals(lastIndex);
+      });
     });
     fetchAPI(MEALS_CATEGORY_ENDPOINT, ({ meals: result }) => {
-      setCategorys(result.slice(0, FIRST_FIVE));
+      act(() => {
+        const resultado = result.slice(0, FIRST_FIVE);
+        setCategorys(resultado);
+      });
     });
+    // console.log('resultado', resultado);
   }, [END_POINT, URL, history, searched, setSearched]);
 
   useEffect(() => () => { setURL(''); }, [setURL]);
