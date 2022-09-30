@@ -11,9 +11,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-const regexIngredients = /^stringredient/i;
-const regexMeasure = /^strmeasure/i;
-export default function RecipesDetails({
+export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
   const [recipe, setRecipe] = useState([]);
@@ -22,23 +20,15 @@ export default function RecipesDetails({
   const [measures, setMeasures] = useState([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
-  const { params: { id }, path, url } = match;
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
-  const { location: { pathname } } = history;
   const getFavRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') || '[]');
 
   const checkFavorite = (favId) => {
     const checkTrue = getFavRecipes.some((favRecipe) => favRecipe.id === favId);
     setIsFavorite(checkTrue);
   };
-
-  const checkPath = path === '/meals/:id';
-  const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
-  const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
-  const [linkCopied, setLinkCopied] = useState(false);
-  console.log(pathname);
 
   useEffect(() => {
     console.log('ok');
@@ -231,6 +221,6 @@ export default function RecipesDetails({
   );
 }
 
-RecipesDetails.propTypes = {
+RecipeDetails.propTypes = {
   history: propTypes.instanceOf(Object),
 }.isRequired;
