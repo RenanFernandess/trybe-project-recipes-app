@@ -30,10 +30,8 @@ describe('Testa o Header', () => {
   });
   it('Testa se ao selecionar um input de categoria, é realizado um fetch com o endpoint correto', () => {
     renderWithRouter(<Meals />);
-    expect(screen.getByRole('radio', {
-      name: /ingredientes/i })).toBeInTheDocument();
-    expect(screen.getByRole('radio', {
-      name: /primeira letra/i })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
+    expect(screen.getByRole('radio', { name: /primeira letra/i })).toBeInTheDocument();
     expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
     userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
     expect(screen.getByRole('textbox')).toBeInTheDocument();
