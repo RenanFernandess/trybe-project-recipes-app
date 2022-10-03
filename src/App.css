@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -28,7 +30,145 @@
   position: fixed;
 }
 
+
 .start-recipe-btn {
   bottom: 0;
   position: fixed;
 }
+
+@media only screen and (max-width: 600px) {
+  
+
+.login-container{
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  background-image: url('./images/login-background.png')!important;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* .header-background{
+  width: 100vw;
+  height: 70vh;
+  background-image: url('./images/Sem-Título-1.png')!important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  border: 1px solid red;
+} */
+.form-container{
+  padding: 1rem;
+  color: #41197F;
+  z-index: 9;
+  margin-top: 90vh;
+}
+
+label{
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  
+ display: none;
+ 
+}
+
+.password-input, .password-email{
+  padding: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 8px;
+  border: 1px solid #41197F;
+  margin-top: 1rem;
+  color: #41197F;
+}
+
+.password-input::placeholder , .password-email::placeholder {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #41197F;
+}
+.login-btn{
+  width: 100%;
+  padding: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 8px;
+  background-color:#FCC436 ;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  border: none;
+  margin-top: 1rem;
+}
+
+.login-btn:hover{
+  background-color:#f8b714 ;
+}
+
+}
+
+
+  .login-container{
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    justify-content: center;
+    align-items: center;
+   background-color: white;
+   background-image: none;
+  }
+
+  .form-container{
+    display: block;
+    padding: 1rem;
+    color: #41197F;
+    min-width: 400px;
+    height: fit-content;
+    max-width: 800px;
+    color: white;
+    -webkit-box-shadow: 2px 6px 22px -6px rgba(0,0,0,0.20); 
+    box-shadow: 2px 6px 22px -6px rgba(0,0,0,0.20);
+    border-radius: 8px;
+
+  }
+  label:has(input[type="password"]),  label:has(input[type="email"])
+  {
+    display: flex;
+    flex-direction: column;
+  }
+  .password-input, .password-email{
+    padding: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    border: 1px solid #41197F;
+    margin-top: 1rem;
+    color: #41197F;
+    width: 100%;
+  }
+  .password-input::placeholder , .password-email::placeholder {
+    font-weight: 500;
+    font-size: 1rem;
+    color: #41197F;
+  }
+
+  .login-btn{
+    width: 100%;
+    padding: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 8px;
+    background-color:#FCC436 ;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 2px;
+    border: none;
+    margin-top: 1rem;
+  }
+  
+  .login-btn:hover{
+    background-color:#f8b714 ;
+  }
