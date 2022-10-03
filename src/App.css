@@ -30,26 +30,23 @@
   position: fixed;
 }
 
-
 .start-recipe-btn {
   bottom: 0;
   position: fixed;
 }
 
-@media only screen and (max-width: 600px) {
-  
+@media only screen and ( max-width : 600px ) {
+  .login-container {
+    background-image: url('./images/login-background.png') ! important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+  }
 
-.login-container{
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  background-image: url('./images/login-background.png')!important;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-/* .header-background{
+  /* .header-background{
   width: 100vw;
   height: 70vh;
   background-image: url('./images/Sem-Título-1.png')!important;
@@ -59,116 +56,115 @@
 
   border: 1px solid red;
 } */
-.form-container{
-  padding: 1rem;
-  color: #41197F;
-  z-index: 9;
-  margin-top: 90vh;
-}
 
-label{
-  display: flex;
-  flex-direction: column;
-}
-
-.label {
-  
- display: none;
- 
-}
-
-.password-input, .password-email{
-  padding: 1rem;
-  font-family: 'Open Sans', sans-serif;
-  border-radius: 8px;
-  border: 1px solid #41197F;
-  margin-top: 1rem;
-  color: #41197F;
-}
-
-.password-input::placeholder , .password-email::placeholder {
-  font-weight: 500;
-  font-size: 1rem;
-  color: #41197F;
-}
-.login-btn{
-  width: 100%;
-  padding: 1rem;
-  font-family: 'Open Sans', sans-serif;
-  border-radius: 8px;
-  background-color:#FCC436 ;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 2px;
-  border: none;
-  margin-top: 1rem;
-}
-
-.login-btn:hover{
-  background-color:#f8b714 ;
-}
-
-}
-
-
-  .login-container{
-    display: flex;
-    flex-direction: column;
-    place-content: center;
-    justify-content: center;
-    align-items: center;
-   background-color: white;
-   background-image: none;
+  .form-container {
+    color: #41197f;
+    margin-top: 90vh;
+    padding: 1rem;
+    z-index: 9;
   }
 
-  .form-container{
-    display: block;
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .label {
+    display: none;
+  }
+
+  .password-input, .password-email {
+    border: 1px solid #41197f;
+    border-radius: 8px;
+    color: #41197f;
+    font-family: Open Sans , sans-serif;
+    margin-top: 1rem;
     padding: 1rem;
-    color: #41197F;
-    min-width: 400px;
+  }
+
+  .password-input::placeholder, .password-email::placeholder {
+    color: #41197f;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .login-btn {
+    background-color: #fcc436;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: Open Sans , sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 1rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  .login-btn:hover {
+    background-color: #f8b714 ;
+  }
+
+  .login-container {
+    align-items: center;
+    background-color: white;
+    background-image: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-content: center;
+  }
+
+  .form-container {
+    border-radius: 8px;
+    box-shadow: 2px 6px 22px -6px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 2px 6px 22px -6px rgba(0, 0, 0, 0.2); */
+    color: #41197f;
+    color: white;
+    display: block;
     height: fit-content;
     max-width: 800px;
-    color: white;
-    -webkit-box-shadow: 2px 6px 22px -6px rgba(0,0,0,0.20); 
-    box-shadow: 2px 6px 22px -6px rgba(0,0,0,0.20);
-    border-radius: 8px;
-
+    min-width: 400px;
+    padding: 1rem;
   }
-  label:has(input[type="password"]),  label:has(input[type="email"])
-  {
+
+  label:has( input[ type = 'password' ] ), label:has( input[ type = 'email' ] ) {
     display: flex;
     flex-direction: column;
   }
-  .password-input, .password-email{
-    padding: 1rem;
-    font-family: 'Open Sans', sans-serif;
+
+  .password-input, .password-email {
+    border: 1px solid #41197f;
     border-radius: 8px;
-    border: 1px solid #41197F;
+    color: #41197f;
+    font-family: Open Sans , sans-serif;
     margin-top: 1rem;
-    color: #41197F;
+    padding: 1rem;
     width: 100%;
-  }
-  .password-input::placeholder , .password-email::placeholder {
-    font-weight: 500;
-    font-size: 1rem;
-    color: #41197F;
   }
 
-  .login-btn{
-    width: 100%;
-    padding: 1rem;
-    font-family: 'Open Sans', sans-serif;
-    border-radius: 8px;
-    background-color:#FCC436 ;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: white;
-    letter-spacing: 2px;
+  .password-input::placeholder, .password-email::placeholder {
+    color: #41197f;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .login-btn {
+    background-color: #fcc436 ;
     border: none;
+    border-radius: 8px;
+    color: white;
+    font-family: Open Sans , sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
     margin-top: 1rem;
+    padding: 1rem;
+    text-transform: uppercase;
+    width: 100%;
   }
-  
-  .login-btn:hover{
-    background-color:#f8b714 ;
+
+  .login-btn:hover {
+    background-color: #f8b714;
   }
+}  
