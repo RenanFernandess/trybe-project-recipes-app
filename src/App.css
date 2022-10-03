@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
-
 @media screen and ( max-width: 360px ) {
 
   .login-container {
-    background: #ffffff;
+    background: #fff;
     display: flex;
     flex-direction: column;
-    position: relative;
     height: 800px;
+    position: relative;
     width: 360px;
   }
 
@@ -19,11 +17,11 @@
     font-weight: 500;
     height: 21px;
     left: 89px;
-    line-height: 20px;
     letter-spacing: 0.165em;
+    line-height: 20px;
     position: absolute;
-    top: 524px;  
     text-align: center;
+    top: 524px;  
     text-transform: uppercase;  
     width: 182px;
   }
@@ -32,8 +30,8 @@
     border: 0.5px solid #41197f;
     border-radius: 5px;
     color: #41197f;
-    position: absolute;
     height: 40px;
+    position: absolute;
     left: 42px;
     top: 564px;
     width: 276px;
@@ -59,13 +57,13 @@
   .login-btn {
     background: #fcc436;
     border-radius: 5px;
-    color: #ffffff;
+    color: #fff;
     font-family: 'Epilogue';
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    position: absolute;
     height: 40px;
+    position: absolute;
     left: 42px;
     letter-spacing: 0.03em;
     line-height: 14px;
