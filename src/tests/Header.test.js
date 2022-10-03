@@ -100,10 +100,10 @@ describe('Testa o Header', () => {
   });
 
   it('teste se é redirecionado', () => {
-    const UserEmail = {
+    const userEmail = {
       email: 'trybe@test.com',
     };
-    localStorage.setItem('user', JSON.stringify(UserEmail));
+    localStorage.setItem('user', JSON.stringify(userEmail));
     const { history } = renderWithRouter(<App />);
     history.push('/meals');
 
@@ -128,12 +128,14 @@ describe('Testa o Header', () => {
     const profileIcon = screen.getByRole('button', { name: /profile/i });
     expect(profileIcon).toBeInTheDocument();
 
-    // history.push('/RecipesDetails');
-    // const doneRecipesIcon = screen.getByTestId('');
-    // expect(doneRecipesIcon).toBeInTheDocument();
+    history.push('/done-recipes');
+    const doneRecipesIcon = screen.getByTestId('profile-done-btn');
+    expect(doneRecipesIcon).toBeInTheDocument();
+    userEvent.click(doneRecipesIcon);
 
-    // history.push('/FavoriteRecipes  ');
-    // const favoriteRecipesIcon = screen.getByTestId('');
-    // expect(favoriteRecipesIcon).toBeInTheDocument();
+    history.push('/favorite-recipes  ');
+    const favoriteRecipesIcon = screen.getByTestId('profile-favorite-btn');
+    expect(favoriteRecipesIcon).toBeInTheDocument();
+    userEvent.click(favoriteRecipesIcon);
   });
 });
