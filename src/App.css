@@ -11,7 +11,7 @@
 
   #title {
     color: #41197f;
-    font-family: 'Epilogue';
+    font-family: "Epilogue", sans-serif;
     font-size: 20px;
     font-style: italic;
     font-weight: 500;
@@ -25,7 +25,7 @@
     top: 524px;
     width: 182px;
   }
-  
+
   #email-input {
     border: 0.5px solid #41197f;
     border-radius: 5px;
@@ -42,7 +42,7 @@
     border-radius: 5px;
     box-sizing: border-box;
     color: #41197f;
-    font-family: 'Epilogue';
+    font-family: 'Epilogue', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
@@ -58,7 +58,7 @@
     background: #fcc436;
     border-radius: 5px;
     color: white;
-    font-family: 'Epilogue';
+    font-family: 'Epilogue', sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -74,7 +74,7 @@
   }
 
   .login-btn:hover {
-    background-color: #f8b714 ;
+    background-color: #f8b714;
   }
 
   .header-background {
