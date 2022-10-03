@@ -4,31 +4,27 @@ import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
-  FIRST_SIX, FAVORITE_RECIPES, INGREDIENTS_NUMBER, DONE_RECIPES, IN_PROGRESS_RECIPES,
+  FIRST_SIX, INGREDIENTS_NUMBER, DONE_RECIPES, IN_PROGRESS_RECIPES,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import saveItem, { getItem } from '../helpers/storage';
+import { getItem } from '../helpers/storage';
+import FavoriteButton from '../Components/FavoriteButton';
 
 export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
-  const getFavRecipes = getItem(FAVORITE_RECIPES) || [];
   const [{ recipe, ingredients }, setRecipe] = useState(
-    { recipe: [], ingredients: [] },
+    { recipe: {}, ingredients: [] },
   );
   const [recommendations, setRecommendations] = useState([]);
   const [linkCopied, setLinkCopied] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(getFavRecipes
-    .some((favRecipe) => favRecipe.id === id));
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
   const {
-    strArea, strCategory,
-    idMeal, idDrink, strAlcoholic, strMeal,
+    strCategory,
+    strAlcoholic, strMeal,
     strDrink, strDrinkThumb, strMealThumb,
     strYoutube, strInstructions,
   } = recipe;
@@ -72,26 +68,6 @@ export default function RecipeDetails({
     setLinkCopied(true);
   };
 
-  const saveFavoriteRecipe = () => {
-    if (isFavorite) {
-      const newFavLS = getFavRecipes.filter((favRecipe) => favRecipe.id !== id);
-      saveItem(FAVORITE_RECIPES, newFavLS);
-      return setIsFavorite(false);
-    }
-    const favStorageFormat = {
-      id: idMeal || idDrink,
-      type: checkPath ? 'meal' : 'drink',
-      nationality: strArea || '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic || '',
-      name: strMeal || strDrink,
-      image: strMealThumb || strDrinkThumb,
-    };
-    const union = [...getFavRecipes, favStorageFormat];
-    saveItem(FAVORITE_RECIPES, union);
-    setIsFavorite(true);
-  };
-
   return (
     <div>
       <header>
@@ -110,18 +86,12 @@ export default function RecipeDetails({
             />
           </button>
           {linkCopied && <p>Link copied!</p> }
-          <button
-            type="button"
-            data-testid="favorite-btn"
-            onClick={ saveFavoriteRecipe }
-            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          >
-            { isFavorite ? (
-              <img alt="not-favorite" src={ blackHeartIcon } />
-            ) : (
-              <img alt="not-favorite" src={ whiteHeartIcon } />)}
-            Favorite
-          </button>
+          <FavoriteButton
+            checkPath={ checkPath }
+            recipe={ recipe }
+            testId="favorite-btn"
+            idRecipe={ id }
+          />
         </div>
         <h2
           data-testid="recipe-title"
