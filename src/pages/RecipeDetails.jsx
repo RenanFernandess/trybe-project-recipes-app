@@ -26,6 +26,14 @@ export default function RecipeDetails({
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
+  const {
+    strArea, strCategory,
+    idMeal, idDrink, strAlcoholic, strMeal,
+    strDrink, strDrinkThumb, strMealThumb,
+    strYoutube, strInstructions,
+  } = recipe;
+  console.log('strYoutube: ', strYoutube);
+  const URL_CODE = strYoutube && strYoutube.split('=')[1];
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
@@ -39,7 +47,7 @@ export default function RecipeDetails({
         }, []);
       console.log('test: ', ingredientsArray);
       setRecipe({
-        recipe: [result],
+        recipe: result,
         ingredients: ingredientsArray,
       });
     });
@@ -70,11 +78,6 @@ export default function RecipeDetails({
       saveItem(FAVORITE_RECIPES, newFavLS);
       return setIsFavorite(false);
     }
-    const [{
-      strArea, strCategory,
-      idMeal, idDrink, strAlcoholic, strMeal,
-      strDrink, strDrinkThumb, strMealThumb,
-    }] = recipe;
     const favStorageFormat = {
       id: idMeal || idDrink,
       type: checkPath ? 'meal' : 'drink',
@@ -91,124 +94,119 @@ export default function RecipeDetails({
 
   return (
     <div>
-      <h1>RecipeDetails</h1>
-      <div>
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ copyBoard }
-        >
-          <img
-            alt="share"
-            src={ shareIcon }
-          />
-        </button>
-        {linkCopied && <p>Link copied!</p> }
-        <button
-          type="button"
-          data-testid="favorite-btn"
-          onClick={ saveFavoriteRecipe }
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-        >
-          { isFavorite ? (
-            <img alt="not-favorite" src={ blackHeartIcon } />
-          ) : (
-            <img alt="not-favorite" src={ whiteHeartIcon } />)}
-          Favorite
-        </button>
-      </div>
-
-      {recipe?.map((meal, i) => {
-        const {
-          strMealThumb, strDrinkThumb, strDrink,
-          strMeal, strCategory, strYoutube,
-          strInstructions, strAlcoholic,
-        } = meal;
-
-        const URL_CODE = checkPath && strYoutube.split('=')[1];
-        return (
-          <main key={ i }>
-            <h2
-              data-testid="recipe-title"
-            >
-              {strMeal || strDrink}
-            </h2>
+      <header>
+        <h1>RecipeDetails</h1>
+      </header>
+      <main>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ copyBoard }
+          >
             <img
-              src={ strMealThumb || strDrinkThumb }
-              width="100"
-              alt={ strMeal }
-              data-testid="recipe-photo"
-              tagname={ strMeal || strDrink }
+              alt="share"
+              src={ shareIcon }
             />
-            <p data-testid="recipe-category">
-              { strCategory }
-              { ' ' }
-              { strAlcoholic }
-            </p>
-            <article data-testid="instructions">
-              <h3>Instruções</h3>
-              {strInstructions}
-            </article>
-            <section>
-              <h3>Ingredientes</h3>
-              { ingredients.map((ingredient, index) => (
-                <p
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { ingredient }
-                </p>
-              ))}
-            </section>
-            <article>
-              { checkPath && <YouTubeEmbed videoID={ URL_CODE } />}
-            </article>
-          </main>
-        );
-      })}
-      <div
-        style={ {
-          display: 'flex',
-          gap: '10px',
-          padding: '20px',
-          width: '80vw',
-          overflow: 'scroll',
-        } }
-      >
-        { recommendations.map(({
-          strMealThumb, strDrinkThumb,
-          strMeal, strDrink,
-          idMeal, idDrink,
-        }, index) => {
-          const idRecipe = idMeal || idDrink;
-          return (
-            <RecommendationCard
-              key={ idRecipe }
-              image={ strMealThumb || strDrinkThumb }
-              title={ strMeal || strDrink }
-              id={ idRecipe }
-              index={ index }
-            />
-          );
-        })}
-      </div>
-      {
-        !isRecipeDone(id)
-          ? (
-            <button
-              data-testid="start-recipe-btn"
-              name="Start Recipe"
-              type="button"
-              className="start-recipe-btn"
-              onClick={ () => push(`${pathname}/in-progress`) }
+          </button>
+          {linkCopied && <p>Link copied!</p> }
+          <button
+            type="button"
+            data-testid="favorite-btn"
+            onClick={ saveFavoriteRecipe }
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          >
+            { isFavorite ? (
+              <img alt="not-favorite" src={ blackHeartIcon } />
+            ) : (
+              <img alt="not-favorite" src={ whiteHeartIcon } />)}
+            Favorite
+          </button>
+        </div>
+        <h2
+          data-testid="recipe-title"
+        >
+          {strMeal || strDrink}
+        </h2>
+        <img
+          src={ strMealThumb || strDrinkThumb }
+          width="100"
+          alt={ strMeal }
+          data-testid="recipe-photo"
+          tagname={ strMeal || strDrink }
+        />
+        <p data-testid="recipe-category">
+          { strCategory }
+          { ' ' }
+          { strAlcoholic }
+        </p>
+        <article data-testid="instructions">
+          <h3>Instruções</h3>
+          {strInstructions}
+        </article>
+        <section>
+          <h3>Ingredientes</h3>
+          { ingredients.map((ingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              {(isRecipeInProgress(id)
-                ? 'Continue Recipe' : 'Start Recipe'
-              )}
-            </button>
-          )
-          : null
-      }
+              { ingredient }
+            </p>
+          ))}
+        </section>
+        <article>
+          { strYoutube && <YouTubeEmbed videoID={ URL_CODE } />}
+        </article>
+        <div
+          style={ {
+            display: 'flex',
+            gap: '10px',
+            padding: '20px',
+            width: '80vw',
+            overflow: 'scroll',
+          } }
+        >
+          { recommendations.map(({
+            strMealThumb: mealThumb,
+            strDrinkThumb: drinkThumb,
+            strMeal: meal,
+            strDrink: drink,
+            idMeal: mealId,
+            idDrink: drinkId,
+          }, index) => {
+            const idRecipe = mealId || drinkId;
+            return (
+              <RecommendationCard
+                key={ idRecipe }
+                image={ mealThumb || drinkThumb }
+                title={ meal || drink }
+                id={ idRecipe }
+                index={ index }
+              />
+            );
+          })}
+        </div>
+      </main>
+      <footer>
+        {
+          !isRecipeDone(id)
+            ? (
+              <button
+                data-testid="start-recipe-btn"
+                name="Start Recipe"
+                type="button"
+                className="start-recipe-btn"
+                onClick={ () => push(`${pathname}/in-progress`) }
+              >
+                {(isRecipeInProgress(id)
+                  ? 'Continue Recipe' : 'Start Recipe'
+                )}
+              </button>
+            )
+            : null
+        }
+      </footer>
     </div>
   );
 }
