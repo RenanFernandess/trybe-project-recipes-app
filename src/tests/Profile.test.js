@@ -4,51 +4,87 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import fetchTotal from '../../cypress/mocks/fetch';
 import App from '../App';
+// import { saveItem, getItem } from '../helpers/storage';
 
-describe('Testa o Drinks', () => {
+describe('Testa o Profile', () => {
   beforeEach(() => {
-    global.fetch = fetchTotal;
     jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(fetchTotal),
+      // .mockResolvedValueOnce(saveItem)
+      // .mockResolvedValueOnce(getItem),
+
+    });
   });
-
+  // afterEach(() => { localStorage.clear(); });
   afterEach(() => jest.clearAllMocks());
-  const profileTitle = (screen.getByRole('heading', { name: /profile/i }));
-  const profileIngredientes = (screen.getByText(/ingredientes/i));
-  const profileName = (screen.getByText(/nome/i));
-  const profileFirst = (screen.getByText(/primeira letra/i));
-  const profileBusca = (screen.getByRole('button', { name: /busca/i }));
-  const profileEmail = (screen.getByTestId('profile-email'));
-  const profileDoceRecipes = (screen.getByRole('button', { name: /done recipes/i }));
-  const profileFavorite = (screen.getByRole('button', { name: /favorite recipes/i }));
-  const profileLogout = (screen.getByRole('button', { name: /logout/i }));
 
-  it('Testa os retornos Ingredientes/Drinks ', () => {
+  it('Testa se há  ', async () => {
+    renderWithRouter(<App />);
+    const email = screen.getByTestId('email-input');
+    const senha = screen.getByTestId('password-input');
+    const butonLogin = screen.getByTestId('login-submit-btn');
+
     const { history } = renderWithRouter(<App />);
-    history.push('/profile');
-    expect(profileTitle).toBeInTheDocument();
 
+    expect(email).toBeInTheDocument();
+    userEvent.type('trybe@trybe.com.br');
+
+    expect(senha).toBeInTheDocument();
+    userEvent.type('123456');
+    expect(butonLogin).toBeInTheDocument();
+    userEvent.click(butonLogin);
+
+    history.push('/meals');
+    const profileImage = screen.getByTestId('profile-top-btn');
+    expect(profileImage).toBeInTheDocument();
+
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    expect(profileBtn).toBeInTheDocument();
+    userEvent.click(profileBtn);
+
+    const profileIngredientes = screen.getByText(/ingredientes/i);
     expect(profileIngredientes).toBeInTheDocument();
-    userEvent.click(profileIngredientes);
 
+    const profileName = screen.getByText(/nome/i);
     expect(profileName).toBeInTheDocument();
-    userEvent.click(profileName);
 
+    const profileFirst = screen.getByText(/primeira letra/i);
     expect(profileFirst).toBeInTheDocument();
-    userEvent.click(profileFirst);
 
-    expect(profileBusca).toBeInTheDocument();
-    userEvent.click(profileBusca);
+    const profileBusca = screen.getByTestId('exec-search-btn');
+    expect(profileBusca).toHaveTextContent('Busca');
+    // userEvent.click(profileBusca);
 
+    history.push('/profile');
+    const profileEmail = screen.getByTestId('profile-email');
     expect(profileEmail).toBeInTheDocument();
+    const profileDoceRecipes = screen.getByRole('button', { name: /done recipes/i });
 
     expect(profileDoceRecipes).toBeInTheDocument();
     userEvent.click(profileDoceRecipes);
-    expect(history.location.pathname).toBe('/doce-recipes');
+    expect(history.location.pathname).toBe('/done-recipes');
 
-    expect(profileFavorite).toBeInTheDocument();
-    userEvent.click(profileFavorite);
-    expect(history.location.pathname).toBe('/favorite-recipes');
+    history.push('/favorite-recipes');
 
+    // expect(profileFavorite).toBeInTheDocument();
+  });
+  it('Se é direcionado a pagina de favoritos ', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/profile');
+    const profileFavorite = screen.getByRole('button', { name: /favorite recipes/i });
+    await waitFor(() => {
+      userEvent.click(profileFavorite);
+      expect(history.location.pathname).toBe('/favorite-recipes');
+    });
+  });
+  it('Sair da pagina ', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/profile');
+    const profileLogout = screen.getByRole('button', { name: /logout/i });
     userEvent.click(profileLogout);
+    await waitFor(() => {
+      expect(history.location.pathname).toBe('/');
+    });
   });
 });
