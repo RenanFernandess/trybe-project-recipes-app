@@ -2,76 +2,76 @@
 
 @media screen and (max-width: 360px) {
   .login-container {
-    position: relative;
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
-    width: 360px;
+    position: relative;
     height: 800px;
-    background: #FFFFFF;
+    width: 360px;
   }
 
   #title {
-    position: absolute;
-    width: 182px;
-    height: 21px;
-    left: 89px;
-    top: 524px;  
+    color: #41197F;
     font-family: 'Epilogue';
+    font-size: 20px;
     font-style: italic;
     font-weight: 500;
-    font-size: 20px;
+    height: 21px;
+    left: 89px;
     line-height: 20px;
-    text-align: center;
     letter-spacing: 0.165em;
+    position: absolute;
+    top: 524px;  
+    text-align: center;
     text-transform: uppercase;  
-    color: #41197F;
+    width: 182px;
   }
   
   #email-input {
+    border: 0.5px solid #41197F;
+    border-radius: 5px;
+    color: #41197F;
     position: absolute;
-    width: 276px;
     height: 40px;
     left: 42px;
     top: 564px;
-    border: 0.5px solid #41197F;
-    border-radius: 5px;
-    color: #41197F;
+    width: 276px;
   }
 
   #password-input {
-    box-sizing: border-box;
-    position: absolute;
-    width: 276px;
-    height: 40px;
-    left: 42px;
-    top: 613px;
     border: 0.5px solid #41197F;
     border-radius: 5px;
+    box-sizing: border-box;
+    color: #41197F;
     font-family: 'Epilogue';
+    font-size: 14px;
     font-style: normal;
     font-weight: 300;
-    font-size: 14px;
+    height: 40px;
+    left: 42px;
     line-height: 14px;
-    color: #41197F;
+    position: absolute;
+    top: 613px;
+    width: 276px;
   }
 
   .login-btn {
-    position: absolute;
-    width: 276px;
-    height: 40px;
-    left: 42px;
-    top: 662px;
     background: #FCC436;
     border-radius: 5px;
+    color: #FFFFFF;
     font-family: 'Epilogue';
+    font-size: 14px;
     font-style: normal;
     font-weight: 700;
-    font-size: 14px;
+    position: absolute;
+    height: 40px;
+    left: 42px;
+    letter-spacing: 0.03em;
     line-height: 14px;
     text-align: center;
-    letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: #FFFFFF;
+    top: 662px;
+    width: 276px;
   }
 
   .login-btn:hover {
@@ -79,7 +79,7 @@
   }
 
   .header-background{
-    height: 70vh;
     background-image: url('./images/login-background.png');
+    height: 70vh;
   }
 }
