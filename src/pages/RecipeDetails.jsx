@@ -7,9 +7,9 @@ import {
   FIRST_SIX, INGREDIENTS_NUMBER, DONE_RECIPES, IN_PROGRESS_RECIPES,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
-import shareIcon from '../images/shareIcon.svg';
 import { getItem } from '../helpers/storage';
 import FavoriteButton from '../Components/FavoriteButton';
+import ShareButton from '../Components/ShareButton';
 
 export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
@@ -18,7 +18,6 @@ export default function RecipeDetails({
     { recipe: {}, ingredients: [] },
   );
   const [recommendations, setRecommendations] = useState([]);
-  const [linkCopied, setLinkCopied] = useState(false);
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
@@ -63,11 +62,6 @@ export default function RecipeDetails({
       .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
   };
 
-  const copyBoard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${url}`);
-    setLinkCopied(true);
-  };
-
   return (
     <div>
       <header>
@@ -75,17 +69,10 @@ export default function RecipeDetails({
       </header>
       <main>
         <div>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ copyBoard }
-          >
-            <img
-              alt="share"
-              src={ shareIcon }
-            />
-          </button>
-          {linkCopied && <p>Link copied!</p> }
+          <ShareButton
+            url={ url }
+            testId="share-btn"
+          />
           <FavoriteButton
             checkPath={ checkPath }
             recipe={ recipe }
