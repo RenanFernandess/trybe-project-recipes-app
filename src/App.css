@@ -1,180 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
 
-.meals {
-  align-items: center;
-  background: #0fa36b;
-  color: #464646;
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  width: 100%;
-}
-
-.rocksGlass {
-  animation: 1s infinite ease;
-  max-height: 80vh;
-}
-
-.meals > .logo {
-  animation: 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat , sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-.footer {
-  bottom: 0;
-  position: fixed;
-}
-
-.start-recipe-btn {
-  bottom: 0;
-  position: fixed;
-}
-
-@media only screen and ( max-width : 360px ) {
+@media screen and (max-width: 360px) {
   .login-container {
-    background-image: url('./images/login-background.png') ! important;
-    /* background-position: center; */
-    /* background-repeat: no-repeat; */
-    /* background-size: cover; */
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* place-content: center; */
-    
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: column;
-    background-repeat: no-repeat;
     width: 360px;
     height: 800px;
-    background: #FFFFFF;    
+    background: #FFFFFF;
   }
 
-  /* .header-background{
-    width: 100vw;
-    height: 70vh;
-    background-image: url('./images/Sem-Título-1.png')!important;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    
-    border: 1px solid red;
-  } */
-
-  .form-container {
-    color: #41197f;
-    margin-top: 90vh;
-    padding: 1rem;
-    z-index: 9;
-  }
-
-  label {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .label {
-    display: none;
-  }
-
-  .password-input, .password-email {
-    border: 1px solid #41197f;
-    border-radius: 8px;
-    /* align-items: center; */
-    color: #41197f;
-    font-family: Open Sans , sans-serif;
-    margin-top: 1rem;
-    padding: 1rem;
-  }
-
-  .password-input::placeholder, .password-email::placeholder {
-    color: #41197f;
-    font-size: 1rem;
+  #title {
+    position: absolute;
+    width: 182px;
+    height: 21px;
+    left: 89px;
+    top: 524px;  
+    font-family: 'Epilogue';
+    font-style: italic;
     font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    letter-spacing: 0.165em;
+    text-transform: uppercase;  
+    color: #41197F;
+  }
+  
+  #email-input {
+    position: absolute;
+    width: 276px;
+    height: 40px;
+    left: 42px;
+    top: 564px;
+    border: 0.5px solid #41197F;
+    border-radius: 5px;
+    color: #41197F;
+  }
+
+  #password-input {
+    box-sizing: border-box;
+    position: absolute;
+    width: 276px;
+    height: 40px;
+    left: 42px;
+    top: 613px;
+    border: 0.5px solid #41197F;
+    border-radius: 5px;
+    font-family: 'Epilogue';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 14px;
+    color: #41197F;
   }
 
   .login-btn {
-    background-color: #fcc436;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-family: Open Sans , sans-serif;
+    position: absolute;
+    width: 276px;
+    height: 40px;
+    left: 42px;
+    top: 662px;
+    background: #FCC436;
+    border-radius: 5px;
+    font-family: 'Epilogue';
+    font-style: normal;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-top: 1rem;
-    padding: 1rem;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    width: 100%;
+    color: #FFFFFF;
   }
 
   .login-btn:hover {
     background-color: #f8b714 ;
   }
 
-  .login-container {
-    align-items: center;
-    background-color: white;
-    background-image: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    place-content: center;
-  }
-
-  .form-container {
-    border-radius: 8px;
-    box-shadow: 2px 6px 22px -6px rgba(0, 0, 0, 0.2);
-    /* box-shadow: 2px 6px 22px -6px rgba(0, 0, 0, 0.2); */
-    color: #41197f;
-    color: white;
-    display: block;
-    height: fit-content;
-    max-width: 800px;
-    min-width: 400px;
-    padding: 1rem;
-  }
-
-  label:has(input[type ='password']), label:has(input[type ='email']) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .password-input, .password-email {
-    border: 1px solid #41197f;
-    border-radius: 8px;
-    color: #41197f;
-    font-family: Open Sans , sans-serif;
-    margin-top: 1rem;
-    padding: 1rem;
-    width: 100%;
-  }
-
-  .password-input::placeholder, .password-email::placeholder {
-    color: #41197f;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  .login-btn {
-    background-color: #fcc436;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-family: Open Sans , sans-serif;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin-top: 1rem;
-    padding: 1rem;
-    text-transform: uppercase;
-    width: 100%;
-  }
-
-  .login-btn:hover {
-    background-color: #f8b714;
+  .header-background{
+    height: 70vh;
+    background-image: url('./images/login-background.png');
   }
 }
