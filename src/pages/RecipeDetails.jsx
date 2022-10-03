@@ -4,53 +4,56 @@ import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
-  FIRST_SIX, REGEX_INGREDIENT, REGEX_MEASURE, FAVORITE_RECIPES,
+  FIRST_SIX, FAVORITE_RECIPES, INGREDIENTS_NUMBER, DONE_RECIPES, IN_PROGRESS_RECIPES,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import saveItem, { getItem } from '../helpers/storage';
 
 export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
-  const getFavRecipes = JSON.parse(localStorage.getItem(FAVORITE_RECIPES) || '[]');
-  const [recipe, setRecipe] = useState([]);
+  const getFavRecipes = getItem(FAVORITE_RECIPES) || [];
+  const [{ recipe, ingredients }, setRecipe] = useState(
+    { recipe: [], ingredients: [] },
+  );
   const [recommendations, setRecommendations] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
-  const [
-    isFavorite,
-    setIsFavorite,
-  ] = useState(getFavRecipes.some((favRecipe) => favRecipe.id === id));
   const [linkCopied, setLinkCopied] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(getFavRecipes
+    .some((favRecipe) => favRecipe.id === id));
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
 
   useEffect(() => {
-    console.log('ok');
-    fetchAPI(`${RECIPE_ENDPOINT}${id}`, (result) => {
-      setRecipe(result);
-      const arrayOfKeys = Object.entries(result[0]);
-      const ingredientsArray = arrayOfKeys
-        .filter(([key, value]) => REGEX_INGREDIENT.test(key) && value !== '');
-      const measureArray = arrayOfKeys
-        .filter(([key, value]) => REGEX_MEASURE.test(key) && value !== '');
-      setIngredients(ingredientsArray);
-      setMeasures(measureArray);
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
+      const ingredientsArray = Array(INGREDIENTS_NUMBER).fill(undefined)
+        .reduce((Acc, _, ind) => {
+          const number = ind + 1;
+          const ingredient = result[`strIngredient${number}`];
+          const measure = result[`strMeasure${number}`];
+          if (ingredient) return [...Acc, `${ingredient}: ${measure}`];
+          return Acc;
+        }, []);
+      console.log('test: ', ingredientsArray);
+      setRecipe({
+        recipe: [result],
+        ingredients: ingredientsArray,
+      });
     });
     fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
   }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
 
   const isRecipeDone = (recipeId) => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
+    const doneRecipes = getItem(DONE_RECIPES) || [];
     const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
     return checkTrue;
   };
 
   const isRecipeInProgress = (recId) => {
-    const recipes = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
+    const recipes = getItem(IN_PROGRESS_RECIPES) || {};
     const inProgressRecipesArray = Object.values(recipes);
     return inProgressRecipesArray
       .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
@@ -63,9 +66,8 @@ export default function RecipeDetails({
 
   const saveFavoriteRecipe = () => {
     if (isFavorite) {
-      const newFavLS = getFavRecipes
-        .filter((favRecipe) => favRecipe.id !== id);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavLS));
+      const newFavLS = getFavRecipes.filter((favRecipe) => favRecipe.id !== id);
+      saveItem(FAVORITE_RECIPES, newFavLS);
       return setIsFavorite(false);
     }
     const [{
@@ -83,11 +85,8 @@ export default function RecipeDetails({
       image: strMealThumb || strDrinkThumb,
     };
     const union = [...getFavRecipes, favStorageFormat];
-    const saveRecipe = localStorage
-      .setItem('favoriteRecipes', JSON
-        .stringify(union));
+    saveItem(FAVORITE_RECIPES, union);
     setIsFavorite(true);
-    return saveRecipe;
   };
 
   return (
@@ -158,14 +157,12 @@ export default function RecipeDetails({
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   { ingredient }
-                  :
-                  { measures[index] }
                 </p>
               ))}
             </section>
-            <section>
+            <article>
               { checkPath && <YouTubeEmbed videoID={ URL_CODE } />}
-            </section>
+            </article>
           </main>
         );
       })}
@@ -183,14 +180,12 @@ export default function RecipeDetails({
           strMeal, strDrink,
           idMeal, idDrink,
         }, index) => {
-          const image = strMealThumb || strDrinkThumb;
-          const title = strMeal || strDrink;
           const idRecipe = idMeal || idDrink;
           return (
             <RecommendationCard
               key={ idRecipe }
-              image={ image }
-              title={ title }
+              image={ strMealThumb || strDrinkThumb }
+              title={ strMeal || strDrink }
               id={ idRecipe }
               index={ index }
             />
