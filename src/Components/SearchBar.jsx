@@ -1,26 +1,26 @@
 import React, { useState, useContext } from 'react';
-import '../css/Header.css';
+import propTypes from 'prop-types';
 import appContext from '../context/appContext';
+import { NAME_LENGTH_ERROR, URLS_BY_PAGE } from '../services/variables';
 
-export default function SearchBar() {
-  const [radioSearch, setRadioSearch] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+export default function SearchBar({ title }) {
   const { setURL, setSearched } = useContext(appContext);
+  const [{ category, searchTerm }, setState] = useState({
+    category: 'name',
+    searchTerm: '',
+  });
 
-  const handleRadioChange = ({ target: { name, value } }) => {
-    setRadioSearch((prevState) => ({ ...prevState, [name]: value }));
-  };
-
-  const handleInputChange = ({ target: { value } }) => {
-    setSearchTerm((prevState) => ({ ...prevState, name: value }));
+  const handleChange = ({ target: { name, value } }) => {
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const setSearchCategory = () => {
-    const { category } = radioSearch;
-    const { name } = searchTerm;
-    const getEndPoint = URLS_BY_PAGE[title][category];
+    if (searchTerm.length > 1 && category === 'firstLetter') {
+      return global.alert(NAME_LENGTH_ERROR);
+    }
+    const getEndPoint = `${URLS_BY_PAGE[title][category]}${searchTerm}`;
+    setURL(getEndPoint);
     setSearched(true);
-    setURL(getEndPoint(name));
   };
 
   return (
@@ -29,8 +29,9 @@ export default function SearchBar() {
         type="text"
         data-testid="search-input"
         placeholder="Digite aqui sua busca"
-        onChange={ handleInputChange }
-        name="search-term"
+        onChange={ handleChange }
+        name="searchTerm"
+        value={ searchTerm }
       />
       <div className="radios-container">
         <label htmlFor="ingredient">
@@ -39,7 +40,7 @@ export default function SearchBar() {
             data-testid="ingredient-search-radio"
             id="ingredient"
             name="category"
-            onChange={ handleRadioChange }
+            onChange={ handleChange }
             value="ingredient"
           />
           Ingredientes
@@ -50,7 +51,7 @@ export default function SearchBar() {
             data-testid="name-search-radio"
             id="nome"
             name="category"
-            onChange={ handleRadioChange }
+            onChange={ handleChange }
             value="nome"
           />
           Nome
@@ -61,13 +62,13 @@ export default function SearchBar() {
             data-testid="first-letter-search-radio"
             id="first-letter"
             name="category"
-            onChange={ handleRadioChange }
+            onChange={ handleChange }
             value="firstLetter"
           />
           Primeira letra
         </label>
         <button
-          type="submit"
+          type="button"
           data-testid="exec-search-btn"
           id="button"
           name="search-button"
@@ -80,3 +81,7 @@ export default function SearchBar() {
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  title: propTypes.string,
+}.isRequired;
