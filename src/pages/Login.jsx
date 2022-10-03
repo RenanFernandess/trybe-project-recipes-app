@@ -32,7 +32,7 @@ export default function Login({ history }) {
     <div className="login-container">
       <div className="header-background" />
 
-      <h2 id="title">Login</h2>
+      <h2 className="title">Login</h2>
 
       <form className="form-container">
         <label htmlFor="email-input">
