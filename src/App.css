@@ -11,7 +11,7 @@
 
   #title {
     color: #41197f;
-    font-family: "Epilogue", sans-serif;
+    font-family: 'Epilogue' , sans-serif;
     font-size: 20px;
     font-style: italic;
     font-weight: 500;
@@ -26,7 +26,7 @@
     width: 182px;
   }
 
-  #email-input {
+  .email-input {
     border: 0.5px solid #41197f;
     border-radius: 5px;
     color: #41197f;
@@ -37,12 +37,12 @@
     width: 276px;
   }
 
-  #password-input {
+  .password-input {
     border: 0.5px solid #41197f;
     border-radius: 5px;
     box-sizing: border-box;
     color: #41197f;
-    font-family: 'Epilogue', sans-serif;
+    font-family: 'Epilogue' , sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 300;
@@ -58,7 +58,7 @@
     background: #fcc436;
     border-radius: 5px;
     color: white;
-    font-family: 'Epilogue', sans-serif;
+    font-family: 'Epilogue' , sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;

@@ -43,7 +43,7 @@ export default function Login({ history }) {
             data-testid="email-input"
             name="email"
             id="email-input"
-            className="password-input"
+            className="email-input"
             value={ email }
             onChange={ handleChange }
           />
