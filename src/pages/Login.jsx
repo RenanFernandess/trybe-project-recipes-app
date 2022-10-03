@@ -30,23 +30,26 @@ export default function Login({ history }) {
 
   return (
     <div className="login-container">
+      <div className="header-background" />
+
+      <h2 className="title">Login</h2>
 
       <form className="form-container">
         <label htmlFor="email-input">
-          <span className="label">Email </span>
+          {/* <span className="label">Email </span> */}
           <input
             type="email"
             placeholder="Email"
             data-testid="email-input"
             name="email"
             id="email-input"
-            className="password-input"
+            className="email-input"
             value={ email }
             onChange={ handleChange }
           />
         </label>
         <label htmlFor="password-input">
-          <span className="label"> Senha </span>
+          {/* <span className="label"> Senha </span> */}
 
           <input
             placeholder="Password"
