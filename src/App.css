@@ -2,7 +2,7 @@
 
 @media screen and (max-width: 360px) {
   .login-container {
-    background: #FFFFFF;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -11,7 +11,7 @@
   }
 
   #title {
-    color: #41197F;
+    color: #41197f;
     font-family: 'Epilogue';
     font-size: 20px;
     font-style: italic;
@@ -28,9 +28,9 @@
   }
   
   #email-input {
-    border: 0.5px solid #41197F;
+    border: 0.5px solid #41197f;
     border-radius: 5px;
-    color: #41197F;
+    color: #41197f;
     position: absolute;
     height: 40px;
     left: 42px;
@@ -39,10 +39,10 @@
   }
 
   #password-input {
-    border: 0.5px solid #41197F;
+    border: 0.5px solid #41197f;
     border-radius: 5px;
     box-sizing: border-box;
-    color: #41197F;
+    color: #41197f;
     font-family: 'Epilogue';
     font-size: 14px;
     font-style: normal;
@@ -56,9 +56,9 @@
   }
 
   .login-btn {
-    background: #FCC436;
+    background: #fcc436;
     border-radius: 5px;
-    color: #FFFFFF;
+    color: #ffffff;
     font-family: 'Epilogue';
     font-size: 14px;
     font-style: normal;
