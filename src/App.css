@@ -1,7 +1,7 @@
-@media screen and ( max-width: 360px ) {
+@media screen and ( max-width : 360px ) {
 
   .login-container {
-    background: #fff;
+    background: white;
     display: flex;
     flex-direction: column;
     height: 800px;
@@ -21,8 +21,8 @@
     line-height: 20px;
     position: absolute;
     text-align: center;
-    top: 524px;  
-    text-transform: uppercase;  
+    text-transform: uppercase;
+    top: 524px;
     width: 182px;
   }
   
@@ -31,8 +31,8 @@
     border-radius: 5px;
     color: #41197f;
     height: 40px;
-    position: absolute;
     left: 42px;
+    position: absolute;
     top: 564px;
     width: 276px;
   }
@@ -57,16 +57,16 @@
   .login-btn {
     background: #fcc436;
     border-radius: 5px;
-    color: #fff;
+    color: white;
     font-family: 'Epilogue';
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
     height: 40px;
-    position: absolute;
     left: 42px;
     letter-spacing: 0.03em;
     line-height: 14px;
+    position: absolute;
     text-align: center;
     text-transform: uppercase;
     top: 662px;
@@ -77,7 +77,7 @@
     background-color: #f8b714 ;
   }
 
-  .header-background{
+  .header-background {
     background-image: url('./images/login-background.png');
     height: 70vh;
   }
