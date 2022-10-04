@@ -1,26 +1,76 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
+import appContext from '../context/appContext';
+import fetchAPI from '../helpers/fetchAPI';
+import { DRINK_DETAILS, MEALS_DETAILS, INGREDIENTS_NUMBER } from '../services/variables';
+import saveItem from '../helpers/storage';
 
-export default function RecipeInProgress({
-  match: { params: { id }, url },
-}) {
+export default function RecipeInProgress() {
+  const {
+    setRecipe,
+    recipe,
+    ingredients,
+  } = useContext(appContext);
+
+  const {
+    strCategory, strAlcoholic, strMeal,
+    strDrink, strDrinkThumb, strMealThumb,
+    strInstructions,
+  } = recipe;
+
+  const { id } = useParams();
+  const history = useHistory();
+  const { location: { pathname } } = history;
+  const [isChecked, setIsChecked] = useState({});
+  const checkPath = pathname.includes('meals');
+  const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
+
+  useEffect(() => {
+    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
+      const ingredientsArray = Array(INGREDIENTS_NUMBER).fill(undefined)
+        .reduce((Acc, _, ind) => {
+          const number = ind + 1;
+          const ingredient = result[`strIngredient${number}`];
+          const measure = result[`strMeasure${number}`];
+          if (ingredient) return [...Acc, `${ingredient}: ${measure}`];
+          return Acc;
+        }, []);
+      console.log('test: ', ingredientsArray);
+      setRecipe({
+        recipe: result,
+        ingredients: ingredientsArray,
+      });
+    });
+  }, [RECIPE_ENDPOINT, id]);
+
+  const handleChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const checkList = {
+      ...isChecked,
+      [target.name]: value,
+    };
+    target.parentNode.classList.toggle('lined');
+    setIsChecked(checkList);
+    saveItem([target.name], Object.values(checkList));
+  };
+
   return (
     <h1>Recipe in Progress</h1>
     <main>
       <img
-        src=""
-        alt=""
+        src={ strDrinkThumb || strMealThumb }
+        alt={ strDrink || strMeal }
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
-        title
+        { strDrink || strMeal }
       </h1>
       <div>
         <ShareButton
           testId="share-btn"
-          url={ url }
+          url={ pathname }
         />
         <FavoriteButton
           checkPath={ false }
@@ -31,11 +81,34 @@ export default function RecipeInProgress({
       </div>
       <section>
         <p data-testid="recipe-category">
-          texto da categoria
+          { strCategory }
+          { ' ' }
+          { strAlcoholic }
         </p>
         <div data-testid="instructions">
-          instruções
+          { strInstructions }
         </div>
+      </section>
+      <section>
+        { ingredients.map((ingredient, index) => (
+          <label
+            htmlFor={ index }
+            name={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+            key={ index }
+          >
+            <input
+              type="checkbox"
+              value={ ingredient }
+              id={ index }
+              name={ ingredient }
+              onChange={ handleChange }
+              checked={ isChecked[ingredient] }
+            />
+            { ingredient }
+          </label>
+        ))}
+
       </section>
       <div>
         <button
@@ -48,13 +121,3 @@ export default function RecipeInProgress({
     </main>
   );
 }
-
-RecipeInProgress.propTypes = {
-  match: propTypes.shape({
-    path: propTypes.string,
-    url: propTypes.string,
-    params: propTypes.shape({
-      id: propTypes.string,
-    }),
-  }).isRequired,
-};
