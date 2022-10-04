@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import propTypes from 'prop-types';
 import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
@@ -10,13 +10,17 @@ import RecommendationCard from '../Components/RecommendationCard';
 import { getItem } from '../helpers/storage';
 import FavoriteButton from '../Components/FavoriteButton';
 import ShareButton from '../Components/ShareButton';
+import appContext from '../context/appContext';
 
 export default function RecipeDetails({
   match: { params: { id }, path, url }, history: { location: { pathname }, push },
 }) {
-  const [{ recipe, ingredients }, setRecipe] = useState(
-    { recipe: {}, ingredients: [] },
-  );
+  const {
+    recipe,
+    ingredients,
+    setRecipe,
+  } = useContext(appContext);
+
   const [recommendations, setRecommendations] = useState([]);
   const checkPath = path === '/meals/:id';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
