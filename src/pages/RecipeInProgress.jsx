@@ -1,7 +1,11 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import ShareButton from '../Components/ShareButton';
+import FavoriteButton from '../Components/FavoriteButton';
 
-export default function RecipeInProgress() {
+export default function RecipeInProgress({
+  match: { params: { id }, url },
+}) {
   return (
     <main>
       <img
@@ -15,6 +19,13 @@ export default function RecipeInProgress() {
       <div>
         <ShareButton
           testId="share-btn"
+          url={ url }
+        />
+        <FavoriteButton
+          checkPath={ false }
+          recipe={ {} }
+          testId="favorite-btn"
+          idRecipe={ id }
         />
       </div>
       <section>
@@ -36,3 +47,13 @@ export default function RecipeInProgress() {
     </main>
   );
 }
+
+RecipeInProgress.propTypes = {
+  match: propTypes.shape({
+    path: propTypes.string,
+    url: propTypes.string,
+    params: propTypes.shape({
+      id: propTypes.string,
+    }),
+  }).isRequired,
+};

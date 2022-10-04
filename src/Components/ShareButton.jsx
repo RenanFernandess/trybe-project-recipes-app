@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton({ testId, index, url }) {
+export default function ShareButton({ testId, url }) {
   const [linkCopied, setLinkCopied] = useState(false);
 
   const copyBoard = () => {
@@ -14,9 +14,7 @@ export default function ShareButton({ testId, index, url }) {
     <div>
       <button
         type="button"
-        data-testid={ index
-          ? `${index}${testId}`
-          : testId }
+        data-testid={ testId }
         onClick={ copyBoard }
       >
         <img
@@ -30,7 +28,6 @@ export default function ShareButton({ testId, index, url }) {
 }
 
 ShareButton.propTypes = {
-  index: propTypes.number.isRequired,
   testId: propTypes.string.isRequired,
   url: propTypes.string.isRequired,
 };
