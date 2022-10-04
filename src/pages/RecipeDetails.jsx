@@ -13,7 +13,7 @@ import ShareButton from '../Components/ShareButton';
 import appContext from '../context/appContext';
 
 export default function RecipeDetails({
-  match: { params: { id }, path, url }, history: { location: { pathname }, push },
+  match: { params: { id }, url }, history: { location: { pathname }, push },
 }) {
   const {
     recipe,
@@ -22,7 +22,7 @@ export default function RecipeDetails({
   } = useContext(appContext);
 
   const [recommendations, setRecommendations] = useState([]);
-  const checkPath = path === '/meals/:id/';
+  const checkPath = pathname.includes('meals');
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
   const {
@@ -36,6 +36,7 @@ export default function RecipeDetails({
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
+      console.log(result);
       const ingredientsArray = Array(INGREDIENTS_NUMBER).fill(undefined)
         .reduce((Acc, _, ind) => {
           const number = ind + 1;

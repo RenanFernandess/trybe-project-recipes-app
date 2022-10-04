@@ -22,8 +22,8 @@ export default function RecipeInProgress() {
 
   const { id } = useParams();
   const history = useHistory();
-  const [isChecked, setIsChecked] = useState({});
   const { location: { pathname } } = history;
+  const [isChecked, setIsChecked] = useState({});
   const checkPath = pathname.includes('meals');
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
 
