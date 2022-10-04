@@ -26,6 +26,9 @@ export default function RecipeInProgress() {
   const [isChecked, setIsChecked] = useState({});
   const checkPath = pathname.includes('meals');
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
+  const NUMBER_OF_SPLITS = 3;
+  const splitedPathname = pathname.split('/', NUMBER_OF_SPLITS);
+  const newPath = `/${splitedPathname[1]}/${splitedPathname[2]}`;
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
@@ -57,8 +60,8 @@ export default function RecipeInProgress() {
   };
 
   return (
-    <h1>Recipe in Progress</h1>
     <main>
+      <h1>Recipe in Progress</h1>
       <img
         src={ strDrinkThumb || strMealThumb }
         alt={ strDrink || strMeal }
@@ -70,11 +73,11 @@ export default function RecipeInProgress() {
       <div>
         <ShareButton
           testId="share-btn"
-          url={ pathname }
+          url={ newPath }
         />
         <FavoriteButton
           checkPath={ false }
-          recipe={ {} }
+          recipe={ recipe }
           testId="favorite-btn"
           idRecipe={ id }
         />
