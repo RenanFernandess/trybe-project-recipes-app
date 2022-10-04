@@ -29,38 +29,50 @@ export default function Login({ history }) {
   };
 
   return (
-    <form>
-      <label htmlFor="email-input">
-        Email
-        <input
-          type="email"
-          data-testid="email-input"
-          name="email"
-          id="email-input"
-          value={ email }
-          onChange={ handleChange }
-        />
-      </label>
-      <label htmlFor="password-input">
-        Senha
-        <input
-          type="text"
-          data-testid="password-input"
-          name="password"
-          id="password-input"
-          value={ password }
-          onChange={ handleChange }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !isValid }
-        onClick={ saveUser }
-      >
-        Enter
-      </button>
-    </form>
+    <div className="login-container">
+      <div className="header-background" />
+
+      <h2 className="title">Login</h2>
+
+      <form className="form-container">
+        <label htmlFor="email-input">
+          {/* <span className="label">Email </span> */}
+          <input
+            type="email"
+            placeholder="Email"
+            data-testid="email-input"
+            name="email"
+            id="email-input"
+            className="email-input"
+            value={ email }
+            onChange={ handleChange }
+          />
+        </label>
+        <label htmlFor="password-input">
+          {/* <span className="label"> Senha </span> */}
+
+          <input
+            placeholder="Password"
+            type="password"
+            data-testid="password-input"
+            name="password"
+            id="password-input"
+            className="password-input"
+            value={ password }
+            onChange={ handleChange }
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !isValid }
+          onClick={ saveUser }
+          className="login-btn"
+        >
+          Enter
+        </button>
+      </form>
+    </div>
   );
 }
 

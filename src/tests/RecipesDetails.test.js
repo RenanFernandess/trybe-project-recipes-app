@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
@@ -147,15 +147,4 @@ describe('Testa o Reciper', () => {
     /favorite-recipes
   });
 });
-// const horizontalImage = screen.getAllByTestId(/\S-horizontal-image/)
-// const horizontalImage = screen.getAllByTestId((/\S-horizontal-top-text/))
-// const horizontalImage = screen.getAllByTestId()
-// const horizontalImage = screen.getAllByTestId()
-// const horizontalImage = screen.getAllByTestId()
-// const horizontalImage = screen.getAllByTestId()
 
-
-//    (/\S-horizontal-name/)
-//   (/\S-horizontal-done-date/)
-//    (/\S-horizontal-share-btn/)
-//   (/\S-${tagName}-horizontal-tag/)

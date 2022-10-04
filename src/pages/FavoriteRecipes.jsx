@@ -28,7 +28,8 @@ export default function FavoriteRecipes() {
 
   return (
     <div>
-      <Header title="Favorites Recipes" />
+
+      <Header title="Favorite Recipes" />
       <main>
         <div>
           <button
