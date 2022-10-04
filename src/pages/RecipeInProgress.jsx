@@ -4,8 +4,10 @@ import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
 import appContext from '../context/appContext';
 import fetchAPI from '../helpers/fetchAPI';
-import { DRINK_DETAILS, MEALS_DETAILS, INGREDIENTS_NUMBER } from '../services/variables';
-import saveItem from '../helpers/storage';
+import { DRINK_DETAILS, MEALS_DETAILS,
+  INGREDIENTS_NUMBER,
+  IN_PROGRESS_RECIPES } from '../services/variables';
+import saveItem, { getItem } from '../helpers/storage';
 
 export default function RecipeInProgress() {
   const {
@@ -29,6 +31,8 @@ export default function RecipeInProgress() {
   const NUMBER_OF_SPLITS = 3;
   const splitedPathname = pathname.split('/', NUMBER_OF_SPLITS);
   const newPath = `/${splitedPathname[1]}/${splitedPathname[2]}`;
+  const getRecipesProgress = getItem(IN_PROGRESS_RECIPES) || [];
+  const arrayCheck = getRecipesProgress.every((recipeInProg) => recipeInProg);
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
@@ -56,7 +60,7 @@ export default function RecipeInProgress() {
     };
     target.parentNode.classList.toggle('lined');
     setIsChecked(checkList);
-    saveItem([target.name], Object.values(checkList));
+    saveItem(IN_PROGRESS_RECIPES, Object.values(checkList));
   };
 
   return (
@@ -94,22 +98,23 @@ export default function RecipeInProgress() {
       </section>
       <section>
         { ingredients.map((ingredient, index) => (
-          <label
-            htmlFor={ index }
-            name={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-            key={ index }
-          >
-            <input
-              type="checkbox"
-              value={ ingredient }
-              id={ index }
+          <section key={ index }>
+            <label
+              htmlFor={ index }
               name={ ingredient }
-              onChange={ handleChange }
-              checked={ isChecked[ingredient] }
-            />
-            { ingredient }
-          </label>
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                type="checkbox"
+                value={ ingredient }
+                id={ index }
+                name={ ingredient }
+                onChange={ handleChange }
+                checked={ getRecipesProgress[index] }
+              />
+              { ingredient }
+            </label>
+          </section>
         ))}
 
       </section>
@@ -117,6 +122,7 @@ export default function RecipeInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          disabled={ arrayCheck }
         >
           Finish recipe
         </button>
