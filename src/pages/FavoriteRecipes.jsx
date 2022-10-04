@@ -28,6 +28,7 @@ export default function FavoriteRecipes() {
 
   return (
     <div>
+
       <Header title="Favorite Recipes" />
       <main>
         <div>

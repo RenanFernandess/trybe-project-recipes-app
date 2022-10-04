@@ -7,6 +7,7 @@ export default function RecipeInProgress({
   match: { params: { id }, url },
 }) {
   return (
+    <h1>Recipe in Progress</h1>
     <main>
       <img
         src=""
