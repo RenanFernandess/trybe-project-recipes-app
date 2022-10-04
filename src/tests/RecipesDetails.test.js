@@ -1,5 +1,5 @@
-/* import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import React from 'react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import oneMeal from '../../cypress/mocks/oneMeal';
@@ -18,8 +18,6 @@ const objeto = [{
   alcoholicOrNot: '',
   name: 'Spicy Arrabiata Penne',
   image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-  // doneDate: '22/6/2020',
-  // tags: ['Pasta', 'Curry'],
 }];
 const mockDrink = [{
   id: '15997',
@@ -32,8 +30,6 @@ const mockDrink = [{
 
 }];
 
-const EMAIL = 'xablau@gmail.com';
-const SENHA = '1234567';
 const PATH = '/meals/52771';
 
 describe('Testa o Reciper', () => {
@@ -46,7 +42,7 @@ describe('Testa o Reciper', () => {
         .mockResolvedValueOnce(meals)
         .mockResolvedValueOnce(oneDrink),
     });
-    // global.localStorage = jest.fn(saveItem);
+    global.localStorage = jest.fn(saveItem);
   });
   afterEach(() => jest.clearAllMocks());
 
@@ -64,10 +60,10 @@ describe('Testa o Reciper', () => {
 
     console.log(history.location.pathname);
 
-    const favoriteBtn = await screen.getByTestId('favorite-btn');
+    const favoriteBtn = await screen.findByTestId('favorite-btn');
     expect(favoriteBtn).toBeInTheDocument();
     const teste = JSON.parse(localStorage.getItem('FavoriteRecipes'));
-    // userEvent.click(favoriteBtn);
+    userEvent.click(favoriteBtn);
     expect(teste).toHaveLength(1);
   });
   it('Testa os botões ', () => {
@@ -89,7 +85,6 @@ describe('Testa o Reciper', () => {
     userEvent.click(filterByAll);
     userEvent.click(filterByMeal);
     userEvent.click(filterByDrink);
-
   });
   it('Se aparece as receitas em progresso', async () => {
     const localStorageMock = {
@@ -102,11 +97,11 @@ describe('Testa o Reciper', () => {
 
     const { history } = renderWithRouter(<App />);
     history.push('/meals/PATH');
-    const startRecipe = await screen.getByTestId('start-recipe-btn');
+    const startRecipe = await screen.findByTestId('start-recipe-btn');
     userEvent.click(startRecipe);
-    // expect(favoriteBtn).toBeInTheDocument();
+    expect(favoriteBtn).toBeInTheDocument();
     const transforme = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    // userEvent.click(favoriteBtn);
+    userEvent.click(favoriteBtn);
     expect(transforme).toHaveLength(1);
   });
   it('Testa se o link é copiado', async () => {
@@ -143,8 +138,4 @@ describe('Testa o Reciper', () => {
     const transforme = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(transforme).toHaveLength(0);
   });
-  it('', () => {
-    /favorite-recipes
-  });
 });
-
