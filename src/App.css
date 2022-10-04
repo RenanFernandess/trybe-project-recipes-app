@@ -82,3 +82,7 @@
     height: 70vh;
   }
 }
+
+.lined {
+  text-decoration:line-through;
+}

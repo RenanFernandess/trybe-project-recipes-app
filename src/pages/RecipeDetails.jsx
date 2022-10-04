@@ -22,7 +22,7 @@ export default function RecipeDetails({
   } = useContext(appContext);
 
   const [recommendations, setRecommendations] = useState([]);
-  const checkPath = path === '/meals/:id';
+  const checkPath = path === '/meals/:id/';
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
   const {
