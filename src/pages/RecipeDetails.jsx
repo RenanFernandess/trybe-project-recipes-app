@@ -52,6 +52,7 @@ export default function RecipeDetails({
   const isRecipeInProgress = (recId) => {
     const recipes = JSON.parse(localStorage.getItem('inProgressRecipes') || '{}');
     const inProgressRecipesArray = Object.values(recipes);
+    console.log(inProgressRecipesArray, ' isrecipe');
     return inProgressRecipesArray
       .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
   };

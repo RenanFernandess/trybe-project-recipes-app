@@ -21,7 +21,7 @@ describe('Testa o Drinks', () => {
   });
 
   afterEach(() => jest.clearAllMocks());
-  it('Testa os retornos Ingredientes/Drinks ', () => {
+  it('Testa os retornos Nome/Drinks ', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
 
@@ -43,12 +43,12 @@ describe('Testa o Drinks', () => {
     const btnSearch = screen.getByRole('img', { name: /imagessearch/i });
     userEvent.click(btnSearch);
     const inputSearch = screen.getByRole('textbox');
-    userEvent.type(inputSearch, 'Gin');
+    userEvent.type(inputSearch, 'Amaretto');
     const nomeRadio = screen.getByText(/ingredientes/i);
     userEvent.click(nomeRadio);
     const btnBusca = screen.getByRole('button', { name: /busca/i });
     userEvent.click(btnBusca);
-    expect(inputSearch).toHaveValue('Gin');
+    expect(inputSearch).toHaveValue('Amaretto');
   });
 
   it('Testa os retornos firstLetter/Drinks', () => {
