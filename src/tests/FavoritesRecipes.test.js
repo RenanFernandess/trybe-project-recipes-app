@@ -6,9 +6,6 @@ import App from '../App';
 import fetchTotal from '../../cypress/mocks/fetch';
 import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
-// import drinkCategories from '../../cypress/mocks/drinkCategories';
-// import oneDrink from '../../cypress/mocks/oneDrink';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const mockDrink = [{
