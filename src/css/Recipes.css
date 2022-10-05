@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@media screen and ( max-width : 360px ) {
+
+  :root {
+    --font-amarela: #fcdc36;
+    --font-branca: white;
+    --font-escura: #1a1b1c;
+    --font-roxa: #41197f;
+    /* --font-verde-ju: #38831c;
+    --font-verde-trybe:  #1eb720; */
+  }
+
+  /* Header */
+
+  .container-header {
+    align-items: flex-start;
+    display: flex;
+    height: 147px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 360px;
+  }
+
+  .recipes-app {
+    background: var(--font-amarela);
+    height: 52px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 360px;
+  }
+
+  .profile-image {
+    bottom: 94.79%;
+    left: 86.11%;
+    position: absolute;
+    right: 5.91%;
+    top: .7rem;bottom: 94.79%;
+    left: 86.11%;
+    position: absolute;
+    right: 5.91%;
+    top: .7rem;
+  }
+
+  .btn-image {
+    background-color: var(--font-amarela);
+    border: var(--font-amarela);
+  }
+
+  .btn-search {
+    background-color: var(--font-amarela);
+    border: var(--font-amarela);
+  }
+
+  .profile-search {
+    height: 26.85px;
+    left: 267px;
+    position: absolute;
+    top: 14px;
+    width: 26.85px;
+  }
+
+  .header-image {
+    bottom: 94.79%;
+    height: 45px !important;
+    left: 3%;
+    position: relative;
+    top: 3.2px;
+    width: 45px;
+    z-index: 9;
+  }
+
+  .title-recipes {
+    color: var(--font-roxa);
+    font-family: 'Epilogue';
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-left: 1rem;
+    margin-top: 15px;
+    padding: 2px;
+    z-index: 9;
+  }
+
+  .title-recipes span {
+    font-style: normal;
+    font-weight: 800;
+    left: 2px;
+    letter-spacing: .5px;
+  }
+
+  /* Card */
+
+  .card-container {
+    background: var(--font-roxa);
+    bottom: -3rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .card {
+    background: var(--font-amarela);
+    flex-basis: 30%;
+    flex-grow: 1;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    align-items: center;
+    color: var(--font-escura);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .link {
+    text-decoration: none;
+  }
+
+  /* Buttons */
+
+  .group-btn {
+    bottom: -3.2rem;
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    background: var(--font-roxa);
+  }
+  
+  .btn {
+    background: var(--font-roxa);
+    color: var(--font-branca);
+    font-size: 9px;
+    /* flex-direction: row; */
+  }
+
+  .group-btn :hover {
+    color: var(--font-amarela);
+  }
+
+  /* Footer */
+
+  .footer {
+    background: var(--font-roxa);
+    position: absolute;
+    width: 360px;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-container button {
+    background: rgba(247, 244, 244, 0);
+    border: #fbfbfb00;
+  }
+}
