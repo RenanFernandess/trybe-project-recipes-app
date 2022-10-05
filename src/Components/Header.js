@@ -4,7 +4,10 @@ import { useHistory } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
 import imageTray from "../images/bandeja.png";
+<<<<<<< HEAD
 // import '../css/Header.css';
+=======
+>>>>>>> c9efcac49fc7b540c797a20b574c24af7b8ed66d
 import "../css/Recipes.css";
 import SearchBar from './SearchBar';
 import { PAGES_TITLE } from '../services/variables';
@@ -66,7 +69,7 @@ export default function Header({ title }) {
     </section>
   );
 }
-// ou nod
+// ou node
 Header.propTypes = {
   title: propTypes.string,
 }.isRequired;

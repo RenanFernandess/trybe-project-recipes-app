@@ -5,7 +5,7 @@ import FavoriteCard from '../Components/FavoriteCard';
 import { FAVORITE_RECIPES } from '../services/variables';
 
 export default function FavoriteRecipes() {
-  const [recipes, setRecipes] = useState(getItem(FAVORITE_RECIPES) || []);
+  const [recipes, setRecipes] = useState(getItem(FAVORITE_RECIPES));
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [filterValue, setFilterValue] = useState('All');
 
@@ -20,7 +20,7 @@ export default function FavoriteRecipes() {
   };
 
   const removeFavorite = (recipeId) => {
-    const savedRecipes = getItem(FAVORITE_RECIPES) || [];
+    const savedRecipes = getItem(FAVORITE_RECIPES);
     const recipesList = savedRecipes.filter(({ id }) => recipeId !== id);
     saveItem(FAVORITE_RECIPES, recipesList);
     setRecipes(recipesList);

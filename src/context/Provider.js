@@ -6,6 +6,9 @@ export default function Provider({ children }) {
   const [history, setHistory] = useState({});
   const [URL, setURL] = useState('');
   const [searched, setSearched] = useState(false);
+  const [{ recipe, ingredients }, setRecipe] = useState(
+    { recipe: {}, ingredients: [] },
+  );
 
   const contextType = {
     history,
@@ -14,6 +17,9 @@ export default function Provider({ children }) {
     setURL,
     searched,
     setSearched,
+    recipe,
+    ingredients,
+    setRecipe,
   };
 
   return (
