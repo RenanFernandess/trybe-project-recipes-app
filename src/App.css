@@ -81,8 +81,9 @@
     background-image: url('./images/login-background.png');
     height: 70vh;
   }
-}
 
 .lined {
   text-decoration: line-through;
+}
+
 }
