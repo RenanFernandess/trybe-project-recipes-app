@@ -7,13 +7,13 @@ import Meals from '../pages/Meals';
 import Drinks from '../pages/Drinks';
 import App from '../App';
 
+const SEARCH_TOP_BTN_TEST_ID = 'search-top-btn';
+
 describe('Testa o Header', () => {
   beforeEach(() => {
     global.fetch = fetchTotal;
     jest.spyOn(global, 'fetch');
   });
-
-  // afterEach(() => jest.clearAllMocks());
 
   it('Testa se o Header possui um título, botão de busca e botão de perfil', () => {
     renderWithRouter(<Meals />);
@@ -30,7 +30,7 @@ describe('Testa o Header', () => {
   });
   it('Testa se ao selecionar um input de categoria, é realizado um fetch com o endpoint correto', async () => {
     renderWithRouter(<Meals />);
-    const lupa = screen.getByTestId('search-top-btn');
+    const lupa = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
     userEvent.click(lupa);
     await waitFor(() => {
       expect(screen.getByRole('radio', {
@@ -53,7 +53,6 @@ describe('Testa o Header', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/meals');
 
-    // botão search o simbolo de pesquisar
     const searchTop = screen.getByRole('button', { name: /imagessearch/i });
     expect(searchTop).toBeInTheDocument();
     userEvent.click(searchTop);
@@ -61,12 +60,10 @@ describe('Testa o Header', () => {
     const inputSearch = screen.getByTestId('search-input');
     userEvent.type(inputSearch, 'Arrabiata');
     expect(inputSearch).toBeInTheDocument();
-    // depois vou clicar no input name
     const radioIngrediente = screen.getByText(/Nome/i);
     userEvent.click(radioIngrediente);
     expect(radioIngrediente).toBeInTheDocument();
 
-    // await waitFor(() => {
     const busca = screen.getByText(/busca/i);
     userEvent.click(busca);
     const path = '/meals/52771';
@@ -76,7 +73,7 @@ describe('Testa o Header', () => {
   });
   it('Para ver se aparece na página.', async () => {
     renderWithRouter(<Drinks />);
-    const lupa = screen.getByTestId('search-top-btn');
+    const lupa = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
     userEvent.click(lupa);
     await waitFor(() => {
       expect(screen.getByRole('heading', { name: /drinks/i })).toBeInTheDocument();
@@ -87,7 +84,6 @@ describe('Testa o Header', () => {
       expect(screen.getByText(/primeira letra/i)).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /busca/i })).toBeInTheDocument();
       expect(screen.getByRole('button', { name: /all/i })).toBeInTheDocument();
-    // expect(screen.getByText(/gg/i)).toBeInTheDocument();
     });
   });
 
@@ -96,7 +92,7 @@ describe('Testa o Header', () => {
     history.push('/meals');
 
     const headerTitle = screen.getByTestId('page-title');
-    const searchIcon = screen.getByTestId('search-top-btn');
+    const searchIcon = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
     const pageTitle = screen.getByTestId('page-title');
 
     expect(headerTitle).toBeInTheDocument();
@@ -137,13 +133,5 @@ describe('Testa o Header', () => {
     history.push('/profile');
     const profileIcon = screen.getByRole('button', { name: /profile/i });
     expect(profileIcon).toBeInTheDocument();
-
-    // history.push('/RecipesDetails');
-    // const doneRecipesIcon = screen.getByTestId('');
-    // expect(doneRecipesIcon).toBeInTheDocument();
-
-    // history.push('/FavoriteRecipes  ');
-    // const favoriteRecipesIcon = screen.getByTestId('');
-    // expect(favoriteRecipesIcon).toBeInTheDocument();
   });
 });

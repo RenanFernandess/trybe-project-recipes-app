@@ -3,8 +3,6 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import fetchTotal from '../../cypress/mocks/fetch';
-// import Meals from '../pages/Meals';
-// import Drinks from '../pages/Drinks';
 import App from '../App';
 
 describe('Testa o Header', () => {
@@ -18,13 +16,11 @@ describe('Testa o Header', () => {
   it('Testa se o Header possui um título, botão de busca e botão de perfil', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/meals/52977');
-    // const URL = '/meals/52977';
     Object.assign(window.navigator, {
       clipboard: {
         writeText: jest.fn().mockImplementation(() => Promise.resolve()),
       },
     });
-    // const imageShare = screen.getAllByAltText('share');
     const buttonShare = screen.getByTestId('share-btn');
     userEvent.click(buttonShare);
     expect(window.navigator.clipboard.writeText).toHaveBeenCalled();

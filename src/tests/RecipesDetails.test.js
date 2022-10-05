@@ -31,7 +31,9 @@ const mockDrink = [{
 
 }];
 
-const PATH = '/meals/52771';
+const FVT_BTN_TEST_ID = 'favorite-btn';
+const MEAL_PATH = '/meals/52771';
+const DRINK_PATH = '/drinks/15997';
 
 describe('Testa o Reciper', () => {
   beforeEach(() => {
@@ -57,11 +59,11 @@ describe('Testa o Reciper', () => {
     localStorage.setItem('FavoriteRecipes', JSON.stringify(objeto));
 
     const { history } = renderWithRouter(<App />);
-    history.push(PATH);
+    history.push(MEAL_PATH);
 
     console.log(history.location.pathname);
 
-    const favoriteBtn = await screen.findByTestId('favorite-btn');
+    const favoriteBtn = await screen.findByTestId(FVT_BTN_TEST_ID);
     expect(favoriteBtn).toBeInTheDocument();
     const teste = JSON.parse(localStorage.getItem('FavoriteRecipes'));
     userEvent.click(favoriteBtn);
@@ -97,9 +99,9 @@ describe('Testa o Reciper', () => {
     localStorage.setItem('inProgressRecipes', JSON.stringify(objeto));
 
     const { history } = renderWithRouter(<App />);
-    history.push('/meals/52771');
+    history.push(MEAL_PATH);
     await waitFor(() => {
-      const favoriteBtn = screen.getByTestId('favorite-btn');
+      const favoriteBtn = screen.getByTestId(FVT_BTN_TEST_ID);
       const startRecipe = screen.getByTestId('start-recipe-btn');
       userEvent.click(startRecipe);
       expect(favoriteBtn).toBeInTheDocument();
@@ -110,7 +112,7 @@ describe('Testa o Reciper', () => {
   });
   it('Testa se o link é copiado', async () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/meals/52771');
+    history.push(MEAL_PATH);
     Object.assign(navigator, {
       clipboard: {
         writeText: () => { 'Link copied!'; },
@@ -134,8 +136,8 @@ describe('Testa o Reciper', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
 
     const { history } = renderWithRouter(<App />);
-    history.push('/drinks/15997');
-    const favorite = await screen.getByTestId('favorite-btn');
+    history.push(DRINK_PATH);
+    const favorite = await screen.findByTestId(FVT_BTN_TEST_ID);
     expect(favorite).toHaveAttribute('src', blackHeartIcon);
     userEvent.click(favorite);
     expect(favorite).toHaveAttribute('src', whiteHeartIcon);
@@ -152,7 +154,7 @@ describe('Testa o Reciper', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
 
     const { history } = renderWithRouter(<App />);
-    history.push('/drinks/15997');
+    history.push(DRINK_PATH);
     const startRecipe = screen.getByTestId('start-recipe-btn');
     expect(startRecipe).toBeInTheDocument();
     userEvent.click(startRecipe);
@@ -168,6 +170,6 @@ describe('Testa o Reciper', () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
 
     const { history } = renderWithRouter(<App />);
-    history.push('/drinks/15997');
+    history.push(DRINK_PATH);
   });
 });

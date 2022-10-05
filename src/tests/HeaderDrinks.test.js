@@ -63,7 +63,6 @@ describe('Testa o Drinks', () => {
     userEvent.click(nomeRadio);
     const btnBusca = screen.getByRole('button', { name: /busca/i });
     userEvent.click(btnBusca);
-    // const retorno = 'Spicy Arrabiata Penne';
     expect(inputSearch).toBeDefined();
   });
   it('Testa se a global alert é chamada quando digita dois caracteres ou mais ', async () => {
@@ -80,7 +79,7 @@ describe('Testa o Drinks', () => {
     const btnBusca = screen.getByRole('button', { name: /busca/i });
     userEvent.click(btnBusca);
     await waitFor(() => {
-      expect(global.alert).toHaveBeenCalled(); // https://stackoverflow.com/questions/53611098/how-can-i-mock-the-window-alert-method-in-jest
+      expect(global.alert).toHaveBeenCalled();
     });
   });
   it('Se é chamado quando clicado no radio Name paginas são chamadas corretamente.', async () => {
@@ -117,7 +116,7 @@ describe('Testa o Drinks', () => {
     const exeSearch = screen.getByTestId('exec-search-btn');
     userEvent.click(exeSearch);
     await waitFor(() => {
-      expect(global.alert).not.toHaveBeenCalled(); // https://stackoverflow.com/questions/53611098/how-can-i-mock-the-window-alert-method-in-jest
+      expect(global.alert).not.toHaveBeenCalled();
     });
   });
   it('Se todos os botões categorias estão definidos', async () => {
@@ -146,15 +145,15 @@ describe('Testa o Drinks', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-    const shakeCategory = await screen.getByRole('button', { name: /shake/i });
+    const shakeCategory = await screen.findByRole('button', { name: /shake/i });
     userEvent.click(shakeCategory, 'Shake');
     expect(shakeCategory).toHaveValue('Shake');
 
-    const coocktail = await screen.getByRole('button', { name: /cocktail/i });
+    const coocktail = await screen.findByRole('button', { name: /cocktail/i });
     userEvent.click(coocktail);
     expect(coocktail).toHaveValue('Cocktail');
 
-    const all = await screen.getByRole('button', { name: /all/i });
+    const all = await screen.findByRole('button', { name: /all/i });
     userEvent.click(coocktail);
     expect(all).toHaveValue('All');
   });

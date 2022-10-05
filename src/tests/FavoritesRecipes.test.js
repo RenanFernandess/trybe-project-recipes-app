@@ -8,7 +8,8 @@ import meals from '../../cypress/mocks/meals';
 import drinks from '../../cypress/mocks/drinks';
 import oneDrink from '../../cypress/mocks/oneDrink';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const FAVORITE_RECIPES_PATH = '/favorite-recipes';
 
 const mockDrink = [{
   id: '15997',
@@ -46,7 +47,7 @@ describe('Testa o FavoriteRecipes', () => {
   it('Testa se os botões estão funcionais  ', async () => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
     const { history } = renderWithRouter(<App />);
-    history.push('/favorite-recipes');
+    history.push(FAVORITE_RECIPES_PATH);
     await waitFor(() => {
       const pageTitle = screen.getByTestId('page-title');
       const profileLink = screen.getByRole('button', { name: /profile/i });
@@ -65,26 +66,20 @@ describe('Testa o FavoriteRecipes', () => {
       userEvent.click(filterByMeal);
       expect(coracao).not.toBeInTheDocument();
       userEvent.click(filterByDrink);
-
-    // userEvent.click(filterByAll);
     });
   });
   it('Se a receita esta favoritada ', async () => {
     jest.spyOn(global, 'fetch');
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
     const { history } = renderWithRouter(<App />);
-    history.push('/favorite-recipes');
+    history.push(FAVORITE_RECIPES_PATH);
     await waitFor(() => {
       const imagemHorizontal = screen.getByTestId('0-horizontal-image');
       expect(imagemHorizontal).toBeInTheDocument();
       expect(imagemHorizontal).toHaveAttribute('src');
-      // userEvent.click(imagemHorizontal);
 
       const nameHorizontal = screen.getByTestId('0-horizontal-name');
       expect(nameHorizontal).toHaveTextContent('GG');
-
-      // userEvent.click(nameHorizontal);  });
-      // });
 
       const favoriteHorizontal = screen.getByTestId('0-horizontal-favorite-btn');
       expect(favoriteHorizontal).toBeInTheDocument();
@@ -94,22 +89,15 @@ describe('Testa o FavoriteRecipes', () => {
       const shareHorizontal = screen.getByTestId('0-horizontal-share-btn');
       expect(shareHorizontal).toBeInTheDocument();
       expect(shareHorizontal).toHaveAttribute('src');
-      // // userEvent.click(shareHorizontal);
-
-      // const valueText = 'Ordinary Drink Optional alcohol';
-      // expect(nameHorizontal).toHaveTextContent(valueText);
-
       const textHorizontal = screen.getByTestId('0-horizontal-top-text');
       expect(textHorizontal).toBeInTheDocument();
-      // // const linkImage = 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg';
-      // userEvent.click(favoriteHorizontal);
     });
   });
   it('teste', async () => {
     jest.spyOn(global, 'fetch');
     localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
     const { history } = renderWithRouter(<App />);
-    history.push('/favorite-recipes');
+    history.push(FAVORITE_RECIPES_PATH);
     await waitFor(() => {
       const recoverege = JSON.parse(localStorage.getItem('favoriteRecipes'));
       console.log(recoverege);
@@ -123,8 +111,6 @@ describe('Testa o FavoriteRecipes', () => {
     jest.spyOn(global, 'fetch');
 
     const { history } = renderWithRouter(<App />);
-    history.push('/favorite-recipes');
-    // screen.debug();q
-    // expect().toBe('')
+    history.push(FAVORITE_RECIPES_PATH);
   });
 });

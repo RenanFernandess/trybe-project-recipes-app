@@ -1,9 +1,8 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
-import DoneRecipes from '../pages/DoneRecipes';
 
 const mockDrink = [{
   id: '15997',
@@ -58,12 +57,9 @@ describe('Testa o FavoriteRecipes', () => {
       const imagemHorizontal = screen.getByTestId('0-horizontal-image');
       expect(imagemHorizontal).toBeInTheDocument();
       expect(imagemHorizontal).toHaveAttribute('src');
-      // userEvent.click(imagemHorizontal);
 
       const nameHorizontal = screen.getByTestId('0-horizontal-name');
       expect(nameHorizontal).toHaveTextContent('GG');
-
-      // userEvent.click(nameHorizontal);
 
       const favoriteHorizontal = screen.getByTestId('0-horizontal-favorite-btn');
       expect(favoriteHorizontal).toBeInTheDocument();
@@ -73,15 +69,9 @@ describe('Testa o FavoriteRecipes', () => {
       const shareHorizontal = screen.getByTestId('0-horizontal-share-btn');
       expect(shareHorizontal).toBeInTheDocument();
       expect(shareHorizontal).toHaveAttribute('src');
-      // // userEvent.click(shareHorizontal);
-
-      // const valueText = 'Ordinary Drink Optional alcohol';
-      // expect(nameHorizontal).toHaveTextContent(valueText);
 
       const textHorizontal = screen.getByTestId('0-horizontal-top-text');
       expect(textHorizontal).toBeInTheDocument();
-      // // const linkImage = 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg';
-      // userEvent.click(favoriteHorizontal);
     });
   });
 });
