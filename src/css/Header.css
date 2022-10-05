@@ -1,3 +1,4 @@
+
 /* .radios-container {
   display: flex;
   flex-direction: column;
@@ -11,3 +12,91 @@
   bottom: 0;
   position: fixed;
 } */
+@media screen and ( max-width : 360px ) {
+
+  .container-header {
+    height: 147px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 360px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .recipes-app {
+    background: #fcdc36;
+    height: 52px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    width: 360px;
+  }
+
+  .profile-image {
+    bottom: 94.79%;
+    left: 86.11%;
+    position: absolute;
+    right: 5.91%;
+    top: .7rem;bottom: 94.79%;
+    left: 86.11%;
+    position: absolute;
+    right: 5.91%;
+    top: .7rem;
+  }
+
+  .btn-image {
+    background-color: #fcdc36;
+    border: #fcdc36;
+  }
+
+  .btn-search {
+    background-color: #fcdc36;
+    border: #fcdc36;
+  }
+
+  .profile-search {
+    height: 26.85px;
+    left: 267px;
+    position: absolute;
+    top: 14px;
+    width: 26.85px;
+  }
+
+  .header-image {
+    /* background-image: url('../images/bandeja.png');
+    height: 32px;
+    display: block;
+    z-index: 9;
+    border: 2px solid red; */
+
+    bottom: 94.79%;
+    left: 3%;
+    position: relative;
+    right: 5.91%;
+    top: 15px;
+    width: 60px;
+    height: 60px !important;
+    z-index: 9;
+  }
+
+  .title-recipes {
+    margin-top: 15px;
+    z-index: 9;
+    font-size: 1.5rem;
+    padding: 2px;
+    font-family: 'Epilogue';
+    color: #41197f;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+    margin-left: 1rem;
+  }
+
+  .title-recipes span {
+    font-weight: 800;
+    left: 2px;
+    letter-spacing: .5px;
+    font-style: normal;
+  }
+}

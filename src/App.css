@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 @media screen and ( max-width : 360px ) {
 
+  :root {
+    --font-amarela: #fcdc36;
+    --font-branca: white;
+    --font-escura: #1a1b1c;
+    --font-roxa: #41197f;
+    --font-verde-ju: #38831c;
+    --font-verde-trybe:  #1eb720;
+  }
+
+
   .login-container {
-    background: white;
+    background: var(--font-branca);
     display: flex;
     flex-direction: column;
     height: 800px;
@@ -10,7 +22,7 @@
   }
 
   .title {
-    color: #41197f;
+    color: var(--font-roxa);
     font-family: sans-serif;
     font-size: 20px;
     font-style: italic;
@@ -27,9 +39,9 @@
   }
 
   .email-input {
-    border: 0.5px solid #41197f;
+    border: 0.5px solid var(--font-roxa);
     border-radius: 5px;
-    color: #41197f;
+    color: var(--font-roxa);
     height: 40px;
     left: 42px;
     position: absolute;
@@ -38,10 +50,10 @@
   }
 
   .password-input {
-    border: 0.5px solid #41197f;
+    border: 0.5px solid var(--font-roxa);
     border-radius: 5px;
     box-sizing: border-box;
-    color: #41197f;
+    color: var(--font-roxa);
     font-family: sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -55,9 +67,9 @@
   }
 
   .login-btn {
-    background: #fcc436;
+    background: var(--font-amarela);
     border-radius: 5px;
-    color: white;
+    color: var(--font-branca);
     font-family: sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -74,11 +86,11 @@
   }
 
   .login-btn:hover {
-    background-color: #f8b714;
+    background-color: var(--font-amarela);
   }
 
   .header-background {
     background-image: url('./images/login-background.png');
-    height: 70vh;
+    height: 80vh;
   }
 }
