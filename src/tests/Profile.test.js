@@ -4,16 +4,12 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import fetchTotal from '../../cypress/mocks/fetch';
 import App from '../App';
-// import { saveItem, getItem } from '../helpers/storage';
 
 describe('Testa o Profile', () => {
   beforeEach(() => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(fetchTotal),
-      // .mockResolvedValueOnce(saveItem)
-      // .mockResolvedValueOnce(getItem),
-
     });
   });
   afterEach(() => { localStorage.clear(); });
@@ -32,7 +28,6 @@ describe('Testa o Profile', () => {
     userEvent.type('123456');
     expect(butonLogin).toBeInTheDocument();
     userEvent.click(butonLogin);
-    // await waitFor(() => {
     history.push('/meals');
     const profileImage = screen.getByTestId('profile-top-btn');
     expect(profileImage).toBeInTheDocument();
@@ -40,21 +35,6 @@ describe('Testa o Profile', () => {
     const profileBtn = screen.getByTestId('profile-top-btn');
     expect(profileBtn).toBeInTheDocument();
     userEvent.click(profileBtn);
-    // });
-    // const profileIngredientes = screen.getByText(/ingredientes/i);
-
-    // expect(profileIngredientes).toBeInTheDocument();
-
-    // const profileName = screen.getByText(/nome/i);
-    // expect(profileName).toBeInTheDocument();
-
-    // const profileFirst = screen.getByText(/primeira letra/i);
-    // expect(profileFirst).toBeInTheDocument();
-
-    // const profileBusca = screen.getByTestId('exec-search-btn');
-    // expect(profileBusca).toHaveTextContent('Busca');
-
-    // userEvent.click(profileBusca);
 
     history.push('/profile');
     const profileEmail = screen.getByTestId('profile-email');
@@ -66,9 +46,8 @@ describe('Testa o Profile', () => {
     expect(history.location.pathname).toBe('/done-recipes');
 
     history.push('/favorite-recipes');
-
-    // expect(profileFavorite).toBeInTheDocument();
   });
+
   it('Se é direcionado a pagina de favoritos ', async () => {
     const { history } = renderWithRouter(<App />);
     history.push('/profile');

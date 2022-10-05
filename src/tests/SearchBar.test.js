@@ -5,7 +5,6 @@ import renderWithRouter from './helpers/renderWithRouter';
 import fetchTotal from '../../cypress/mocks/fetch';
 import mealCategories from '../../cypress/mocks/mealCategories';
 import oneMeal from '../../cypress/mocks/oneMeal';
-// import Drinks from '../pages/Drinks';
 import App from '../App';
 
 describe('Testa o Reciper', () => {
@@ -15,7 +14,6 @@ describe('Testa o Reciper', () => {
       json: jest.fn().mockResolvedValue(fetchTotal)
         .mockResolvedValueOnce(mealCategories)
         .mockResolvedValueOnce(oneMeal),
-      // .mockResolvedValueOnce(chickenMeals),
     });
   });
 
@@ -47,7 +45,6 @@ describe('Testa o Reciper', () => {
     userEvent.click(nomeRadio);
     const btnBusca = screen.getByRole('button', { name: /busca/i });
     userEvent.click(btnBusca);
-    // const retorno = 'Spicy Arrabiata Penne';
     expect(inputSearch).toBeDefined();
   });
   it('Testa os retornos da mensagem ', async () => {
@@ -59,14 +56,12 @@ describe('Testa o Reciper', () => {
     userEvent.click(btnSearch);
     const inputSearch = screen.getByRole('textbox');
     userEvent.type(inputSearch, 'oo');
-    // expect(inputSearch).toBe('o');
     const nomeRadio = screen.getByText(/primeira letra/i);
     userEvent.click(nomeRadio);
     const btnBusca = screen.getByRole('button', { name: /busca/i });
     userEvent.click(btnBusca);
-    // const message = 'Sorry, we haven\'t found any recipes for these filters.';
     await waitFor(() => {
-      expect(global.alert).toHaveBeenCalled(); // https://stackoverflow.com/questions/53611098/how-can-i-mock-the-window-alert-method-in-jest
+      expect(global.alert).toHaveBeenCalled();
     });
   });
   it('Ultimo retorno do método', async () => {
@@ -82,7 +77,7 @@ describe('Testa o Reciper', () => {
     const exeSearch = screen.getByTestId('exec-search-btn');
     userEvent.click(exeSearch);
     await waitFor(() => {
-      expect(global.alert).not.toHaveBeenCalled(); // https://stackoverflow.com/questions/53611098/how-can-i-mock-the-window-alert-method-in-jest
+      expect(global.alert).not.toHaveBeenCalled();
     });
   });
 });

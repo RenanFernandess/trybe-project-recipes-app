@@ -30,14 +30,6 @@ describe('Testa o Reciper', () => {
       },
     });
     jest.spyOn(navigator.clipboard, 'writeText');
-
-    // const buttonShare = screen.getByRole('img', { name: /share/i });
-    // userEvent.click(buttonShare);
-    // expect(favoriteButton).toBeCalledWith('Link copied!');
-
-    // const favoriteButton = screen.getByRole('button', { name: /favorite/i });
-    // userEvent.click(favoriteButton);
-    // expect(favoriteButton).toBeInTheDocument();
   });
 
   it('test if the search by name works correctly', async () => {
@@ -93,18 +85,15 @@ describe('Testa o Reciper', () => {
     history.push('/meals');
 
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-    // quero clicar em chiken e alternar com o beef
-    // tenho que pega qual é o botão de clique
-    // clicar no botão e aparecerá a lista
     const chikenCategory = await screen.getByTestId('Chicken-category-filter');
     userEvent.click(chikenCategory, 'Chicken');
     expect(chikenCategory).toHaveValue('Chicken');
 
-    const beef = await screen.getByTestId('Beef-category-filter');
+    const beef = await screen.findByTestId('Beef-category-filter');
     userEvent.click(beef);
     expect(beef).toHaveValue('Beef');
 
-    const all = await screen.getByTestId('All-category-filter');
+    const all = await screen.findByTestId('All-category-filter');
     userEvent.click(beef);
     expect(all).toHaveValue('All');
   });
