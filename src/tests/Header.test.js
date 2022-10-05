@@ -28,14 +28,20 @@ describe('Testa o Header', () => {
     userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
   });
-  it('Testa se ao selecionar um input de categoria, é realizado um fetch com o endpoint correto', () => {
+  it('Testa se ao selecionar um input de categoria, é realizado um fetch com o endpoint correto', async () => {
     renderWithRouter(<Meals />);
-    expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
-    expect(screen.getByRole('radio', { name: /primeira letra/i })).toBeInTheDocument();
-    expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
-    userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    userEvent.type(screen.getByRole('textbox'));
+    const lupa = screen.getByTestId('search-top-btn');
+    userEvent.click(lupa);
+    await waitFor(() => {
+      expect(screen.getByRole('radio', {
+        name: /ingredientes/i })).toBeInTheDocument();
+      expect(screen.getByRole('radio', {
+        name: /primeira letra/i })).toBeInTheDocument();
+      expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
+      userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
+      expect(screen.getByRole('textbox')).toBeInTheDocument();
+      userEvent.type(screen.getByRole('textbox'));
+    });
   });
 
   it('Testa se ao clicar no botão de perfil, o usuário é redirecionado para a paǵina de perfil', () => {
@@ -68,17 +74,21 @@ describe('Testa o Header', () => {
       expect(history.location.pathname).toBe(path);
     });
   });
-  it('Para ver se aparece na página.', () => {
+  it('Para ver se aparece na página.', async () => {
     renderWithRouter(<Drinks />);
-    expect(screen.getByRole('heading', { name: /drinks/i })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /profile/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /imagessearch/i })).toBeInTheDocument();
-    expect(screen.getByText(/ingredientes/i)).toBeInTheDocument();
-    expect(screen.getByText(/nome/i)).toBeInTheDocument();
-    expect(screen.getByText(/primeira letra/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /busca/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /all/i })).toBeInTheDocument();
+    const lupa = screen.getByTestId('search-top-btn');
+    userEvent.click(lupa);
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: /drinks/i })).toBeInTheDocument();
+      expect(screen.getByRole('img', { name: /profile/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /imagessearch/i })).toBeInTheDocument();
+      expect(screen.getByText(/ingredientes/i)).toBeInTheDocument();
+      expect(screen.getByText(/nome/i)).toBeInTheDocument();
+      expect(screen.getByText(/primeira letra/i)).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /busca/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /all/i })).toBeInTheDocument();
     // expect(screen.getByText(/gg/i)).toBeInTheDocument();
+    });
   });
 
   it('teste de button icones', () => {
@@ -100,10 +110,10 @@ describe('Testa o Header', () => {
   });
 
   it('teste se é redirecionado', () => {
-    const userEmail = {
+    const UserEmail = {
       email: 'trybe@test.com',
     };
-    localStorage.setItem('user', JSON.stringify(userEmail));
+    localStorage.setItem('user', JSON.stringify(UserEmail));
     const { history } = renderWithRouter(<App />);
     history.push('/meals');
 
@@ -128,14 +138,12 @@ describe('Testa o Header', () => {
     const profileIcon = screen.getByRole('button', { name: /profile/i });
     expect(profileIcon).toBeInTheDocument();
 
-    history.push('/done-recipes');
-    const doneRecipesIcon = screen.getByTestId('profile-done-btn');
-    expect(doneRecipesIcon).toBeInTheDocument();
-    userEvent.click(doneRecipesIcon);
+    // history.push('/RecipesDetails');
+    // const doneRecipesIcon = screen.getByTestId('');
+    // expect(doneRecipesIcon).toBeInTheDocument();
 
-    history.push('/favorite-recipes  ');
-    const favoriteRecipesIcon = screen.getByTestId('profile-favorite-btn');
-    expect(favoriteRecipesIcon).toBeInTheDocument();
-    userEvent.click(favoriteRecipesIcon);
+    // history.push('/FavoriteRecipes  ');
+    // const favoriteRecipesIcon = screen.getByTestId('');
+    // expect(favoriteRecipesIcon).toBeInTheDocument();
   });
 });

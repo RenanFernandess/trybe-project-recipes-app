@@ -16,10 +16,8 @@ describe('Testa o Profile', () => {
 
     });
   });
-  // afterEach(() => { localStorage.clear(); });
-  afterEach(() => jest.clearAllMocks());
-
-  it('Testa se há  ', async () => {
+  afterEach(() => { localStorage.clear(); });
+  it('Testa se há  ', () => {
     renderWithRouter(<App />);
     const email = screen.getByTestId('email-input');
     const senha = screen.getByTestId('password-input');
@@ -34,7 +32,7 @@ describe('Testa o Profile', () => {
     userEvent.type('123456');
     expect(butonLogin).toBeInTheDocument();
     userEvent.click(butonLogin);
-
+    // await waitFor(() => {
     history.push('/meals');
     const profileImage = screen.getByTestId('profile-top-btn');
     expect(profileImage).toBeInTheDocument();
@@ -42,18 +40,20 @@ describe('Testa o Profile', () => {
     const profileBtn = screen.getByTestId('profile-top-btn');
     expect(profileBtn).toBeInTheDocument();
     userEvent.click(profileBtn);
+    // });
+    // const profileIngredientes = screen.getByText(/ingredientes/i);
 
-    const profileIngredientes = screen.getByText(/ingredientes/i);
-    expect(profileIngredientes).toBeInTheDocument();
+    // expect(profileIngredientes).toBeInTheDocument();
 
-    const profileName = screen.getByText(/nome/i);
-    expect(profileName).toBeInTheDocument();
+    // const profileName = screen.getByText(/nome/i);
+    // expect(profileName).toBeInTheDocument();
 
-    const profileFirst = screen.getByText(/primeira letra/i);
-    expect(profileFirst).toBeInTheDocument();
+    // const profileFirst = screen.getByText(/primeira letra/i);
+    // expect(profileFirst).toBeInTheDocument();
 
-    const profileBusca = screen.getByTestId('exec-search-btn');
-    expect(profileBusca).toHaveTextContent('Busca');
+    // const profileBusca = screen.getByTestId('exec-search-btn');
+    // expect(profileBusca).toHaveTextContent('Busca');
+
     // userEvent.click(profileBusca);
 
     history.push('/profile');
