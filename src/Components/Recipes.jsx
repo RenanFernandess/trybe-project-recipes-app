@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import RecipeCard from './RecipeCard';
+import '../css/Recipes.css';
 import appContext from '../context/appContext';
 
 const ALL = 'All';
@@ -19,9 +20,10 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
 
   return (
     <div>
-      <aside>
+      <aside className="group-btn">
         <button
           type="button"
+          className="btn"
           data-testid="All-category-filter"
           value="All"
           onClick={ toggleCategory }
@@ -32,6 +34,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
           categorys.map(({ strCategory }) => (
             <button
               type="button"
+              className="btn"
               key={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
               onClick={ toggleCategory }
@@ -42,7 +45,7 @@ export default function Recipes({ recipes, categorys, filterByCategory }) {
           ))
         }
       </aside>
-      <section>
+      <section className="card-container">
         {
           recipes.map(({
             strMealThumb,

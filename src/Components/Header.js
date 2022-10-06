@@ -3,8 +3,7 @@ import propTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
-import imageTray from "../images/bandeja.png";
-import "../css/Recipes.css";
+import imageTray from '../images/bandeja.png';
 import SearchBar from './SearchBar';
 import { PAGES_TITLE } from '../services/variables';
 
@@ -19,7 +18,7 @@ export default function Header({ title }) {
 
   return (
     <section className="container-header">
-      <img src={imageTray} alt="bandeja" className="header-image" />
+      <img src={ imageTray } alt="bandeja" className="header-image" />
       <h2 className="title-recipes">
         RECIPES
         <span> app</span>
@@ -32,14 +31,14 @@ export default function Header({ title }) {
           <button
             type="button"
             className="btn-image"
-            onClick={() => {
-              history.push("/profile");
-            }}
+            onClick={ () => {
+              history.push('profile');
+            } }
           >
             <img
               className="profile-image"
               data-testid="profile-top-btn"
-              src={imageProfile}
+              src={ imageProfile }
               alt="profile"
             />
           </button>
@@ -49,18 +48,18 @@ export default function Header({ title }) {
             <button
               type="button"
               className="btn-search"
-              onClick={handleSearchBoolean}
+              onClick={ handleSearchBoolean }
             >
               <img
                 className="profile-search"
                 data-testid="search-top-btn"
-                src={imageSearch}
+                src={ imageSearch }
                 alt="imagesSearch"
               />
             </button>
           )}
         </section>
-        {searchBarBoolean && <SearchBar title={title} />}
+        {searchBarBoolean && <SearchBar title={ title } />}
       </div>
     </section>
   );

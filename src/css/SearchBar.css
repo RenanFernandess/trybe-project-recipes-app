@@ -6,6 +6,7 @@
     position: absolute;
     top: 108px;
     width: 338px;
+    border: 2px solid red;
   }
 
   .search-input {
@@ -16,7 +17,7 @@
     height: 40px;
     left: 10px;
     position: absolute;
-    top: 0;
+    top: -2.2rem;
     width: 338px;
     z-index: 1;
   }
