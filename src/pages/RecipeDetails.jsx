@@ -4,7 +4,7 @@ import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
 import YouTubeEmbed from '../Components/YouTubeEmbed';
 import {
   DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
-  FIRST_SIX, INGREDIENTS_NUMBER, DONE_RECIPES, IN_PROGRESS_RECIPES,
+  FIRST_SIX, DONE_RECIPES, IN_PROGRESS_RECIPES,
 } from '../services/variables';
 import RecommendationCard from '../Components/RecommendationCard';
 import { getItem } from '../helpers/storage';
@@ -12,6 +12,7 @@ import FavoriteButton from '../Components/FavoriteButton';
 import ShareButton from '../Components/ShareButton';
 import appContext from '../context/appContext';
 import '../css/Recipes.css';
+import getIngredients from '../helpers/getIngredients';
 
 export default function RecipeDetails({
   match: { params: { id }, url }, history: { location: { pathname }, push },
@@ -32,28 +33,17 @@ export default function RecipeDetails({
     strDrink, strDrinkThumb, strMealThumb,
     strYoutube, strInstructions,
   } = recipe;
-  console.log('strYoutube: ', strYoutube);
   const URL_CODE = strYoutube && strYoutube.split('=')[1];
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
-      console.log(result);
-      const ingredientsArray = Array(INGREDIENTS_NUMBER).fill(undefined)
-        .reduce((Acc, _, ind) => {
-          const number = ind + 1;
-          const ingredient = result[`strIngredient${number}`];
-          const measure = result[`strMeasure${number}`];
-          if (ingredient) return [...Acc, `${ingredient}: ${measure}`];
-          return Acc;
-        }, []);
-      console.log('test: ', ingredientsArray);
       setRecipe({
         recipe: result,
-        ingredients: ingredientsArray,
+        ingredients: getIngredients(result),
       });
     });
     fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
-  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT]);
+  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT, setRecipe]);
 
   const isRecipeDone = (recipeId) => {
     const doneRecipes = getItem(DONE_RECIPES) || [];
@@ -110,12 +100,12 @@ export default function RecipeDetails({
         </article>
         <section>
           <h3>Ingredientes</h3>
-          { ingredients.map((ingredient, index) => (
+          { ingredients.map(({ ingredient, measure }, index) => (
             <p
-              key={ index }
+              key={ ingredient }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
-              { ingredient }
+              { `${ingredient}: ${measure}` }
             </p>
           ))}
         </section>
