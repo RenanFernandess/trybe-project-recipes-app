@@ -11,6 +11,7 @@ import { getItem } from '../helpers/storage';
 import FavoriteButton from '../Components/FavoriteButton';
 import ShareButton from '../Components/ShareButton';
 import appContext from '../context/appContext';
+import '../css/Recipes.css';
 
 export default function RecipeDetails({
   match: { params: { id }, url }, history: { location: { pathname }, push },
