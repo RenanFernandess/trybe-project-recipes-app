@@ -5,9 +5,10 @@ import FavoriteButton from '../Components/FavoriteButton';
 import appContext from '../context/appContext';
 import fetchAPI from '../helpers/fetchAPI';
 import { DRINK_DETAILS, MEALS_DETAILS,
-  INGREDIENTS_NUMBER,
   IN_PROGRESS_RECIPES } from '../services/variables';
 import saveItem, { getItem } from '../helpers/storage';
+import getIngredients from '../helpers/getIngredients';
+import lengthIsTheSame from '../helpers/lengthIsTheSame';
 
 export default function RecipeInProgress() {
   const {
@@ -23,44 +24,37 @@ export default function RecipeInProgress() {
   } = recipe;
 
   const { id } = useParams();
-  const history = useHistory();
-  const { location: { pathname } } = history;
-  const [isChecked, setIsChecked] = useState({});
+  const { location: { pathname } } = useHistory();
+  const [recipeProgress, setRecipeProgress] = useState(
+    getItem(IN_PROGRESS_RECIPES) || {},
+  );
   const checkPath = pathname.includes('meals');
   const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
   const NUMBER_OF_SPLITS = 3;
   const splitedPathname = pathname.split('/', NUMBER_OF_SPLITS);
   const newPath = `/${splitedPathname[1]}/${splitedPathname[2]}`;
-  const getRecipesProgress = getItem(IN_PROGRESS_RECIPES) || [];
-  const arrayCheck = getRecipesProgress.every((recipeInProg) => recipeInProg);
+  const buttonIsDisable = !lengthIsTheSame(recipeProgress, ingredients.length)
+    || !Object.values(recipeProgress).every((recipeInProg) => recipeInProg);
 
   useEffect(() => {
     fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
-      const ingredientsArray = Array(INGREDIENTS_NUMBER).fill(undefined)
-        .reduce((Acc, _, ind) => {
-          const number = ind + 1;
-          const ingredient = result[`strIngredient${number}`];
-          const measure = result[`strMeasure${number}`];
-          if (ingredient) return [...Acc, `${ingredient}: ${measure}`];
-          return Acc;
-        }, []);
-      console.log('test: ', ingredientsArray);
       setRecipe({
         recipe: result,
-        ingredients: ingredientsArray,
+        ingredients: getIngredients(result),
       });
     });
-  }, [RECIPE_ENDPOINT, id]);
+  }, [RECIPE_ENDPOINT, id, setRecipe]);
 
-  const handleChange = ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const checkList = {
-      ...isChecked,
-      [target.name]: value,
-    };
-    target.parentNode.classList.toggle('lined');
-    setIsChecked(checkList);
-    saveItem(IN_PROGRESS_RECIPES, Object.values(checkList));
+  const checkIngredient = ({ target: { name, checked } }) => {
+    console.log(checked);
+    setRecipeProgress((prevState) => {
+      const progress = {
+        ...prevState,
+        [name]: checked,
+      };
+      saveItem(IN_PROGRESS_RECIPES, progress);
+      return progress;
+    });
   };
 
   return (
@@ -97,22 +91,21 @@ export default function RecipeInProgress() {
         </div>
       </section>
       <section>
-        { ingredients.map((ingredient, index) => (
-          <section key={ index }>
+        { ingredients.map(({ ingredient, measure }, index) => (
+          <section key={ ingredient }>
             <label
-              htmlFor={ index }
+              htmlFor={ ingredient }
               name={ ingredient }
               data-testid={ `${index}-ingredient-step` }
             >
               <input
                 type="checkbox"
-                value={ ingredient }
-                id={ index }
+                id={ ingredient }
                 name={ ingredient }
-                onChange={ handleChange }
-                checked={ getRecipesProgress[index] }
+                onChange={ checkIngredient }
+                checked={ recipeProgress[ingredient] || false }
               />
-              { ingredient }
+              { `${ingredient}: ${measure}` }
             </label>
           </section>
         ))}
@@ -122,7 +115,7 @@ export default function RecipeInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
-          disabled={ arrayCheck }
+          disabled={ buttonIsDisable }
         >
           Finish recipe
         </button>
