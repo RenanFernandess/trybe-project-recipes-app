@@ -12,9 +12,9 @@
   bottom: 0;
   position: fixed;
 } */
-@media screen and ( max-width : 360px ) {
+/* @media screen and ( max-width : 360px ) { */
 
-  .container-header {
+  /* .container-header {
     height: 147px;
     left: 0px;
     position: absolute;
@@ -61,16 +61,16 @@
     position: absolute;
     top: 14px;
     width: 26.85px;
-  }
+  } */
 
-  .header-image {
+  /* .header-image { */
     /* background-image: url('../images/bandeja.png');
     height: 32px;
     display: block;
     z-index: 9;
     border: 2px solid red; */
 
-    bottom: 94.79%;
+    /* bottom: 94.79%;
     left: 3%;
     position: relative;
     right: 5.91%;
@@ -78,8 +78,8 @@
     width: 60px;
     height: 60px !important;
     z-index: 9;
-  }
-
+  } */
+/*
   .title-recipes {
     margin-top: 15px;
     z-index: 9;
@@ -99,4 +99,4 @@
     letter-spacing: .5px;
     font-style: normal;
   }
-}
+} */
