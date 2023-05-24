@@ -5,7 +5,8 @@ import FavoriteButton from '../Components/FavoriteButton';
 import appContext from '../context/appContext';
 import fetchAPI from '../helpers/fetchAPI';
 import { DRINK_DETAILS, MEALS_DETAILS,
-  IN_PROGRESS_RECIPES } from '../services/variables';
+  IN_PROGRESS_RECIPES,
+  DONE_RECIPES } from '../services/variables';
 import saveItem, { getItem } from '../helpers/storage';
 import getIngredients from '../helpers/getIngredients';
 import lengthIsTheSame from '../helpers/lengthIsTheSame';
@@ -20,11 +21,12 @@ export default function RecipeInProgress() {
   const {
     strCategory, strAlcoholic, strMeal,
     strDrink, strDrinkThumb, strMealThumb,
-    strInstructions,
+    strInstructions, strArea, strTags,
   } = recipe;
 
   const { id } = useParams();
-  const { location: { pathname } } = useHistory();
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const [recipeProgress, setRecipeProgress] = useState(
     getItem(IN_PROGRESS_RECIPES) || {},
   );
@@ -46,7 +48,6 @@ export default function RecipeInProgress() {
   }, [RECIPE_ENDPOINT, id, setRecipe]);
 
   const checkIngredient = ({ target: { name, checked } }) => {
-    console.log(checked);
     setRecipeProgress((prevState) => {
       const progress = {
         ...prevState,
@@ -55,6 +56,24 @@ export default function RecipeInProgress() {
       saveItem(IN_PROGRESS_RECIPES, progress);
       return progress;
     });
+  };
+
+  const finishRecipe = () => {
+    const doneRecipes = getItem(DONE_RECIPES) || [];
+    const finishedRecipe = {
+      alcoholicOrNot: strAlcoholic,
+      category: strCategory,
+      doneDate: new Date(),
+      id,
+      image: strDrinkThumb || strMealThumb,
+      name: strDrink || strMeal,
+      nationality: strArea,
+      tags: [strTags],
+      type: strMeal ? 'meal' : 'drink',
+    };
+    saveItem(DONE_RECIPES, [...doneRecipes, finishedRecipe]);
+    saveItem(IN_PROGRESS_RECIPES, {});
+    history.push('/done-recipes');
   };
 
   return (
@@ -115,6 +134,7 @@ export default function RecipeInProgress() {
         <button
           type="button"
           data-testid="finish-recipe-btn"
+          onClick={ finishRecipe }
           disabled={ buttonIsDisable }
         >
           Finish recipe
