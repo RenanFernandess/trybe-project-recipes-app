@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import fetchTotal from '../../cypress/mocks/fetch';
@@ -7,7 +7,7 @@ import drinkCategories from '../../cypress/mocks/drinkCategories';
 import oneDrink from '../../cypress/mocks/oneDrink';
 import drinks from '../../cypress/mocks/drinks';
 import App from '../App';
-import drinkIngredients from '../../cypress/mocks/drinkIngredients';
+// import drinkIngredients from '../../cypress/mocks/drinkIngredients';
 
 describe('Testa o Drinks', () => {
   beforeEach(() => {
