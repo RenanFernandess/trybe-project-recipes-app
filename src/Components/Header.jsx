@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import imageProfile from '../images/profileIcon.svg';
 import imageSearch from '../images/searchIcon.svg';
 import imageTray from '../images/bandeja.png';
 import SearchBar from './SearchBar';
-import { PAGES_TITLE } from '../services/variables';
 
-export default function Header({ title }) {
+export default function Header({ title, enableSearchButton }) {
   const history = useHistory();
-  const [searchBarBoolean, setSearchBarBoolean] = useState(false);
-
-  const handleSearchBoolean = () => {
-    if (searchBarBoolean === false) setSearchBarBoolean(true);
-    else setSearchBarBoolean(false);
-  };
+  const [searchBarIsActive, setSearchBarIsActive] = useState(false);
 
   return (
     <section className="container-header">
@@ -44,11 +38,11 @@ export default function Header({ title }) {
           </button>
         </section>
         <section className="btn-profile-search">
-          {PAGES_TITLE.some((item) => item === title) && (
+          {enableSearchButton && (
             <button
               type="button"
               className="btn-search"
-              onClick={ handleSearchBoolean }
+              onClick={ () => { setSearchBarIsActive((prevState) => !prevState); } }
             >
               <img
                 className="profile-search"
@@ -59,12 +53,17 @@ export default function Header({ title }) {
             </button>
           )}
         </section>
-        {searchBarBoolean && <SearchBar title={ title } />}
+        {searchBarIsActive && <SearchBar title={ title } />}
       </div>
     </section>
   );
 }
-// ou node
+
+Header.defaultProps = {
+  enableSearchButton: false,
+};
+
 Header.propTypes = {
-  title: propTypes.string,
-}.isRequired;
+  title: PropTypes.string.isRequired,
+  enableSearchButton: PropTypes.bool,
+};
