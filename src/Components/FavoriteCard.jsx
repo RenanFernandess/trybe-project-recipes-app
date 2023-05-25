@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareButton from './ShareButton';
 
 export default function FavoriteCard({
   image,
@@ -17,13 +17,6 @@ export default function FavoriteCard({
   isFavorite,
   removeFavorite,
 }) {
-  const [linkCopied, setLinkCopied] = useState(false);
-
-  const copyBoard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
-    setLinkCopied(true);
-  };
-
   return (
     <div>
       <Link to={ `/${type}s/${id}` }>
@@ -58,18 +51,10 @@ export default function FavoriteCard({
                 src={ whiteHeartIcon }
               />)}
           </button>
-          <button
-            type="button"
-            onClick={ copyBoard }
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-          >
-            <img
-              alt="share"
-              src={ shareIcon }
-            />
-          </button>
-          {linkCopied && <p>Link copied!</p> }
+          <ShareButton
+            testId={ `${index}-horizontal-share-btn` }
+            url={ `/${type}s/${id}` }
+          />
         </div>
         <p
           data-testid={ `${index}-horizontal-top-text` }

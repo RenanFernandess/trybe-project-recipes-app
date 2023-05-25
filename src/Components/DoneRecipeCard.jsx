@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import ShareButton from './ShareButton';
 
 export default function RecommendationCard({
   image, name, index, category, date, tags, nationality, alcoholicOrNot, id, type,
 }) {
-  const [linkCopied, setLinkCopied] = useState(false);
-
-  const copyBoard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000/${type}s/${id}`);
-    setLinkCopied(true);
-  };
-
   return (
     <div>
       <Link to={ `/${type}s/${id}` }>
@@ -29,18 +22,10 @@ export default function RecommendationCard({
         </p>
       </Link>
       <section>
-        <button
-          type="button"
-          onClick={ copyBoard }
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-        >
-          <img
-            alt="share"
-            src={ shareIcon }
-          />
-        </button>
-        {linkCopied && <p>Link copied!</p> }
+        <ShareButton
+          testId={ `${index}-horizontal-share-btn` }
+          url={ `/${type}s/${id}` }
+        />
         <p
           data-testid={ `${index}-horizontal-top-text` }
         >
