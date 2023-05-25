@@ -16,6 +16,7 @@ export default function ShareButton({ testId, url }) {
         type="button"
         data-testid={ testId }
         onClick={ copyBoard }
+        src={ shareIcon }
       >
         <img
           alt="share"
