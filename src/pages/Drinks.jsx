@@ -36,7 +36,7 @@ export default function Drinks({ history }) {
 
   return (
     <div>
-      <Header title="Drinks" />
+      <Header title="Drinks" enableSearchButton />
       <Recipes
         recipes={ drinks }
         categorys={ categorys }
