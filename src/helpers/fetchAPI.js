@@ -1,24 +1,23 @@
 import { FIRST_FIVE, FIRST_TWELVE, NO_RECIPES_ERROR } from '../services/variables';
 
 export default function fetchAPI(URL, callback) {
-  fetch(URL).then((respose) => respose.json())
+  console.log(URL);
+  fetch(URL).then((response) => response.json())
     .then(({ meals, drinks }) => {
-      const result = meals || drinks || [];
-      callback(result);
+      const data = meals || drinks || [];
+      callback(data);
     });
 }
 
-export function fetchRecipes(endPoint, callback, numberOfElements = FIRST_TWELVE) {
-  fetchAPI(endPoint, (result) => {
-    const resultLength = result.length;
-    if (!resultLength) return global.alert(NO_RECIPES_ERROR);
-    const LAST_INDEX = resultLength < numberOfElements ? resultLength : numberOfElements;
-    callback(result.slice(0, LAST_INDEX));
+export function fetchRecipes(endPoint, callback) {
+  fetchAPI(endPoint, (data) => {
+    if (!data.length) return global.alert(NO_RECIPES_ERROR);
+    callback(data.slice(0, FIRST_TWELVE));
   });
 }
 
 export function fetchCategory(endPoint, callback) {
-  fetchAPI(endPoint, (result) => {
-    callback(result.slice(0, FIRST_FIVE));
+  fetchAPI(endPoint, (data) => {
+    callback(data.slice(0, FIRST_FIVE));
   });
 }
