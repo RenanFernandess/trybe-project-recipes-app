@@ -1,24 +1,30 @@
-// import React from 'react';
-// import renderWithRouter from './helpers/renderWithRouter';
-// import App from '../App';
-// import fetchTotal from '../../cypress/mocks/fetch';
-// import meals from '../../cypress/mocks/meals';
-// import drinks from '../../cypress/mocks/drinks';
-// import oneDrink from '../../cypress/mocks/oneDrink';
+import React from 'react';
+import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
+import renderWithRouter from './helpers/renderWithRouter';
+import App from '../App';
+import fetchMock from './mocks/fetchMock';
 
-// describe('Testa o FavoriteRecipes', () => {
-//   beforeEach(() => {
-//     jest.spyOn(global, 'fetch');
-//     global.fetch.mockResolvedValue({
-//       json: jest.fn().mockResolvedValue(fetchTotal)
-//         .mockResolvedValueOnce(meals)
-//         .mockResolvedValueOnce(drinks)
-//         .mockResolvedValueOnce(oneDrink),
-//     });
-//   });
-//   it('Testa se os botões estão funcionais  ', async () => {
-//     localStorage.setItem('doneRecipes', JSON.stringify(mockDrink));
-//     const { history } = renderWithRouter(<App />);
-//     history.push('/done-recipes');
-//   });
-// });
+describe('Testa a page Drinks', () => {
+  beforeEach(() => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = fetchMock;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('Testa se é possível buscar por categoria', async () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/drinks');
+
+    const categoryButton = await screen.findByRole('button', { name: /shake/i });
+
+    expect(screen.queryByText(/banana strawberry shake/i)).toBe(null);
+
+    userEvent.click(categoryButton);
+
+    expect(await screen.findByText(/banana strawberry shake/i)).toBeInTheDocument();
+  });
+});
