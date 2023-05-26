@@ -20,19 +20,19 @@ export default function fetchAPI(URL, callback) {
     });
 }
 
-export function fetchRecipes(endPoint, callback) {
+export function fetchRecipes(endPoint, callback, limit = FIRST_TWELVE) {
   fetchAPI(endPoint, (data) => {
     if (!data.length) return global.alert(NO_RECIPES_ERROR);
-    callback(limitData(data, FIRST_TWELVE));
+    callback(limitData(data, limit));
   });
 }
 
-export function fetchMeals(callback) {
-  fetchRecipes(MEALS_ENDPOINT, callback);
+export function fetchMeals(callback, limit) {
+  fetchRecipes(MEALS_ENDPOINT, callback, limit);
 }
 
-export function fetchDrinks(callback) {
-  fetchRecipes(DRINKS_ENDPOINT, callback);
+export function fetchDrinks(callback, limit) {
+  fetchRecipes(DRINKS_ENDPOINT, callback, limit);
 }
 
 function fetchCategory(endPoint, callback) {
