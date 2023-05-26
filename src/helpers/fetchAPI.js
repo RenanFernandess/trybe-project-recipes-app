@@ -1,4 +1,11 @@
-import { FIRST_FIVE, FIRST_TWELVE, NO_RECIPES_ERROR } from '../services/variables';
+import {
+  DRINKS_CATEGORY_ENDPOINT,
+  MEALS_CATEGORY_ENDPOINT,
+  NO_RECIPES_ERROR,
+} from '../services/variables';
+
+const FIRST_TWELVE = 12;
+const FIRST_FIVE = 5;
 
 export default function fetchAPI(URL, callback) {
   console.log(URL);
@@ -16,8 +23,16 @@ export function fetchRecipes(endPoint, callback) {
   });
 }
 
-export function fetchCategory(endPoint, callback) {
+function fetchCategory(endPoint, callback) {
   fetchAPI(endPoint, (data) => {
     callback(data.slice(0, FIRST_FIVE));
   });
+}
+
+export function fetchMealsCategory(callback) {
+  fetchCategory(MEALS_CATEGORY_ENDPOINT, callback);
+}
+
+export function fetchDrinksCategory(callback) {
+  fetchCategory(DRINKS_CATEGORY_ENDPOINT, callback);
 }
