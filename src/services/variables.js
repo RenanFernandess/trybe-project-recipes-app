@@ -19,7 +19,7 @@ export const DRINK_INGREDIENT_EDNPOINT = 'https://www.thecocktaildb.com/api/json
 export const MEALS_FIRST_LETTER_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 export const DRINK_FIRST_LETTER_ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
-export const URLS_BY_PAGE = {
+export const RECIPES_ENDPOINT = {
   Meals: {
     nome: MEALS_ENDPOINT,
     ingredient: MEALS_INGREDIENT_EDNPOINT,
