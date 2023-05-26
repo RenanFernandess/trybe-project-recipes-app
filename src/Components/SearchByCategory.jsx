@@ -38,7 +38,7 @@ export default function SearchByCategory() {
 
   const setAllCategory = () => {
     setCategory(ALL);
-    if (pathname === '/meals') fetchMeals(setRecipes);
+    if (pathname === '/meals') return fetchMeals(setRecipes);
     fetchDrinks(setRecipes);
   };
 
