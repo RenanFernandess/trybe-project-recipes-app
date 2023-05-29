@@ -8,7 +8,7 @@ import fetchAPI from '../helpers/fetchAPI';
 
 export default function SearchBar({ title }) {
   const history = useHistory();
-  const { setRecipe } = useContext(RecipeContext);
+  const { setRecipes } = useContext(RecipeContext);
   const [{ category, searchTerm }, setState] = useState({
     category: 'name',
     searchTerm: '',
@@ -30,7 +30,7 @@ export default function SearchBar({ title }) {
           : `/drinks/${data[0].idDrink}`;
         return history.push(page);
       }
-      setRecipe(data);
+      setRecipes(data);
     });
   };
 
