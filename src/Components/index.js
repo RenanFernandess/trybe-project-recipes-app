@@ -5,6 +5,7 @@ import Footer from './Footer';
 import Recipes from './Recipes';
 import YouTubeEmbed from './YouTubeEmbed';
 import Recommendations from './Recommendations';
+import ListIngredientes from './ListIngredientes';
 
 export default Header;
 export {
@@ -14,4 +15,5 @@ export {
   ShareButton,
   YouTubeEmbed,
   Recommendations,
+  ListIngredientes,
 };
