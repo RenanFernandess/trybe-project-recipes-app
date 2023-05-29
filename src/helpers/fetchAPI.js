@@ -1,7 +1,9 @@
 import {
   DRINKS_CATEGORY_ENDPOINT,
   DRINKS_ENDPOINT,
+  DRINK_DETAILS,
   MEALS_CATEGORY_ENDPOINT,
+  MEALS_DETAILS,
   MEALS_ENDPOINT,
   NO_RECIPES_ERROR,
 } from '../services/variables';
@@ -33,6 +35,14 @@ export function fetchMeals(callback, limit) {
 
 export function fetchDrinks(callback, limit) {
   fetchRecipes(DRINKS_ENDPOINT, callback, limit);
+}
+
+export function fetchMealById(id, callback) {
+  fetchRecipes(`${MEALS_DETAILS}${id}`, callback);
+}
+
+export function fetchDrinkById(id, callback) {
+  fetchRecipes(`${DRINK_DETAILS}${id}`, callback);
 }
 
 function fetchCategory(endPoint, callback) {
