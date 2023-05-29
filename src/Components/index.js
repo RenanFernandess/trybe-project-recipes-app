@@ -4,6 +4,7 @@ import FavoriteButton from './FavoriteButton';
 import Footer from './Footer';
 import Recipes from './Recipes';
 import YouTubeEmbed from './YouTubeEmbed';
+import Recommendations from './Recommendations';
 
 export default Header;
 export {
@@ -12,4 +13,5 @@ export {
   Recipes,
   ShareButton,
   YouTubeEmbed,
+  Recommendations,
 };
