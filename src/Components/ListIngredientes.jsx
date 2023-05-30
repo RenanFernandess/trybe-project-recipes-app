@@ -11,24 +11,25 @@ export default function ListIngredientes() {
   }, [progress, setProgress]);
 
   return (
-    <section>
+    <ul>
       { ingredients.map(({ ingredient, measure }, index) => (
-        <label
-          key={ ingredient }
-          htmlFor={ ingredient }
-          name={ ingredient }
-          data-testid={ `${index}-ingredient-step` }
-        >
-          <input
-            type="checkbox"
-            id={ ingredient }
-            name={ index }
-            onChange={ checkIngredient }
-            checked={ progress[index] }
-          />
-          { `${ingredient}: ${measure}` }
-        </label>
+        <li key={ ingredient }>
+          <label
+            htmlFor={ ingredient }
+            name={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              type="checkbox"
+              id={ ingredient }
+              name={ index }
+              onChange={ checkIngredient }
+              checked={ progress[index] }
+            />
+            { `${ingredient}: ${measure}` }
+          </label>
+        </li>
       ))}
-    </section>
+    </ul>
   );
 }
