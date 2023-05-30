@@ -13,8 +13,7 @@ const FIRST_FIVE = 5;
 
 const limitData = (data, limit) => data.slice(0, limit);
 
-export default function fetchAPI(URL, callback) {
-  console.log(URL);
+function fetchAPI(URL, callback) {
   fetch(URL).then((response) => response.json())
     .then(({ meals, drinks }) => {
       const data = meals || drinks || [];
@@ -22,7 +21,7 @@ export default function fetchAPI(URL, callback) {
     });
 }
 
-export function fetchRecipes(endPoint, callback, limit = FIRST_TWELVE) {
+export default function fetchRecipes(endPoint, callback, limit = FIRST_TWELVE) {
   fetchAPI(endPoint, (data) => {
     if (!data.length) return global.alert(NO_RECIPES_ERROR);
     callback(limitData(data, limit));
