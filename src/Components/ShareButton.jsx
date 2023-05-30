@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function ShareButton({ testId, url }) {
+  const { url: defaultUrl } = useRouteMatch();
   const [linkCopied, setLinkCopied] = useState(false);
 
   const copyBoard = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${url}`);
+    navigator.clipboard.writeText(`http://localhost:3000${url || defaultUrl}`);
     setLinkCopied(true);
   };
 
@@ -28,7 +30,11 @@ export default function ShareButton({ testId, url }) {
   );
 }
 
+ShareButton.defaultProps = {
+  url: null,
+};
+
 ShareButton.propTypes = {
-  testId: propTypes.string.isRequired,
-  url: propTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
