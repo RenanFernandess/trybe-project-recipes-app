@@ -19,19 +19,20 @@ const FETCH = {
 export default function RecipeDetails() {
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
-  const { recipe, ingredients, setRecipe } = useContext(RecipeInProgressContext);
+  const { recipe, ingredients, setRecipe, progress } = useContext(RecipeInProgressContext);
 
   const {
     strCategory,
     strAlcoholic, strMeal,
     strDrink, strDrinkThumb, strMealThumb,
-    strYoutube, strInstructions,
+    strYoutube, strInstructions, idMeal, idDrink,
   } = recipe;
   const URL_CODE = strYoutube && strYoutube.split('=')[1];
   const page = pathname.includes('meals') ? 'meals' : 'drinks';
 
   useEffect(() => {
-    FETCH[page](id, setRecipe);
+    const recipeId = idMeal || idDrink;
+    if (id !== recipeId) FETCH[page](id, setRecipe);
   }, [id, setRecipe, page]);
 
   const recipeIsDone = (recipeId) => {
@@ -40,12 +41,7 @@ export default function RecipeDetails() {
     return checkTrue;
   };
 
-  const isRecipeInProgress = (recId) => {
-    const recipes = getItem(IN_PROGRESS_RECIPES) || {};
-    const inProgressRecipesArray = Object.values(recipes);
-    return inProgressRecipesArray
-      .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
-  };
+  const recipeIsInProgress = () => progress.some((bool) => bool);
 
   return (
     <div>
@@ -111,7 +107,7 @@ export default function RecipeDetails() {
                 className="start-recipe-btn"
                 onClick={ () => push(`${pathname}/in-progress`) }
               >
-                {(isRecipeInProgress(id)
+                {(recipeIsInProgress()
                   ? 'Continue Recipe' : 'Start Recipe'
                 )}
               </button>
