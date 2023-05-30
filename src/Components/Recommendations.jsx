@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import RecommendationCard from './RecommendationCard';
 import { fetchDrinks, fetchMeals } from '../helpers/fetchAPI';
 
-export const FIRST_SIX = 6;
+const FIRST_SIX = 6;
 const FETCH = {
-  meals: fetchMeals,
-  drinks: fetchDrinks,
+  meals: fetchDrinks,
+  drinks: fetchMeals,
 };
 
-export default function Recommendations({ page }) {
+function Recommendations({ page }) {
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
@@ -52,3 +52,5 @@ export default function Recommendations({ page }) {
 Recommendations.propTypes = {
   page: PropTypes.string.isRequired,
 };
+
+export default memo(Recommendations);
