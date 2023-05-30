@@ -4,7 +4,7 @@ import '../css/SearchBar.css';
 import { useHistory } from 'react-router-dom';
 import { NAME_LENGTH_ERROR, RECIPES_ENDPOINT } from '../services/variables';
 import RecipeContext from '../context';
-import fetchAPI from '../helpers/fetchAPI';
+import fetchRecipes from '../helpers/fetchAPI';
 
 export default function SearchBar({ title }) {
   const history = useHistory();
@@ -23,7 +23,7 @@ export default function SearchBar({ title }) {
       return global.alert(NAME_LENGTH_ERROR);
     }
     const endpoint = `${RECIPES_ENDPOINT[title][category]}${searchTerm}`;
-    fetchAPI(endpoint, (data) => {
+    fetchRecipes(endpoint, (data) => {
       if (data.length === 1) {
         const page = title === 'Meals'
           ? `/meals/${data[0].idMeal}`
