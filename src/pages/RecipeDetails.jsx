@@ -1,32 +1,26 @@
-import React, { useEffect, useState, useContext } from 'react';
-import propTypes from 'prop-types';
-import fetchAPI, { fetchRecipes } from '../helpers/fetchAPI';
-import YouTubeEmbed from '../Components/YouTubeEmbed';
+import React, { useEffect, useContext, useMemo } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
 import {
-  DRINK_DETAILS, MEALS_DETAILS, DRINKS_ENDPOINT, MEALS_ENDPOINT,
-  FIRST_SIX, DONE_RECIPES, IN_PROGRESS_RECIPES,
+  DONE_RECIPES, IN_PROGRESS_RECIPES,
 } from '../services/variables';
-import RecommendationCard from '../Components/RecommendationCard';
 import { getItem } from '../helpers/storage';
-import FavoriteButton from '../Components/FavoriteButton';
-import ShareButton from '../Components/ShareButton';
-import appContext from '../context/appContext';
 import '../css/Recipes.css';
-import getIngredients from '../helpers/getIngredients';
+import {
+  Recommendations, YouTubeEmbed, FavoriteButton, ShareButton,
+} from '../Components';
+import { RecipeInProgressContext } from '../context';
 
-export default function RecipeDetails({
-  match: { params: { id }, url }, history: { location: { pathname }, push },
-}) {
-  const {
-    recipe,
-    ingredients,
-    setRecipe,
-  } = useContext(appContext);
+const FETCH = {
+  meals: fetchMealById,
+  drinks: fetchDrinkById,
+};
 
-  const [recommendations, setRecommendations] = useState([]);
-  const checkPath = pathname.includes('meals');
-  const RECIPE_ENDPOINT = checkPath ? MEALS_DETAILS : DRINK_DETAILS;
-  const RECOMMENDATION_ENDPOINT = checkPath ? DRINKS_ENDPOINT : MEALS_ENDPOINT;
+export default function RecipeDetails() {
+  const { location: { pathname }, push } = useHistory();
+  const { id } = useParams();
+  const { recipe, ingredients, setRecipe } = useContext(RecipeInProgressContext);
+
   const {
     strCategory,
     strAlcoholic, strMeal,
@@ -34,18 +28,16 @@ export default function RecipeDetails({
     strYoutube, strInstructions,
   } = recipe;
   const URL_CODE = strYoutube && strYoutube.split('=')[1];
+  const page = useMemo(
+    () => (pathname.includes('meals') ? 'meals' : 'drinks'),
+    [pathname],
+  );
 
   useEffect(() => {
-    fetchAPI(`${RECIPE_ENDPOINT}${id}`, ([result]) => {
-      setRecipe({
-        recipe: result,
-        ingredients: getIngredients(result),
-      });
-    });
-    fetchRecipes(RECOMMENDATION_ENDPOINT, setRecommendations, FIRST_SIX);
-  }, [RECIPE_ENDPOINT, id, RECOMMENDATION_ENDPOINT, setRecipe]);
+    FETCH[page](id, setRecipe);
+  }, [id, setRecipe, page]);
 
-  const isRecipeDone = (recipeId) => {
+  const recipeIsDone = (recipeId) => {
     const doneRecipes = getItem(DONE_RECIPES) || [];
     const checkTrue = doneRecipes.some((doneRecipe) => doneRecipe.id === recipeId);
     return checkTrue;
@@ -54,7 +46,6 @@ export default function RecipeDetails({
   const isRecipeInProgress = (recId) => {
     const recipes = getItem(IN_PROGRESS_RECIPES) || {};
     const inProgressRecipesArray = Object.values(recipes);
-    console.log(inProgressRecipesArray, ' isrecipe');
     return inProgressRecipesArray
       .some((inProgRecipe) => inProgRecipe.hasOwnProperty.call(inProgRecipe, recId));
   };
@@ -67,11 +58,9 @@ export default function RecipeDetails({
       <main>
         <div>
           <ShareButton
-            url={ url }
             testId="share-btn"
           />
           <FavoriteButton
-            checkPath={ checkPath }
             recipe={ recipe }
             testId="favorite-btn"
             idRecipe={ id }
@@ -112,39 +101,11 @@ export default function RecipeDetails({
         <article>
           { strYoutube && <YouTubeEmbed videoID={ URL_CODE } />}
         </article>
-        <div
-          style={ {
-            display: 'flex',
-            gap: '10px',
-            padding: '20px',
-            width: '80vw',
-            overflow: 'scroll',
-          } }
-        >
-          { recommendations.map(({
-            strMealThumb: mealThumb,
-            strDrinkThumb: drinkThumb,
-            strMeal: meal,
-            strDrink: drink,
-            idMeal: mealId,
-            idDrink: drinkId,
-          }, index) => {
-            const idRecipe = mealId || drinkId;
-            return (
-              <RecommendationCard
-                key={ idRecipe }
-                image={ mealThumb || drinkThumb }
-                title={ meal || drink }
-                id={ idRecipe }
-                index={ index }
-              />
-            );
-          })}
-        </div>
+        <Recommendations page={ page } />
       </main>
       <footer>
         {
-          !isRecipeDone(id)
+          !recipeIsDone(id)
             ? (
               <button
                 data-testid="start-recipe-btn"
@@ -164,7 +125,3 @@ export default function RecipeDetails({
     </div>
   );
 }
-
-RecipeDetails.propTypes = {
-  history: propTypes.instanceOf(Object),
-}.isRequired;
