@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useMemo } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
 import {
@@ -28,10 +28,7 @@ export default function RecipeDetails() {
     strYoutube, strInstructions,
   } = recipe;
   const URL_CODE = strYoutube && strYoutube.split('=')[1];
-  const page = useMemo(
-    () => (pathname.includes('meals') ? 'meals' : 'drinks'),
-    [pathname],
-  );
+  const page = pathname.includes('meals') ? 'meals' : 'drinks';
 
   useEffect(() => {
     FETCH[page](id, setRecipe);
