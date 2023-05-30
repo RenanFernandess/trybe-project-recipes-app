@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import CategoryButton from './CategoryButton';
 import {
@@ -19,7 +19,7 @@ const CATEGORY_TYPE = {
   '/drinks': fetchDrinksCategory,
 };
 
-export default function SearchByCategory() {
+function SearchByCategory() {
   const { location: { pathname } } = useHistory();
   const { setRecipes } = useContext(RecipeContext);
   const [categories, setCategories] = useState([]);
@@ -72,3 +72,5 @@ export default function SearchByCategory() {
     </aside>
   );
 }
+
+export default memo(SearchByCategory);
