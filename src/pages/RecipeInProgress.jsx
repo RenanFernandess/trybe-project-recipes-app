@@ -14,6 +14,8 @@ const FETCH = {
 export default function RecipeInProgress() {
   const { recipe, setRecipe } = useContext(RecipeInProgressContext);
   const { id } = useParams();
+  const { location: { pathname } } = useHistory();
+
   const {
     strCategory, strAlcoholic, strMeal,
     strDrink, strDrinkThumb, strMealThumb,
@@ -25,9 +27,8 @@ export default function RecipeInProgress() {
       const page = pathname.includes('meals') ? 'meals' : 'drinks';
       FETCH[page](id, setRecipe);
     }
-  }, [])
+  }, [pathname, strInstructions, id, setRecipe]);
 
-  const { location: { pathname } } = useHistory();
   const NUMBER_OF_SPLITS = 3;
   const splitedPathname = pathname.split('/', NUMBER_OF_SPLITS);
   const newPath = `/${splitedPathname[1]}/${splitedPathname[2]}`;
