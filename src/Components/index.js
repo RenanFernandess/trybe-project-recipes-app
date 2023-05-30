@@ -6,6 +6,7 @@ import Recipes from './Recipes';
 import YouTubeEmbed from './YouTubeEmbed';
 import Recommendations from './Recommendations';
 import ListIngredientes from './ListIngredientes';
+import EndRecipeButton from './EndRecipeButton';
 
 export default Header;
 export {
@@ -16,4 +17,5 @@ export {
   YouTubeEmbed,
   Recommendations,
   ListIngredientes,
+  EndRecipeButton,
 };
