@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
 import {
-  DONE_RECIPES, IN_PROGRESS_RECIPES,
+  DONE_RECIPES,
 } from '../services/variables';
 import { getItem } from '../helpers/storage';
 import '../css/Recipes.css';
@@ -19,7 +19,12 @@ const FETCH = {
 export default function RecipeDetails() {
   const { location: { pathname }, push } = useHistory();
   const { id } = useParams();
-  const { recipe, ingredients, setRecipe, progress } = useContext(RecipeInProgressContext);
+  const {
+    recipe,
+    ingredients,
+    setRecipe,
+    progress,
+  } = useContext(RecipeInProgressContext);
 
   const {
     strCategory,
@@ -33,7 +38,7 @@ export default function RecipeDetails() {
   useEffect(() => {
     const recipeId = idMeal || idDrink;
     if (id !== recipeId) FETCH[page](id, setRecipe);
-  }, [id, setRecipe, page]);
+  }, [id, setRecipe, page, idMeal, idDrink]);
 
   const recipeIsDone = (recipeId) => {
     const doneRecipes = getItem(DONE_RECIPES) || [];
@@ -84,7 +89,7 @@ export default function RecipeDetails() {
           <h3>Ingredientes</h3>
           { ingredients.map(({ ingredient, measure }, index) => (
             <p
-              key={ ingredient }
+              key={ `${index}${ingredient}` }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               { `${ingredient}: ${measure}` }
