@@ -1,29 +1,32 @@
-import React, { useContext, useEffect, useState, memo } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import CategoryButton from './CategoryButton';
 import {
   DRINKS_FILTER_BY_CATEGORY_ENDPOINT,
   MEALS_FILTER_BY_CATEGORY_ENDPOINT } from '../services/variables';
 import RecipeContext from '../context';
-import {
+import
+fetchRecipes,
+{
   fetchDrinks,
   fetchDrinksCategory,
   fetchMeals,
   fetchMealsCategory,
-  fetchRecipes,
 } from '../helpers/fetchAPI';
 
-const ALL = 'All';
+const ALL_CATEGORIES = 'All';
 const CATEGORY_TYPE = {
   '/meals': fetchMealsCategory,
   '/drinks': fetchDrinksCategory,
 };
 
-function SearchByCategory() {
+export default function SearchByCategory() {
   const { location: { pathname } } = useHistory();
   const { setRecipes } = useContext(RecipeContext);
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState(ALL);
+  const [category, setCategory] = useState(ALL_CATEGORIES);
+
+  console.log('Reeee');
 
   useEffect(() => {
     CATEGORY_TYPE[pathname](setCategories);
@@ -37,7 +40,7 @@ function SearchByCategory() {
   };
 
   const setAllCategory = () => {
-    setCategory(ALL);
+    setCategory(ALL_CATEGORIES);
     if (pathname === '/meals') return fetchMeals(setRecipes);
     fetchDrinks(setRecipes);
   };
@@ -72,5 +75,3 @@ function SearchByCategory() {
     </aside>
   );
 }
-
-export default memo(SearchByCategory);
