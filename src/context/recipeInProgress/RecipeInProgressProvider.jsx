@@ -1,37 +1,39 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipeInProgressContext from './recipeInProgressContext';
-import getIngredients from '../../helpers/getIngredients';
 import { IN_PROGRESS_RECIPES } from '../../services/variables';
 import saveItem, { getItem } from '../../helpers/storage';
+import { getIngredients } from '../../helpers';
 
-const INITIAL_STATE = getItem(IN_PROGRESS_RECIPES) || {
-  recipe: {},
-  ingredients: [],
-  progress: [],
-};
 export default function RecipeInProgressProvider({ children }) {
-  const [state, setState] = useState(INITIAL_STATE);
+  const [recipe, setRecipe] = useState({});
+  const ingredients = useMemo(() => getIngredients(recipe), [recipe]);
+  const [progress, setProgress] = useState(getItem(IN_PROGRESS_RECIPES) || {});
+  const recipeId = String(recipe.idMeal || recipe.idDrink);
 
-  useEffect(() => { saveItem(IN_PROGRESS_RECIPES, state); }, [state]);
+  useEffect(() => { saveItem(IN_PROGRESS_RECIPES, progress); }, [progress]);
 
-  const setRecipe = useCallback(([recipe]) => {
-    const ingredients = getIngredients(recipe);
-    const progress = Array(ingredients.length).fill(false);
-    setState({ recipe, ingredients, progress });
-  }, []);
+  const setRecipeProgress = useCallback((recipeProgress) => {
+    setProgress((state) => ({ ...state, [recipeId]: recipeProgress }));
+  }, [recipeId]);
 
-  const setProgress = useCallback((progress) => {
-    setState((prevState) => ({ ...prevState, progress }));
-  }, []);
+  const clearProgress = useCallback(() => {
+    setProgress(({ [recipeId]: _, ...data }) => data);
+  }, [recipeId]);
 
-  const clearRecipe = useCallback(() => { setState(INITIAL_STATE); }, []);
+  useEffect(() => {
+    if (ingredients.length && !progress[recipeId]) {
+      setRecipeProgress(Array(ingredients.length).fill(false));
+    }
+  }, [recipeId, setRecipeProgress, progress, ingredients]);
 
   const contextType = {
-    ...state,
+    recipe,
     setRecipe,
-    setProgress,
-    clearRecipe,
+    ingredients,
+    progress,
+    setRecipeProgress,
+    clearProgress,
   };
 
   return (
