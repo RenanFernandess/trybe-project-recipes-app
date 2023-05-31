@@ -37,11 +37,15 @@ export function fetchDrinks(callback, limit) {
 }
 
 export function fetchMealById(id, callback) {
-  fetchRecipes(`${MEALS_DETAILS}${id}`, callback);
+  fetchRecipes(`${MEALS_DETAILS}${id}`, ([data]) => {
+    callback(data);
+  });
 }
 
 export function fetchDrinkById(id, callback) {
-  fetchRecipes(`${DRINK_DETAILS}${id}`, callback);
+  fetchRecipes(`${DRINK_DETAILS}${id}`, ([data]) => {
+    callback(data);
+  });
 }
 
 function fetchCategory(endPoint, callback) {
