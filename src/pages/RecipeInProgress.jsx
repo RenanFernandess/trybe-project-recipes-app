@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import ShareButton from '../Components/ShareButton';
 import FavoriteButton from '../Components/FavoriteButton';
-import { RecipeInProgressContext } from '../context';
 import { EndRecipeButton, ListIngredientes } from '../Components';
 import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
+import { RecipeInProgressContext } from '../context';
 
 const FETCH = {
   meals: fetchMealById,
@@ -12,22 +12,24 @@ const FETCH = {
 };
 
 export default function RecipeInProgress() {
-  const { recipe, setRecipe } = useContext(RecipeInProgressContext);
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
+  const {
+    recipe,
+    setRecipe,
+    progress,
+  } = useContext(RecipeInProgressContext);
+  const page = pathname.includes('meals') ? 'meals' : 'drinks';
+
+  useEffect(() => {
+    FETCH[page](id, setRecipe);
+  }, [id, setRecipe, page]);
 
   const {
     strCategory, strAlcoholic, strMeal,
     strDrink, strDrinkThumb, strMealThumb,
     strInstructions,
   } = recipe;
-
-  useEffect(() => {
-    if (!strInstructions) {
-      const page = pathname.includes('meals') ? 'meals' : 'drinks';
-      FETCH[page](id, setRecipe);
-    }
-  }, [pathname, strInstructions, id, setRecipe]);
 
   const NUMBER_OF_SPLITS = 3;
   const splitedPathname = pathname.split('/', NUMBER_OF_SPLITS);
@@ -66,7 +68,7 @@ export default function RecipeInProgress() {
           { strInstructions }
         </div>
       </section>
-      <ListIngredientes />
+      { progress[id] && <ListIngredientes /> }
       <EndRecipeButton />
     </main>
   );
