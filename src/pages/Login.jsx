@@ -36,7 +36,6 @@ export default function Login({ history }) {
 
       <form className="form-container">
         <label htmlFor="email-input">
-          {/* <span className="label">Email </span> */}
           <input
             type="email"
             placeholder="Email"
@@ -49,8 +48,6 @@ export default function Login({ history }) {
           />
         </label>
         <label htmlFor="password-input">
-          {/* <span className="label"> Senha </span> */}
-
           <input
             placeholder="Password"
             type="password"
