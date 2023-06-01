@@ -32,9 +32,6 @@ export const RECIPES_ENDPOINT = {
   },
 };
 
-export const FIRST_SIX = 6;
-export const INGREDIENTS_NUMBER = 20;
-
 export const NO_RECIPES_ERROR = 'Sorry, we haven\'t found any recipes for these filters.';
 export const NAME_LENGTH_ERROR = 'Your search must have only 1 (one) character';
 
