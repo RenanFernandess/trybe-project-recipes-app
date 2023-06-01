@@ -11,7 +11,7 @@ export default function Header({ title, enableSearchButton }) {
   const [searchBarIsActive, setSearchBarIsActive] = useState(false);
 
   return (
-    <section className="container-header">
+    <header className="container-header">
       <img src={ imageTray } alt="bandeja" className="header-image" />
       <h2 className="title-recipes">
         RECIPES
@@ -55,7 +55,7 @@ export default function Header({ title, enableSearchButton }) {
         </section>
         {searchBarIsActive && <SearchBar title={ title } />}
       </div>
-    </section>
+    </header>
   );
 }
 
