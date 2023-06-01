@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { RecipeInProgressContext } from '../context';
 import { DONE_RECIPES } from '../services/variables';
 import saveItem, { getItem } from '../helpers/storage';
 
 export default function EndRecipeButton() {
-  const { recipe, progress, clearProgress } = useContext(RecipeInProgressContext);
   const history = useHistory();
-  const { id } = useParams();
-  const buttonIsDisable = (progress[id]
-    && !progress[id].every((recipeInProg) => recipeInProg));
+  const { recipe, progress, clearProgress } = useContext(RecipeInProgressContext);
+  const buttonIsDisable = !progress.every((recipeInProg) => recipeInProg);
 
   const finishRecipe = () => {
     const {

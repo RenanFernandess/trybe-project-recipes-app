@@ -45,7 +45,7 @@ export default function RecipeDetails() {
     return checkTrue;
   };
 
-  const recipeIsInProgress = () => progress[id] && progress[id].some((bool) => bool);
+  const recipeIsInProgress = () => progress.some((bool) => bool);
 
   return (
     <div>

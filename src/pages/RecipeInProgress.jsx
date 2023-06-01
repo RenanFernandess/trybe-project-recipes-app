@@ -14,16 +14,12 @@ const FETCH = {
 export default function RecipeInProgress() {
   const { id } = useParams();
   const { location: { pathname } } = useHistory();
-  const {
-    recipe,
-    setRecipe,
-    progress,
-  } = useContext(RecipeInProgressContext);
+  const { recipe, setRecipe, RECIPE_ID } = useContext(RecipeInProgressContext);
   const page = pathname.includes('meals') ? 'meals' : 'drinks';
 
   useEffect(() => {
-    FETCH[page](id, setRecipe);
-  }, [id, setRecipe, page]);
+    if (id !== RECIPE_ID) FETCH[page](id, setRecipe);
+  }, [id, setRecipe, page, RECIPE_ID]);
 
   const {
     strCategory, strAlcoholic, strMeal,
@@ -68,7 +64,7 @@ export default function RecipeInProgress() {
           { strInstructions }
         </div>
       </section>
-      { progress[id] && <ListIngredientes /> }
+      <ListIngredientes />
       <EndRecipeButton />
     </main>
   );

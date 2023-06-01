@@ -1,9 +1,7 @@
 import React, { useCallback, useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import { RecipeInProgressContext } from '../context';
 
 export default function ListIngredientes() {
-  const { id } = useParams();
   const {
     progress,
     setRecipeProgress,
@@ -11,10 +9,10 @@ export default function ListIngredientes() {
   } = useContext(RecipeInProgressContext);
 
   const checkIngredient = useCallback(({ target: { name: index, checked } }) => {
-    const prog = [...progress[id]];
+    const prog = [...progress];
     prog[Number(index)] = checked;
     setRecipeProgress(prog);
-  }, [progress, setRecipeProgress, id]);
+  }, [progress, setRecipeProgress]);
 
   return (
     <ul>
@@ -30,7 +28,7 @@ export default function ListIngredientes() {
               id={ ingredient }
               name={ index }
               onChange={ checkIngredient }
-              checked={ progress[id][index] }
+              checked={ progress[index] }
             />
             { `${ingredient}: ${measure}` }
           </label>
