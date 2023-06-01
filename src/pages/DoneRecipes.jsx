@@ -14,8 +14,6 @@ export default function DoneRecipes() {
     );
   };
 
-  console.log(recipes);
-
   return (
     <div>
       <Header title="Done Recipes" />
@@ -47,7 +45,6 @@ export default function DoneRecipes() {
           </button>
         </div>
         <section>
-          <p>p</p>
           {
             recipes.map(({
               alcoholicOrNot,

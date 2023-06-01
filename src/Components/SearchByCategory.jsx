@@ -26,8 +26,6 @@ export default function SearchByCategory() {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState(ALL_CATEGORIES);
 
-  console.log('Reeee');
-
   useEffect(() => {
     CATEGORY_TYPE[pathname](setCategories);
   }, [pathname]);
