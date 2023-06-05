@@ -8,6 +8,7 @@ import Recommendations from './Recommendations';
 import ListIngredientes from './ListIngredientes';
 import EndRecipeButton from './EndRecipeButton';
 import DoneRecipeCard from './DoneRecipeCard';
+import FavoriteCard from './FavoriteCard';
 
 export default Header;
 export {
@@ -20,4 +21,5 @@ export {
   ListIngredientes,
   EndRecipeButton,
   DoneRecipeCard,
+  FavoriteCard,
 };
