@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import saveItem from '../helpers/storage';
-import USER, { DRINKS_TOKEN, MEALSTOKEN } from '../services/variables';
+import saveItem from '../../helpers/storage';
+import USER, { DRINKS_TOKEN, MEALSTOKEN } from '../../services/variables';
 
 const MIN_PASSWORD_CHARACTERS = 6;
 const REGEXP_EMAIL = /\S+@\S+\.\S+/;
