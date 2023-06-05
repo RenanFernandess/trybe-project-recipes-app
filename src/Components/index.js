@@ -7,6 +7,7 @@ import YouTubeEmbed from './YouTubeEmbed';
 import Recommendations from './Recommendations';
 import ListIngredientes from './ListIngredientes';
 import EndRecipeButton from './EndRecipeButton';
+import DoneRecipeCard from './DoneRecipeCard';
 
 export default Header;
 export {
@@ -18,4 +19,5 @@ export {
   Recommendations,
   ListIngredientes,
   EndRecipeButton,
+  DoneRecipeCard,
 };
