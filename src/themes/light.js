@@ -4,5 +4,5 @@ export default {
 
     PRIMARY: '#41197F',
     SECONDARY: '#FCC436',
-  }
-}
+  },
+};

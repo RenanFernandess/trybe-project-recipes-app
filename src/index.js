@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import { RecipeProvider } from './context';
 import { ThemeProvider } from 'styled-components';
-import light from './theme/light';
+import { RecipeProvider } from './context';
+import App from './App';
+import light from './themes/light';
 
 ReactDOM.render(
   <BrowserRouter>
