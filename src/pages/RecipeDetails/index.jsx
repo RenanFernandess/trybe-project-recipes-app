@@ -1,15 +1,13 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
-import {
-  DONE_RECIPES,
-} from '../services/variables';
-import { getItem } from '../helpers/storage';
-import '../css/Recipes.css';
+import { fetchDrinkById, fetchMealById } from '../../helpers/fetchAPI';
+import { DONE_RECIPES } from '../../services/variables';
+import { getItem } from '../../helpers/storage';
 import {
   Recommendations, YouTubeEmbed, FavoriteButton, ShareButton,
-} from '../Components';
-import { RecipeInProgressContext } from '../context';
+} from '../../Components';
+import { RecipeInProgressContext } from '../../context';
+import '../../css/Recipes.css';
 
 const FETCH = {
   meals: fetchMealById,

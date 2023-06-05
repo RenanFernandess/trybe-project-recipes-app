@@ -1,34 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../Components/Header';
-import saveItem, { getItem } from '../helpers/storage';
-import FavoriteCard from '../Components/FavoriteCard';
-import { FAVORITE_RECIPES } from '../services/variables';
+import React, { useState } from 'react';
+import Header, { DoneRecipeCard } from '../../Components';
+import { getItem } from '../../helpers/storage';
+import { DONE_RECIPES } from '../../services/variables';
 
-export default function FavoriteRecipes() {
-  const [recipes, setRecipes] = useState(getItem(FAVORITE_RECIPES) || []);
-  const [filteredRecipes, setFilteredRecipes] = useState([]);
-  const [filterValue, setFilterValue] = useState('All');
-
-  useEffect(() => {
-    setFilteredRecipes(
-      recipes.filter(({ type }) => type === filterValue || filterValue === 'All'),
-    );
-  }, [setFilteredRecipes, recipes, filterValue]);
+export default function DoneRecipes() {
+  const savedRecipes = getItem(DONE_RECIPES) || [];
+  const [recipes, setRecipes] = useState(savedRecipes);
 
   const filterRecipes = ({ target: { name } }) => {
-    setFilterValue(name);
-  };
-
-  const removeFavorite = (recipeId) => {
-    const savedRecipes = getItem(FAVORITE_RECIPES);
-    const recipesList = savedRecipes.filter(({ id }) => recipeId !== id);
-    saveItem(FAVORITE_RECIPES, recipesList);
-    setRecipes(recipesList);
+    setRecipes(
+      savedRecipes.filter(({ type }) => type === name || name === 'All'),
+    );
   };
 
   return (
     <div>
-      <Header title="Favorite Recipes" />
+      <Header title="Done Recipes" />
       <main>
         <div>
           <button
@@ -58,26 +45,28 @@ export default function FavoriteRecipes() {
         </div>
         <section>
           {
-            filteredRecipes.map(({
+            recipes.map(({
               alcoholicOrNot,
               category,
+              doneDate,
               id,
               image,
               name,
               nationality,
+              tags,
               type,
             }, index) => (
-              <FavoriteCard
+              <DoneRecipeCard
                 key={ id }
                 alcoholicOrNot={ alcoholicOrNot }
                 category={ category }
+                date={ doneDate }
                 id={ id }
                 index={ index }
                 image={ image }
-                isFavorite={ recipes.some(({ id: recipeId }) => recipeId === id) }
                 name={ name }
                 nationality={ nationality }
-                removeFavorite={ removeFavorite }
+                tags={ tags }
                 type={ type }
               />
             ))

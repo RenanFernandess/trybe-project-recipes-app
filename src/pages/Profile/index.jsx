@@ -1,9 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Header from '../Components/Header';
-import Footer from '../Components/Footer';
-import { getItem } from '../helpers/storage';
-import USER from '../services/variables';
+import Header, { Footer } from '../../Components';
+import { getItem } from '../../helpers/storage';
+import USER from '../../services/variables';
 
 export default function Profile({ history: { push } }) {
   const { email } = getItem(USER) || {};

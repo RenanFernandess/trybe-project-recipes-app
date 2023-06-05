@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import ShareButton from '../Components/ShareButton';
-import FavoriteButton from '../Components/FavoriteButton';
-import { EndRecipeButton, ListIngredientes } from '../Components';
-import { fetchDrinkById, fetchMealById } from '../helpers/fetchAPI';
-import { RecipeInProgressContext } from '../context';
+import {
+  ShareButton,
+  FavoriteButton,
+  EndRecipeButton,
+  ListIngredientes,
+} from '../../Components';
+import { fetchDrinkById, fetchMealById } from '../../helpers/fetchAPI';
+import { RecipeInProgressContext } from '../../context';
 
 const FETCH = {
   meals: fetchMealById,
