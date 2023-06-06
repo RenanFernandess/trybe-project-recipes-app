@@ -3,6 +3,7 @@ import Button from './Button';
 import Logo from './Logo';
 import SmallLogo from './SmallLogo';
 import ButtonIcon from './ButtonIcon';
+import PageTitle from './PageTitle';
 
 export default TextInput;
 export {
@@ -10,4 +11,5 @@ export {
   Logo,
   SmallLogo,
   ButtonIcon,
+  PageTitle,
 };
