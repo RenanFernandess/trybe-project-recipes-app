@@ -9,6 +9,7 @@ import ListIngredientes from './ListIngredientes';
 import EndRecipeButton from './EndRecipeButton';
 import DoneRecipeCard from './DoneRecipeCard';
 import FavoriteCard from './FavoriteCard';
+import LoginForm from './templates';
 
 export default Header;
 export {
@@ -22,4 +23,5 @@ export {
   EndRecipeButton,
   DoneRecipeCard,
   FavoriteCard,
+  LoginForm,
 };
