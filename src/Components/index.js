@@ -10,6 +10,7 @@ import EndRecipeButton from './EndRecipeButton';
 import DoneRecipeCard from './DoneRecipeCard';
 import FavoriteCard from './FavoriteCard';
 import LoginForm from './templates';
+import { Logo } from './atoms';
 
 export default Header;
 export {
@@ -24,4 +25,5 @@ export {
   DoneRecipeCard,
   FavoriteCard,
   LoginForm,
+  Logo,
 };
