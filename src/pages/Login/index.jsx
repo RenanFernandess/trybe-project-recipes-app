@@ -1,80 +1,15 @@
-import React, { useState } from 'react';
-import propTypes from 'prop-types';
-import saveItem from '../../helpers/storage';
-import USER, { DRINKS_TOKEN, MEALSTOKEN } from '../../services/variables';
+import React from 'react';
+import { LoginForm, Logo } from '../../Components';
+import Container, { Title, TomatoImage } from './styles';
+import { tomatoImage } from '../../assets';
 
-const MIN_PASSWORD_CHARACTERS = 6;
-const REGEXP_EMAIL = /\S+@\S+\.\S+/;
-
-export default function Login({ history }) {
-  const [{ email, password }, setLogin] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleChange = ({ target: { name, value } }) => {
-    setLogin((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const isValid = (password.length > MIN_PASSWORD_CHARACTERS) && REGEXP_EMAIL.test(email);
-
-  const saveUser = () => {
-    saveItem(USER, { email });
-    saveItem(MEALSTOKEN, 1);
-    saveItem(DRINKS_TOKEN, 1);
-    history.push('/meals');
-  };
-
+export default function Login() {
   return (
-    <div className="login-container">
-      <div className="header-background" />
-
-      <h2 className="title">Login</h2>
-
-      <form className="form-container">
-        <label htmlFor="email-input">
-          <input
-            type="email"
-            placeholder="Email"
-            data-testid="email-input"
-            name="email"
-            id="email-input"
-            className="email-input"
-            value={ email }
-            onChange={ handleChange }
-          />
-        </label>
-        <label htmlFor="password-input">
-          <input
-            placeholder="Password"
-            type="password"
-            data-testid="password-input"
-            name="password"
-            id="password-input"
-            className="password-input"
-            value={ password }
-            onChange={ handleChange }
-          />
-        </label>
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !isValid }
-          onClick={ saveUser }
-          className="login-btn"
-        >
-          Enter
-        </button>
-      </form>
-    </div>
+    <Container className="login-container">
+      <Logo />
+      <TomatoImage src={ tomatoImage } alt="tomato" />
+      <Title>Login</Title>
+      <LoginForm />
+    </Container>
   );
 }
-
-Login.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func,
-  }),
-}.isRequired;
