@@ -1,4 +1,4 @@
-import Header from './Header';
+import Header from './organisms';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import Footer from './Footer';
