@@ -4,6 +4,6 @@ import Img from './styles';
 
 export default function SmallLogo() {
   return (
-    <Img src={ smallLogo } alt="logo" />
+    <Img src={ smallLogo } alt="small logo" />
   );
 }
