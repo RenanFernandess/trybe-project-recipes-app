@@ -1,8 +1,7 @@
+import { Logo } from './atoms';
+import { ShareButton, FavoriteButton } from './molecules';
 import Header, { Footer } from './organisms';
 import LoginForm, { Recipes, Recipe } from './templates';
-import { Logo } from './atoms';
-import ShareButton from './molecules';
-import FavoriteButton from './FavoriteButton';
 import YouTubeEmbed from './YouTubeEmbed';
 import Recommendations from './Recommendations';
 import ListIngredientes from './ListIngredientes';
