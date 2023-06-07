@@ -13,7 +13,7 @@ const Form = styled.section`
   ". categories ."
   ". button .";
   justify-content: center;
-  margin: 0 15px;
+  margin: 0 10px;
   min-height: 100px;
   padding-bottom: 15px;
 

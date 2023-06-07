@@ -5,7 +5,7 @@ import { NAME_LENGTH_ERROR, RECIPES_ENDPOINT } from '../../../services/variables
 import RecipeContext from '../../../context';
 import fetchRecipes from '../../../helpers/fetchAPI';
 import TextInput, { Button, RadioInput } from '../../atoms';
-import Form, { Categories } from './ styles';
+import Form, { Categories } from './styles';
 
 export default function SearchBar({ title }) {
   const history = useHistory();
