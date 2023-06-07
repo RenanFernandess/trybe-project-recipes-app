@@ -7,6 +7,7 @@ import PageTitle from './PageTitle';
 import RadioInput from './RadioInput';
 import CardImage from './CardImage';
 import RecipeImage from './RecipeImage';
+import RecipeCategory from './RecipeCategory';
 
 export default TextInput;
 export {
@@ -18,4 +19,5 @@ export {
   RadioInput,
   CardImage,
   RecipeImage,
+  RecipeCategory,
 };
