@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouteMatch } from 'react-router-dom';
-import shareIcon from '../images/shareIcon.svg';
+import { ButtonIcon } from '../../atoms';
+import { shareIcon } from '../../../assets';
 
-export default function ShareButton({ testId, url }) {
+export default function ShareButton({ url }) {
   const { url: defaultUrl } = useRouteMatch();
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -14,17 +15,11 @@ export default function ShareButton({ testId, url }) {
 
   return (
     <div>
-      <button
-        type="button"
-        data-testid={ testId }
+      <ButtonIcon
         onClick={ copyBoard }
-        src={ shareIcon }
-      >
-        <img
-          alt="share"
-          src={ shareIcon }
-        />
-      </button>
+        icon={ shareIcon }
+        alt="Share button"
+      />
       {linkCopied && <p>Link copied!</p> }
     </div>
   );
@@ -35,6 +30,5 @@ ShareButton.defaultProps = {
 };
 
 ShareButton.propTypes = {
-  testId: PropTypes.string.isRequired,
   url: PropTypes.string,
 };
