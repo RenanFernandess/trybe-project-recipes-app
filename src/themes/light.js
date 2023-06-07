@@ -2,9 +2,12 @@ export default {
   COLORS: {
     BACKGROUND: '#FFFFFF',
 
+    BORDER: '#797D86',
+
     PRIMARY: '#41197F',
     SECONDARY: '#FCC436',
 
+    TEXT_PRIMARY: '#1A1B1C',
     TEXT_SECONDARY: '#FFFFFF',
     TEXT_TERTIARY: '#797D86',
   },
