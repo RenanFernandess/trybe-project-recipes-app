@@ -8,6 +8,12 @@ import { DONE_RECIPES } from '../../../services/variables';
 import { getItem } from '../../../helpers/storage';
 import { Button } from '../../atoms';
 import { RecipeHeader } from '../../organisms';
+import { drinkIcon, mealIcon } from '../../../assets';
+
+const PAGE_ICON = {
+  meals: mealIcon,
+  drinks: drinkIcon,
+};
 
 export default function Recipe() {
   const { location: { pathname }, push } = useHistory();
@@ -32,7 +38,7 @@ export default function Recipe() {
 
   return (
     <>
-      <RecipeHeader />
+      <RecipeHeader icon={ PAGE_ICON[page] } />
       <main>
         <article data-testid="instructions">
           <h3>Instruções</h3>
