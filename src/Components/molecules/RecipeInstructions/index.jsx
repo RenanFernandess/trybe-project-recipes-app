@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Text, { Title } from './styles';
+import Text, { Container, Title } from './styles';
 
 export default function RecipeInstructions({ text }) {
   return (
-    <article>
+    <Container>
       <Title>Instructions</Title>
       <Text>{ text }</Text>
-    </article>
+    </Container>
   );
 }
 
