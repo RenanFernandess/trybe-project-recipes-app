@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from './styles';
+import Input, { Label } from './styles';
 
 export default function RadioInput({ name, onChange, value, text, ...res }) {
   return (
-    <label htmlFor={ name }>
+    <Label htmlFor={ value }>
       <Input
         { ...res }
         type="radio"
-        id={ name }
+        id={ value }
         name={ name }
         onChange={ onChange }
         value={ value }
       />
       { text }
-    </label>
+    </Label>
   );
 }
 
