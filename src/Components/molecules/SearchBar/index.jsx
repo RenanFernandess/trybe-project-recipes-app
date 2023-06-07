@@ -5,6 +5,7 @@ import { NAME_LENGTH_ERROR, RECIPES_ENDPOINT } from '../../../services/variables
 import RecipeContext from '../../../context';
 import fetchRecipes from '../../../helpers/fetchAPI';
 import TextInput, { Button, RadioInput } from '../../atoms';
+import Form, { Categories } from './ styles';
 
 export default function SearchBar({ title }) {
   const history = useHistory();
@@ -35,41 +36,39 @@ export default function SearchBar({ title }) {
   };
 
   return (
-    <section className="search-bar">
-      <form>
-        <TextInput
-          placeholder="Search"
+    <Form>
+      <TextInput
+        placeholder="Search"
+        onChange={ handleChange }
+        name="searchTerm"
+        value={ searchTerm }
+      />
+      <Categories>
+        <RadioInput
+          name="category"
           onChange={ handleChange }
-          name="searchTerm"
-          value={ searchTerm }
+          value="ingredient"
+          text="Ingredient"
         />
-        <div>
-          <RadioInput
-            name="category"
-            onChange={ handleChange }
-            value="ingredient"
-            text="Ingredient"
-          />
-          <RadioInput
-            name="category"
-            onChange={ handleChange }
-            value="nome"
-            text="Name"
-          />
-          <RadioInput
-            name="category"
-            onChange={ handleChange }
-            value="firstLetter"
-            text="First letter"
-          />
-        </div>
-        <Button
-          onClick={ searchRecipes }
-        >
-          SEARCH
-        </Button>
-      </form>
-    </section>
+        <RadioInput
+          name="category"
+          onChange={ handleChange }
+          value="nome"
+          text="Name"
+        />
+        <RadioInput
+          name="category"
+          onChange={ handleChange }
+          value="firstLetter"
+          text="First letter"
+        />
+      </Categories>
+      <Button
+        onClick={ searchRecipes }
+      >
+        SEARCH
+      </Button>
+    </Form>
   );
 }
 
