@@ -5,6 +5,7 @@ import SmallLogo from './SmallLogo';
 import ButtonIcon from './ButtonIcon';
 import PageTitle from './PageTitle';
 import RadioInput from './RadioInput';
+import CardImage from './CardImage';
 
 export default TextInput;
 export {
@@ -14,4 +15,5 @@ export {
   ButtonIcon,
   PageTitle,
   RadioInput,
+  CardImage,
 };
