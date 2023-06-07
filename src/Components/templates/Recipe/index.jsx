@@ -3,12 +3,13 @@ import { useHistory, useParams } from 'react-router-dom';
 import { RecipeInProgressContext } from '../../../context';
 
 import Recommendations from '../../Recommendations';
-import YouTubeEmbed from '../../YouTubeEmbed';
 import { DONE_RECIPES } from '../../../services/variables';
 import { getItem } from '../../../helpers/storage';
 import { Button } from '../../atoms';
 import { RecipeHeader } from '../../organisms';
 import { drinkIcon, mealIcon } from '../../../assets';
+import { RecipeIngredients, RecipeInstructions, RecipeVideo } from '../../molecules';
+import Container from './styles';
 
 const PAGE_ICON = {
   meals: mealIcon,
@@ -26,7 +27,6 @@ export default function Recipe() {
   const page = pathname.includes('meals') ? 'meals' : 'drinks';
 
   const { strYoutube, strInstructions } = recipe;
-  const URL_CODE = strYoutube && strYoutube.split('=')[1];
 
   const recipeIsDone = (recipeId) => {
     const doneRecipes = getItem(DONE_RECIPES) || [];
@@ -39,27 +39,16 @@ export default function Recipe() {
   return (
     <>
       <RecipeHeader icon={ PAGE_ICON[page] } />
-      <main>
-        <article data-testid="instructions">
-          <h3>Instruções</h3>
-          {strInstructions}
-        </article>
-        <section>
-          <h3>Ingredientes</h3>
-          { ingredients.map(({ ingredient, measure }, index) => (
-            <p
-              key={ `${index}${ingredient}` }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              { `${ingredient}: ${measure}` }
-            </p>
-          ))}
-        </section>
-        <article>
-          { strYoutube && <YouTubeEmbed videoID={ URL_CODE } />}
-        </article>
+      <Container>
+        <RecipeIngredients
+          ingredients={ ingredients }
+        />
+        <RecipeInstructions
+          text={ strInstructions }
+        />
+        { strYoutube && <RecipeVideo url={ strYoutube } />}
         <Recommendations page={ page } />
-      </main>
+      </Container>
       <footer>
         {
           !recipeIsDone(id)
