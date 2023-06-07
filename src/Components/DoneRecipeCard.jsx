@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ShareButton from './ShareButton';
+import { ShareButton } from './molecules';
 
 export default function RecommendationCard({
   image, name, index, category, date, tags, nationality, alcoholicOrNot, id, type,

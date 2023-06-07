@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import ShareButton from './ShareButton';
+import { ShareButton } from './molecules';
 
 export default function FavoriteCard({
   image,
