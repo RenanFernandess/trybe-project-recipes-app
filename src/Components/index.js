@@ -2,7 +2,7 @@ import Header from './organisms';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import Footer from './organisms/Footer';
-import Recipes from './Recipes';
+import Recipes from './templates/Recipes';
 import YouTubeEmbed from './YouTubeEmbed';
 import Recommendations from './Recommendations';
 import ListIngredientes from './ListIngredientes';

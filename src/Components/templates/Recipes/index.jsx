@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
-import RecipeCard from './RecipeCard';
-import '../css/Recipes.css';
-import RecipeContext from '../context';
-import SearchByCategory from './SearchByCategory';
+import { RecipeCard } from '../../organisms';
+import RecipeContext from '../../../context';
+import SearchByCategory from '../../SearchByCategory';
+import Container, { Cards } from './styles';
 
 export default function Recipes() {
   const { recipes } = useContext(RecipeContext);
 
   return (
-    <div>
+    <Container>
       <SearchByCategory />
-      <section className="card-container">
+      <Cards>
         {
           recipes.map(({
             strMealThumb,
@@ -35,7 +35,7 @@ export default function Recipes() {
             );
           })
         }
-      </section>
-    </div>
+      </Cards>
+    </Container>
   );
 }
