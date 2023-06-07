@@ -4,6 +4,7 @@ import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 import RecipeInstructions from './RecipeInstructions';
 import RecipeIngredients from './RecipeIngredients';
+import RecipeVideo from './RecipeVideo';
 
 export default HeaderSection;
 export {
@@ -12,4 +13,5 @@ export {
   FavoriteButton,
   RecipeInstructions,
   RecipeIngredients,
+  RecipeVideo,
 };
