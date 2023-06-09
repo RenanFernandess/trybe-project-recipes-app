@@ -5,6 +5,7 @@ const Title = styled.h2`
   display: grid;
   color: ${({ theme }) => theme.COLORS.PRIMARY};
   font-weight: 900;
+  text-transform: uppercase;
   justify-content: center;
   gap: 10px;
   padding: 10px;
