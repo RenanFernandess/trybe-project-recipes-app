@@ -1,23 +1,22 @@
 import { Logo } from './atoms';
 import { ShareButton, FavoriteButton } from './molecules';
 import Header, { Footer } from './organisms';
-import LoginForm, { Recipes, Recipe } from './templates';
+import LoginForm, { Recipes, Recipe, MakingRecipe } from './templates';
 import ListIngredientes from './ListIngredientes';
-import EndRecipeButton from './EndRecipeButton';
 import DoneRecipeCard from './DoneRecipeCard';
 import FavoriteCard from './FavoriteCard';
 
 export default Header;
 export {
-  FavoriteButton,
-  Footer,
-  Recipes,
-  Recipe,
-  ShareButton,
-  ListIngredientes,
-  EndRecipeButton,
   DoneRecipeCard,
   FavoriteCard,
-  LoginForm,
+  FavoriteButton,
+  Footer,
+  ListIngredientes,
   Logo,
+  LoginForm,
+  MakingRecipe,
+  Recipe,
+  Recipes,
+  ShareButton,
 };
