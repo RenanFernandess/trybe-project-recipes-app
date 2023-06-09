@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { RecipeInProgressContext } from '../../../context';
+import List, { Container, Title } from './styles';
+import { Ingredient } from '../../molecules';
 
 export default function ListIngredientes() {
   const {
@@ -15,25 +17,20 @@ export default function ListIngredientes() {
   };
 
   return (
-    <ul>
-      { ingredients.map(({ ingredient, measure }, index) => (
-        <li key={ `${index}${ingredient}` }>
-          <label
-            htmlFor={ ingredient }
-            name={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-              id={ ingredient }
-              name={ index }
-              onChange={ checkIngredient }
-              checked={ progress[index] }
-            />
-            { `${ingredient}: ${measure}` }
-          </label>
-        </li>
-      ))}
-    </ul>
+    <Container>
+      <Title>Ingredients</Title>
+      <List>
+        { ingredients.map(({ ingredient, measure }, index) => (
+          <Ingredient
+            key={ `${index}${ingredient}` }
+            ingredient={ ingredient }
+            measure={ measure }
+            index={ index }
+            checked={ progress[index] }
+            checkIngredient={ checkIngredient }
+          />
+        ))}
+      </List>
+    </Container>
   );
 }
