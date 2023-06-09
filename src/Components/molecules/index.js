@@ -6,6 +6,7 @@ import RecipeInstructions from './RecipeInstructions';
 import RecipeIngredients from './RecipeIngredients';
 import RecipeVideo from './RecipeVideo';
 import RecipeFooter from './RecipeFooter';
+import RecipeInProgressFooter from './RecipeInProgressFooter';
 
 export default HeaderSection;
 export {
@@ -16,4 +17,5 @@ export {
   RecipeIngredients,
   RecipeVideo,
   RecipeFooter,
+  RecipeInProgressFooter,
 };
