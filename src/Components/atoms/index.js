@@ -8,16 +8,18 @@ import RadioInput from './RadioInput';
 import CardImage from './CardImage';
 import RecipeImage from './RecipeImage';
 import RecipeCategory from './RecipeCategory';
+import CheckBox from './CheckBox';
 
 export default TextInput;
 export {
   Button,
-  Logo,
-  SmallLogo,
   ButtonIcon,
+  CardImage,
+  CheckBox,
+  Logo,
   PageTitle,
   RadioInput,
-  CardImage,
   RecipeImage,
   RecipeCategory,
+  SmallLogo,
 };
