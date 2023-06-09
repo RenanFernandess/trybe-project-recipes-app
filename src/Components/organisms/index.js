@@ -3,6 +3,7 @@ import Footer from './Footer';
 import RecipeCard from './RecipeCard';
 import RecipeHeader from './RecipeHeader';
 import RecipeRecommendations from './RecipeRecommendations';
+import ListIngredientes from './ListIngredientes';
 
 export default Header;
 export {
@@ -10,4 +11,5 @@ export {
   RecipeCard,
   RecipeHeader,
   RecipeRecommendations,
+  ListIngredientes,
 };

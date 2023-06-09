@@ -1,5 +1,5 @@
-import React, { useCallback, useContext } from 'react';
-import { RecipeInProgressContext } from '../context';
+import React, { useContext } from 'react';
+import { RecipeInProgressContext } from '../../../context';
 
 export default function ListIngredientes() {
   const {
@@ -8,11 +8,11 @@ export default function ListIngredientes() {
     ingredients,
   } = useContext(RecipeInProgressContext);
 
-  const checkIngredient = useCallback(({ target: { name: index, checked } }) => {
+  const checkIngredient = ({ target: { name: index, checked } }) => {
     const prog = [...progress];
     prog[Number(index)] = checked;
     setRecipeProgress(prog);
-  }, [progress, setRecipeProgress]);
+  };
 
   return (
     <ul>
