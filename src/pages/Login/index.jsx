@@ -5,7 +5,7 @@ import { tomatoImage } from '../../assets';
 
 export default function Login() {
   return (
-    <Container className="login-container">
+    <Container>
       <Logo />
       <TomatoImage src={ tomatoImage } alt="tomato" />
       <Title>Login</Title>
