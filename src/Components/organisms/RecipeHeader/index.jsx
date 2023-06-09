@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { ShareButton, FavoriteButton } from '../../molecules';
 import { RecipeInProgressContext } from '../../../context';
 import Header, { Title, Div } from './styles';
 import { RecipeCategory } from '../../atoms';
 
 export default function RecipeHeader({ icon }) {
+  const { location: { pathname } } = useHistory();
   const { recipe } = useContext(RecipeInProgressContext);
+  const URL = pathname.includes('in-progress') ? pathname.match(/\/[A-z]+\/[0-9]+/ig)[0] : pathname;
 
   const {
     strCategory,
@@ -25,7 +28,7 @@ export default function RecipeHeader({ icon }) {
       />
       <Title>{strMeal || strDrink}</Title>
       <Div>
-        <ShareButton />
+        <ShareButton url={ URL } />
         <FavoriteButton recipe={ recipe } />
       </Div>
     </Header>
