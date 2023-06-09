@@ -8,6 +8,7 @@ import RadioInput from './RadioInput';
 import CardImage from './CardImage';
 import RecipeCategory from './RecipeCategory';
 import CheckBox from './CheckBox';
+import CategoryButton from './CategoryButton';
 
 export default TextInput;
 export {
@@ -20,4 +21,5 @@ export {
   RadioInput,
   RecipeCategory,
   SmallLogo,
+  CategoryButton,
 };
