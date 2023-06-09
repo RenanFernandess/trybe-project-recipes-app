@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { RecipeProvider } from './context';
 import App from './App';
 import light from './themes/light';
+import './index.css';
 
 ReactDOM.render(
   <BrowserRouter>
