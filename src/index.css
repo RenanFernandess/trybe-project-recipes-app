@@ -1,7 +1,7 @@
 
 @font-face {
   font-family: Epilogue;
-  src: url('./Fonts/Epilogue-VariableFont_wght.ttf');
+  src: url('./fonts/Epilogue-VariableFont_wght.ttf');
 }
 
 * {
@@ -17,7 +17,6 @@ caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details,
 embed, figure, figcaption, footer, header, hgroup, menu, nav, output,
 ruby, section, summary, time, mark, audio, video {
   border: 0;
-  font-size: 100%;
   margin: 0;
   padding: 0;
   vertical-align: baseline;
