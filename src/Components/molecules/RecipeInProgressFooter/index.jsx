@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { RecipeInProgressContext } from '../../../context';
 import { Button } from '../../atoms';
 import { DONE_RECIPES } from '../../../services/variables';
-import { getItem } from '../../../helpers/storage';
+import saveItem, { getItem } from '../../../helpers/storage';
 import Footer from './styles';
 
 export default function RecipeInProgressFooter() {
