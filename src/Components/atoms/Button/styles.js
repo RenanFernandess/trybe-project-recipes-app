@@ -9,6 +9,7 @@ const PrimaryButton = styled.button`
   height: 40px;
   min-width: 276px;
   text-align: center;
+  text-transform: uppercase;
 `;
 
 export default PrimaryButton;
