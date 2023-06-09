@@ -1,7 +1,7 @@
 import { Logo } from './atoms';
 import { ShareButton, FavoriteButton } from './molecules';
 import Header, { Footer } from './organisms';
-import LoginForm, { Recipes, Recipe, MakingRecipe } from './templates';
+import LoginForm, { Recipes, Recipe, MakingRecipe, FinishedRecipes } from './templates';
 import DoneRecipeCard from './DoneRecipeCard';
 import FavoriteCard from './FavoriteCard';
 
@@ -10,6 +10,7 @@ export {
   DoneRecipeCard,
   FavoriteCard,
   FavoriteButton,
+  FinishedRecipes,
   Footer,
   Logo,
   LoginForm,
