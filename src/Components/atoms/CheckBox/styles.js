@@ -18,8 +18,8 @@ const Input = styled.input`
 
   &:checked::after {
     content: "";
-    border-right: 2px solid ${({ theme }) => theme.COLORS.SECONDARY};
-    border-bottom: 2px solid ${({ theme }) => theme.COLORS.SECONDARY};
+    border-right: 2px inset ${({ theme }) => theme.COLORS.SECONDARY};
+    border-bottom: 2px inset ${({ theme }) => theme.COLORS.SECONDARY};
     display: block;
     height: 9px;
     left: 6px;
@@ -34,4 +34,5 @@ export default Input;
 
 export const Label = styled.label`
   cursor: pointer;
+  padding: 5px;
 `;
