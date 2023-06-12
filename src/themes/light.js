@@ -3,6 +3,7 @@ export default {
     BACKGROUND: '#FFFFFF',
 
     BORDER: '#797D86',
+    LINE: '#B1B1B1',
 
     PRIMARY: '#41197F',
     SECONDARY: '#FCC436',
