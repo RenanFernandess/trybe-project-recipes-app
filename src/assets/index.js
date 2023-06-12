@@ -14,6 +14,7 @@ import doneRecipesIcon from './doneRecipesIcon.svg';
 import allRecipesIcon from './allIcon.svg';
 import foodsIcon from './foodsIcon.svg';
 import drinksIcon from './drinksIcon.svg';
+import yellowProfileIcon from './yellowProfileIcon.svg';
 
 export default logoRecipesApp;
 export {
@@ -32,4 +33,5 @@ export {
   shareIcon,
   smallLogo,
   tomatoImage,
+  yellowProfileIcon,
 };
