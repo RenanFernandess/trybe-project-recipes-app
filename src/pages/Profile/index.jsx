@@ -1,53 +1,20 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import Header, { Footer } from '../../Components';
+import Header, { Footer, ProfileContent } from '../../Components';
 import { getItem } from '../../helpers/storage';
 import USER from '../../services/variables';
+import { yellowProfileIcon } from '../../assets';
 
-export default function Profile({ history: { push } }) {
+export default function Profile() {
   const { email } = getItem(USER) || {};
-
-  const logout = () => {
-    localStorage.clear();
-    push('/');
-  };
 
   return (
     <div>
-      <Header title="Profile" />
-      <main>
-        <p data-testid="profile-email">{ email }</p>
-        <div>
-          <button
-            type="button"
-            data-testid="profile-done-btn"
-            onClick={ () => { push('/done-recipes'); } }
-          >
-            Done Recipes
-          </button>
-          <button
-            type="button"
-            data-testid="profile-favorite-btn"
-            onClick={ () => { push('/favorite-recipes'); } }
-          >
-            Favorite Recipes
-          </button>
-          <button
-            type="button"
-            data-testid="profile-logout-btn"
-            onClick={ logout }
-          >
-            Logout
-          </button>
-        </div>
-      </main>
+      <Header
+        icon={ yellowProfileIcon }
+        title="Profile"
+      />
+      <ProfileContent email={ email } />
       <Footer />
     </div>
   );
 }
-
-Profile.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func,
-  }),
-}.isRequired;
