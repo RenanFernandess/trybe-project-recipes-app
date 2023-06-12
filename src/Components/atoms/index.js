@@ -11,6 +11,7 @@ import CheckBox from './CheckBox';
 import CategoryButton from './CategoryButton';
 import ButtonLeftIcon from './ButtonLeftIcon';
 import HorizontalCardImage from './HorizontalCardImage';
+import HorizontalCardTitle from './HorizontalCardTitle';
 
 export default TextInput;
 export {
@@ -21,6 +22,7 @@ export {
   CategoryButton,
   CheckBox,
   HorizontalCardImage,
+  HorizontalCardTitle,
   Logo,
   PageTitle,
   RadioInput,
