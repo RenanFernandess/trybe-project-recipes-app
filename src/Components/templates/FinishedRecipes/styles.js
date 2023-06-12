@@ -11,3 +11,10 @@ export const Categories = styled.div`
   gap: 20px;
   justify-content: center;
 `;
+
+export const Cards = styled.section`
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  gap: 10px;
+`;

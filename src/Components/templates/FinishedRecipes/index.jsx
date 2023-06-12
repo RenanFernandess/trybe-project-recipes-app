@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import DoneRecipeCard from '../../DoneRecipeCard';
 import { CategoryButton } from '../../atoms';
 import { allRecipesIcon, drinksIcon, foodsIcon } from '../../../assets';
-import Container, { Categories } from './styles';
+import Container, { Categories, Cards } from './styles';
+import { DoneRecipeCard } from '../../organisms';
 
 export default function FinishedRecipes({ recipes }) {
   const [category, setCategory] = useState('All');
@@ -35,7 +35,7 @@ export default function FinishedRecipes({ recipes }) {
           text="Drinks"
         />
       </Categories>
-      <section>
+      <Cards>
         {
           filteredRecipes.map(({
             alcoholicOrNot,
@@ -63,7 +63,7 @@ export default function FinishedRecipes({ recipes }) {
             />
           ))
         }
-      </section>
+      </Cards>
     </Container>
   );
 }
