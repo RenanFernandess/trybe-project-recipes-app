@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ProfileNav } from '../../organisms';
-import Container from './styles';
+import Container, { Text } from './styles';
 
 export default function ProfileContent({ email }) {
   return (
     <Container>
-      <p>{ email }</p>
+      <Text>{ email }</Text>
       <ProfileNav />
     </Container>
   );
