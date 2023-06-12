@@ -18,10 +18,11 @@ export default function RecipeInProgressFooter() {
       strArea, strTags, idMeal, idDrink,
     } = recipe;
     const doneRecipes = getItem(DONE_RECIPES) || [];
+    const date = new Date();
     const finishedRecipe = {
       alcoholicOrNot: strAlcoholic,
       category: strCategory,
-      doneDate: new Date(),
+      doneDate: `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`,
       id: idMeal || idDrink,
       image: strDrinkThumb || strMealThumb,
       name: strDrink || strMeal,
