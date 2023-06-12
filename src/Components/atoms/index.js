@@ -10,6 +10,7 @@ import RecipeCategory from './RecipeCategory';
 import CheckBox from './CheckBox';
 import CategoryButton from './CategoryButton';
 import ButtonLeftIcon from './ButtonLeftIcon';
+import HorizontalCardImage from './HorizontalCardImage';
 
 export default TextInput;
 export {
@@ -19,6 +20,7 @@ export {
   CardImage,
   CategoryButton,
   CheckBox,
+  HorizontalCardImage,
   Logo,
   PageTitle,
   RadioInput,
