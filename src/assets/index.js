@@ -15,6 +15,8 @@ import allRecipesIcon from './allIcon.svg';
 import foodsIcon from './foodsIcon.svg';
 import drinksIcon from './drinksIcon.svg';
 import yellowProfileIcon from './yellowProfileIcon.svg';
+import favoriteIcon from './favoriteIcon.svg';
+import logoutIcon from './logoutIcon.svg';
 
 export default logoRecipesApp;
 export {
@@ -24,9 +26,11 @@ export {
   dishIcon,
   drinkIcon,
   drinksIcon,
+  favoriteIcon,
   foodsIcon,
   likeIcon,
   likedIcon,
+  logoutIcon,
   mealIcon,
   profileIcon,
   searchIcon,
