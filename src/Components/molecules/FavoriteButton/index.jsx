@@ -1,55 +1,22 @@
-import React, { useState } from 'react';
-import propTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import { FAVORITE_RECIPES } from '../../../services/variables';
-import saveItem, { getItem } from '../../../helpers/storage';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { ButtonIcon } from '../../atoms';
 import { likeIcon, likedIcon } from '../../../assets';
+import { FavoritesContext } from '../../../context';
 
 export default function FavoriteButton({ recipe }) {
-  const getFavRecipes = getItem(FAVORITE_RECIPES) || [];
-  const { location: { pathname } } = useHistory();
-  const {
-    strArea,
-    strCategory,
-    idMeal,
-    idDrink,
-    strAlcoholic,
-    strMeal,
-    strDrink,
-    strDrinkThumb,
-    strMealThumb,
-  } = recipe;
-  const RECIPE_ID = idMeal || idDrink;
+  const { favorites, addToFavorite, removeToFavorite } = useContext(FavoritesContext);
 
-  const [isFavorite, setIsFavorite] = useState(
-    getFavRecipes.some((favRecipe) => favRecipe.id === RECIPE_ID),
-  );
-  const checkPath = pathname.includes('meals');
+  const isFavorite = favorites.some(({ id }) => id === recipe.id);
 
-  const saveFavoriteRecipe = () => {
-    if (isFavorite) {
-      const newFavLS = getFavRecipes.filter((favRecipe) => favRecipe.id !== RECIPE_ID);
-      saveItem(FAVORITE_RECIPES, newFavLS);
-      return setIsFavorite(false);
-    }
-    const favStorageFormat = {
-      id: RECIPE_ID,
-      type: checkPath ? 'meal' : 'drink',
-      nationality: strArea || '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic || '',
-      name: strMeal || strDrink,
-      image: strMealThumb || strDrinkThumb,
-    };
-    const union = [...getFavRecipes, favStorageFormat];
-    saveItem(FAVORITE_RECIPES, union);
-    setIsFavorite(true);
+  const toggleFavorite = () => {
+    if (isFavorite) return removeToFavorite(recipe.id);
+    addToFavorite(recipe);
   };
 
   return (
     <ButtonIcon
-      onClick={ saveFavoriteRecipe }
+      onClick={ toggleFavorite }
       icon={ isFavorite ? likedIcon : likeIcon }
       alt="Favorite button"
     />
@@ -57,5 +24,13 @@ export default function FavoriteButton({ recipe }) {
 }
 
 FavoriteButton.propTypes = {
-  recipe: propTypes.objectOf(propTypes.string).isRequired,
+  recipe: PropTypes.shape({
+    alcoholicOrNot: PropTypes.string,
+    category: PropTypes.string,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    name: PropTypes.string,
+    nationality: PropTypes.string,
+    type: PropTypes.string,
+  }).isRequired,
 };
