@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 const Input = styled.input`
-  height: 15px;
-  width: 15px;
+  height: 12px;
+  width: 12px;
   margin: 0;
 
   &::before {
@@ -17,8 +17,8 @@ const Input = styled.input`
   &:checked::before {
     background-color: ${({ theme }) => theme.COLORS.SECONDARY};
     border: 3px solid white;
-    height: 9px;
-    width: 9px;
+    height: 6px;
+    width: 6px;
   }
 `;
 
@@ -28,6 +28,7 @@ export const Label = styled.label`
   cursor: pointer;
   align-items: center;
   display: flex;
+  font-size: 0.7rem;
   gap: 5px;
   justify-content: start;
 `;
