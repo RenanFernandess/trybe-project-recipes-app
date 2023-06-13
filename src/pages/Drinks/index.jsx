@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import Header, { Recipes, Footer } from '../../Components';
+import Header, { Recipes, Footer, SearchByDrinksCategory } from '../../Components';
 import { fetchDrinks, fetchDrinksCategory } from '../../helpers/fetchAPI';
 import RecipeContext from '../../context';
 import { cupIcon } from '../../assets';
@@ -19,6 +19,7 @@ export default function Drinks() {
         icon={ cupIcon }
         enableSearchButton
       />
+      <SearchByDrinksCategory />
       <Recipes />
       <Footer />
     </div>
