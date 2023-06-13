@@ -18,8 +18,8 @@ export default function recipeMap(recipe) {
     id: idMeal || idDrink,
     image: strMealThumb || strDrinkThumb,
     name: strMeal || strDrink,
-    nationality: strArea || null,
+    nationality: strArea || '',
     type: strMeal ? 'meal' : 'drink',
-    tags: [strTags.split(', ')],
+    tags: strTags && [strTags.split(', ')],
   };
 }
