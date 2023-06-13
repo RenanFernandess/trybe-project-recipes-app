@@ -7,13 +7,13 @@ import LoginForm, {
   MakingRecipe,
   FinishedRecipes,
   ProfileContent,
+  FavoriteContent,
 } from './templates';
-import FavoriteCard from './FavoriteCard';
 
 export default Header;
 export {
-  FavoriteCard,
   FavoriteButton,
+  FavoriteContent,
   FinishedRecipes,
   Footer,
   Logo,
