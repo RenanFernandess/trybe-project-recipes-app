@@ -4,10 +4,13 @@ import RecipeContext from './recipeContext';
 
 export default function RecipeProvider({ children }) {
   const [recipes, setRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const contextType = {
     recipes,
+    categories,
     setRecipes,
+    setCategories,
   };
 
   return (
