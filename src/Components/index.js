@@ -1,6 +1,10 @@
 import { Logo } from './atoms';
 import { ShareButton, FavoriteButton } from './molecules';
-import Header, { Footer, SearchByMealsCategory } from './organisms';
+import Header, {
+  Footer,
+  SearchByMealsCategory,
+  SearchByDrinksCategory,
+} from './organisms';
 import LoginForm, {
   Recipes,
   Recipe,
@@ -23,5 +27,6 @@ export {
   Recipe,
   Recipes,
   ShareButton,
+  SearchByDrinksCategory,
   SearchByMealsCategory,
 };

@@ -8,6 +8,7 @@ import DoneRecipeCard from './DoneRecipeCard';
 import ProfileNav from './ProfileNav';
 import FavoriteCard from './FavoriteCard';
 import SearchByMealsCategory from './SearchByMealsCategory';
+import SearchByDrinksCategory from './SearchByDrinksCategory';
 
 export default Header;
 export {
@@ -19,5 +20,6 @@ export {
   RecipeCard,
   RecipeHeader,
   RecipeRecommendations,
+  SearchByDrinksCategory,
   SearchByMealsCategory,
 };
