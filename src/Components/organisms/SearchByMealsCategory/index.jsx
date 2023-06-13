@@ -5,6 +5,7 @@ import { MEALS_FILTER_BY_CATEGORY_ENDPOINT } from '../../../services/variables';
 import fetchRecipes from '../../../helpers';
 import { MEALS_CATEGORIES_ICONS } from '../../../assets';
 import Container from './styles';
+import { fetchMeals } from '../../../helpers/fetchAPI';
 
 const ALL_CATEGORIES = 'All';
 
@@ -21,7 +22,7 @@ export default function SearchByMealsCategory() {
     fetchMeals(setRecipes);
   };
 
-  const toggleCategory = ({ target: { value } }) => {
+  const toggleCategory = (value) => {
     if (category === value) return setAllCategory();
     setCategory(value);
     searchByCategory(value);
@@ -33,18 +34,16 @@ export default function SearchByMealsCategory() {
         icon={ MEALS_CATEGORIES_ICONS.All }
         alt="All category button"
         text="All"
-        value="All"
-        onClick={ setAllCategory }
+        onClick={ () => { toggleCategory(ALL_CATEGORIES); } }
       />
       {
         categories.map(({ strCategory }) => (
           <CategoryButton
             key={ strCategory }
-            value={ strCategory }
             text={ strCategory }
             icon={ MEALS_CATEGORIES_ICONS[strCategory] }
             alt={ `${strCategory} category button` }
-            onClick={ toggleCategory }
+            onClick={ () => { toggleCategory(strCategory); } }
           />
         ))
       }
