@@ -1,13 +1,16 @@
 import React, { useEffect, useContext } from 'react';
 import Header, { Recipes, Footer } from '../../Components';
-import { fetchDrinks } from '../../helpers/fetchAPI';
+import { fetchDrinks, fetchDrinksCategory } from '../../helpers/fetchAPI';
 import RecipeContext from '../../context';
 import { cupIcon } from '../../assets';
 
 export default function Drinks() {
-  const { setRecipes } = useContext(RecipeContext);
+  const { setRecipes, setCategories } = useContext(RecipeContext);
 
-  useEffect(() => { fetchDrinks(setRecipes); }, [setRecipes]);
+  useEffect(() => {
+    fetchDrinks(setRecipes);
+    fetchDrinksCategory(setCategories);
+  }, [setRecipes, setCategories]);
 
   return (
     <div>
