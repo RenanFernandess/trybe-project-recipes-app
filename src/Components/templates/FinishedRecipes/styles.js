@@ -15,6 +15,6 @@ export const Categories = styled.div`
 export const Cards = styled.section`
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
+  margin: 30px 0;
   gap: 10px;
 `;

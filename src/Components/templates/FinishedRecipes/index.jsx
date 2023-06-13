@@ -6,30 +6,28 @@ import Container, { Categories, Cards } from './styles';
 import { DoneRecipeCard } from '../../organisms';
 
 export default function FinishedRecipes({ recipes }) {
-  const [category, setCategory] = useState('All');
-
-  const filterRecipes = ({ target: { name } }) => { setCategory(name); };
+  const [category, setCategory] = useState('all');
 
   const filteredRecipes = recipes
-    .filter(({ type }) => type === category || category === 'All');
+    .filter(({ type }) => type === category || category === 'all');
 
   return (
     <Container>
       <Categories>
         <CategoryButton
-          onClick={ filterRecipes }
+          onClick={ () => setCategory('all') }
           icon={ allRecipesIcon }
           alt="All categories button"
           text="All"
         />
         <CategoryButton
-          onClick={ filterRecipes }
+          onClick={ () => setCategory('meal') }
           icon={ foodsIcon }
           alt="Meals categories button"
           text="Meals"
         />
         <CategoryButton
-          onClick={ filterRecipes }
+          onClick={ () => setCategory('drink') }
           icon={ drinksIcon }
           alt="Drinks categories button"
           text="Drinks"
