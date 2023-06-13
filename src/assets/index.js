@@ -18,6 +18,7 @@ import yellowProfileIcon from './yellowProfileIcon.svg';
 import favoriteIcon from './favoriteIcon.svg';
 import logoutIcon from './logoutIcon.svg';
 import MEALS_CATEGORIES_ICONS from './mealsCategories';
+import DRINKS_CATEGORIES_ICONS from './drinksCategories';
 
 export default logoRecipesApp;
 export {
@@ -40,4 +41,5 @@ export {
   tomatoImage,
   yellowProfileIcon,
   MEALS_CATEGORIES_ICONS,
+  DRINKS_CATEGORIES_ICONS,
 };
