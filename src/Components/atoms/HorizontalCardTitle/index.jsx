@@ -6,7 +6,11 @@ export default function HorizontalCardTitle({ title, nationality, category }) {
   return (
     <Container>
       <Title>{title}</Title>
-      <p>{ `${nationality} - ${category}` }</p>
+      <p>
+        { nationality }
+        { nationality && ' - ' }
+        { category }
+      </p>
     </Container>
   );
 }
