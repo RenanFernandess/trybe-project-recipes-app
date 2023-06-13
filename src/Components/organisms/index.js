@@ -6,10 +6,12 @@ import RecipeRecommendations from './RecipeRecommendations';
 import ListIngredientes from './ListIngredientes';
 import DoneRecipeCard from './DoneRecipeCard';
 import ProfileNav from './ProfileNav';
+import FavoriteCard from './FavoriteCard';
 
 export default Header;
 export {
   DoneRecipeCard,
+  FavoriteCard,
   Footer,
   ListIngredientes,
   ProfileNav,
