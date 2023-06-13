@@ -5,6 +5,7 @@ import { ShareButton, FavoriteButton } from '../../molecules';
 import { RecipeInProgressContext } from '../../../context';
 import Header, { Title, Div } from './styles';
 import { RecipeCategory } from '../../atoms';
+import { recipeMap } from '../../../helpers';
 
 export default function RecipeHeader({ icon }) {
   const { location: { pathname } } = useHistory();
@@ -29,7 +30,7 @@ export default function RecipeHeader({ icon }) {
       <Title>{strMeal || strDrink}</Title>
       <Div>
         <ShareButton url={ URL } />
-        <FavoriteButton recipe={ recipe } />
+        { strCategory && <FavoriteButton recipe={ recipeMap(recipe) } /> }
       </Div>
     </Header>
   );
