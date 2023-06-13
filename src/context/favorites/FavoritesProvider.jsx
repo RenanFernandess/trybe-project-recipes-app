@@ -14,7 +14,7 @@ export default function FavoritesProvider({ children }) {
   }, []);
 
   const removeToFavorite = useCallback((id) => {
-    setFavorites((state) => state.filter((recipe) => recipe.id === id));
+    setFavorites((state) => state.filter((recipe) => recipe.id !== id));
   }, []);
 
   const contextType = {
