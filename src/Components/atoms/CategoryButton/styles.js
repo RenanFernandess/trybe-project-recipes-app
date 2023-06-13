@@ -5,6 +5,7 @@ const Button = styled.button`
   border: none;
   min-height: 30px;
   min-width: 30px;
+  max-width: 68px;
   padding: 2px;
 `;
 
