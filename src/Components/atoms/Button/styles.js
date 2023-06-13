@@ -7,7 +7,7 @@ const PrimaryButton = styled.button`
   color: ${({ theme }) => theme.COLORS.TEXT_SECONDARY};
   font-weight: 700;
   height: 40px;
-  min-width: 276px;
+  min-width: 240px;
   text-align: center;
   text-transform: uppercase;
 `;
