@@ -7,7 +7,6 @@ export default function CategoryButton({ onClick, icon, alt, text, ...res }) {
     <Button
       { ...res }
       type="button"
-      name={ text }
       onClick={ onClick }
     >
       <img src={ icon } alt={ alt } />
