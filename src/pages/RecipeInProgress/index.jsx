@@ -1,27 +1,24 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { MakingRecipe } from '../../Components';
-import { fetchDrinkById, fetchMealById } from '../../helpers/fetchAPI';
 import { RecipeInProgressContext } from '../../context';
-
-const FETCH = {
-  meals: fetchMealById,
-  drinks: fetchDrinkById,
-};
 
 export default function RecipeInProgress() {
   const { id } = useParams();
-  const { location: { pathname } } = useHistory();
-  const { setRecipe, RECIPE_ID } = useContext(RecipeInProgressContext);
-  const page = pathname.includes('meals') ? 'meals' : 'drinks';
+  const { location: { pathname }, push } = useHistory();
+  const { RECIPE_ID } = useContext(RecipeInProgressContext);
+  const SAME_RECIPE = id === RECIPE_ID;
 
   useEffect(() => {
-    if (id !== RECIPE_ID) FETCH[page](id, setRecipe);
-  }, [id, setRecipe, page, RECIPE_ID]);
+    if (!SAME_RECIPE) {
+      const RECIPE_DETAILS_PATH = pathname.match(/\/[A-z]+\/[0-9]+/ig)[0];
+      push(RECIPE_DETAILS_PATH);
+    }
+  }, [SAME_RECIPE, pathname, push]);
 
   return (
     <div>
-      <MakingRecipe />
+      { SAME_RECIPE && <MakingRecipe /> }
     </div>
   );
 }
