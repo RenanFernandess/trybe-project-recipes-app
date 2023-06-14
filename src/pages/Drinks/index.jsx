@@ -1,15 +1,24 @@
-import React, { useEffect, useContext } from 'react';
-import Header, { Recipes, Footer, SearchByDrinksCategory } from '../../Components';
-import { fetchDrinks, fetchDrinksCategory } from '../../helpers/fetchAPI';
+import React, { useEffect, useContext, useState } from 'react';
+import Header, {
+  Recipes,
+  Footer,
+  SearchByDrinksCategory,
+  AwaitReady,
+} from '../../Components';
 import RecipeContext from '../../context';
 import { cupIcon } from '../../assets';
+import { fetchDrinksAndCategories } from '../../helpers/fetchAPI';
 
 export default function Drinks() {
   const { setRecipes, setCategories } = useContext(RecipeContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchDrinks(setRecipes);
-    fetchDrinksCategory(setCategories);
+    fetchDrinksAndCategories(({ recipes, categories }) => {
+      setRecipes(recipes);
+      setCategories(categories);
+      setLoading(false);
+    });
   }, [setRecipes, setCategories]);
 
   return (
@@ -19,8 +28,10 @@ export default function Drinks() {
         icon={ cupIcon }
         enableSearchButton
       />
-      <SearchByDrinksCategory />
-      <Recipes />
+      <AwaitReady ready={ loading }>
+        <SearchByDrinksCategory />
+        <Recipes />
+      </AwaitReady>
       <Footer />
     </div>
   );

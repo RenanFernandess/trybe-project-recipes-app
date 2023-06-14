@@ -1,15 +1,24 @@
-import React, { useEffect, useContext } from 'react';
-import Header, { Footer, Recipes, SearchByMealsCategory } from '../../Components';
-import { fetchMeals, fetchMealsCategory } from '../../helpers/fetchAPI';
+import React, { useEffect, useContext, useState } from 'react';
+import Header, {
+  AwaitReady,
+  Footer,
+  Recipes,
+  SearchByMealsCategory,
+} from '../../Components';
 import RecipeContext from '../../context';
 import { dishIcon } from '../../assets';
+import { fetchMealsAndCategories } from '../../helpers/fetchAPI';
 
 export default function Meals() {
   const { setRecipes, setCategories } = useContext(RecipeContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchMeals(setRecipes);
-    fetchMealsCategory(setCategories);
+    fetchMealsAndCategories(({ recipes, categories }) => {
+      setRecipes(recipes);
+      setCategories(categories);
+      setLoading(false);
+    });
   }, [setRecipes, setCategories]);
 
   return (
@@ -19,8 +28,10 @@ export default function Meals() {
         icon={ dishIcon }
         enableSearchButton
       />
-      <SearchByMealsCategory />
-      <Recipes />
+      <AwaitReady ready={ loading }>
+        <SearchByMealsCategory />
+        <Recipes />
+      </AwaitReady>
       <Footer />
     </div>
   );
