@@ -1,8 +1,8 @@
 import React, { useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { fetchDrinks, fetchMeals } from '../../../helpers/fetchAPI';
-import RecipeCard from '../RecipeCard';
 import Container, { Title, Div } from './styles';
+import RecommendationCard from '../RecommendationCard';
 
 const FIRST_SIX = 6;
 const FETCH = {
@@ -29,7 +29,7 @@ function RecipeRecommendations({ page }) {
         }) => {
           const idRecipe = idMeal || idDrink;
           return (
-            <RecipeCard
+            <RecommendationCard
               key={ idRecipe }
               thumb={ strMealThumb || strDrinkThumb }
               name={ strMeal || strDrink }
