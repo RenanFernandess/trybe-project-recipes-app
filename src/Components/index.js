@@ -1,4 +1,4 @@
-import { Logo } from './atoms';
+import { Logo, Loading } from './atoms';
 import { ShareButton, FavoriteButton } from './molecules';
 import Header, {
   Footer,
@@ -21,6 +21,7 @@ export {
   FinishedRecipes,
   Footer,
   Logo,
+  Loading,
   LoginForm,
   MakingRecipe,
   ProfileContent,

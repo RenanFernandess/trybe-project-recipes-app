@@ -12,6 +12,7 @@ import CategoryButton from './CategoryButton';
 import ButtonLeftIcon from './ButtonLeftIcon';
 import HorizontalCardImage from './HorizontalCardImage';
 import HorizontalCardTitle from './HorizontalCardTitle';
+import Loading from './Loading';
 
 export default TextInput;
 export {
@@ -28,4 +29,5 @@ export {
   RadioInput,
   RecipeCategory,
   SmallLogo,
+  Loading,
 };
