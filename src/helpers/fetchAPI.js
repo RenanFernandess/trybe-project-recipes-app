@@ -13,19 +13,17 @@ const FIRST_FIVE = 5;
 
 const limitData = (data, limit) => data.slice(0, limit);
 
-function fetchAPI(URL, callback) {
-  fetch(URL).then((response) => response.json())
-    .then(({ meals, drinks }) => {
-      const data = meals || drinks || [];
-      callback(data);
-    });
+async function fetchAPI(URL) {
+  const response = await fetch(URL);
+  const { meals, drinks } = await response.json();
+  const data = meals || drinks || [];
+  return data;
 }
 
-export default function fetchRecipes(endPoint, callback, limit = FIRST_TWELVE) {
-  fetchAPI(endPoint, (data) => {
-    if (!data.length) return global.alert(NO_RECIPES_ERROR);
-    callback(limitData(data, limit));
-  });
+export default async function fetchRecipes(endPoint, callback, limit = FIRST_TWELVE) {
+  const data = await fetchAPI(endPoint);
+  if (!data.length) return global.alert(NO_RECIPES_ERROR);
+  callback(limitData(data, limit));
 }
 
 export function fetchMeals(callback, limit) {
@@ -48,16 +46,25 @@ export function fetchDrinkById(id, callback) {
   });
 }
 
-function fetchCategory(endPoint, callback) {
-  fetchAPI(endPoint, (data) => {
-    callback(limitData(data, FIRST_FIVE));
-  });
+async function fetchCategory(endPoint) {
+  const data = await fetchAPI(endPoint);
+  return limitData(data, FIRST_FIVE);
 }
 
-export function fetchMealsCategory(callback) {
-  fetchCategory(MEALS_CATEGORY_ENDPOINT, callback);
+async function fetchRecipesAndCategories(recipesEndpoint, categoriesEndPoint) {
+  const recipes = await fetchAPI(recipesEndpoint);
+  const categories = await fetchCategory(categoriesEndPoint);
+  if (!recipes.length) return global.alert(NO_RECIPES_ERROR);
+
+  return { recipes: limitData(recipes, FIRST_TWELVE), categories };
 }
 
-export function fetchDrinksCategory(callback) {
-  fetchCategory(DRINKS_CATEGORY_ENDPOINT, callback);
+export async function fetchMealsAndCategories(callback) {
+  const data = await fetchRecipesAndCategories(MEALS_ENDPOINT, MEALS_CATEGORY_ENDPOINT);
+  callback(data);
+}
+
+export async function fetchDrinksAndCategories(callback) {
+  const data = await fetchRecipesAndCategories(DRINKS_ENDPOINT, DRINKS_CATEGORY_ENDPOINT);
+  callback(data);
 }
