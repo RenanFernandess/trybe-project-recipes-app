@@ -18,5 +18,8 @@ export default function RecipeIngredients({ ingredients }) {
 }
 
 RecipeIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf().isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.shape({
+    ingredient: PropTypes.string,
+    measure: PropTypes.string,
+  })).isRequired,
 };
