@@ -95,7 +95,7 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 
 ## Contato
 
-* Renan Fernandes - [Linkedin](https://www.linkedin.com/in/orenanfernandes/) - [GitHub](https://github.com/RenanFernandess) - renzinestuods@gmail.com
+* Renan Fernandes - [Linkedin](https://www.linkedin.com/in/orenanfernandes/) - [GitHub](https://github.com/RenanFernandess)
 * Juliana Martinelli - [Linkedin](https://www.linkedin.com/in/julianamartinelliquaglia/) - [GitHub](https://github.com/julianamq)
 * Gustavo Barros Dutra - [Linkedin](https://www.linkedin.com/in/gustavodutradev/) - [GitHub](https://github.com/Gustavo-trybedev)
 * Alexandre - [Linkedin](https://www.linkedin.com/in/alexandre-evangelista-souza-lima/) - [GitHub](https://github.com/LEXW3B)
