@@ -8,11 +8,11 @@ import RecipeVideo from './RecipeVideo';
 import RecipeFooter from './RecipeFooter';
 import RecipeInProgressFooter from './RecipeInProgressFooter';
 import Ingredient from './Ingredient';
+import AwaitReady from './AwaitReady';
 
 export default HeaderSection;
 export {
-  SearchBar,
-  ShareButton,
+  AwaitReady,
   FavoriteButton,
   Ingredient,
   RecipeInstructions,
@@ -20,4 +20,6 @@ export {
   RecipeVideo,
   RecipeFooter,
   RecipeInProgressFooter,
+  SearchBar,
+  ShareButton,
 };

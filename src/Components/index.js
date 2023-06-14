@@ -1,5 +1,5 @@
 import { Logo, Loading } from './atoms';
-import { ShareButton, FavoriteButton } from './molecules';
+import { ShareButton, FavoriteButton, AwaitReady } from './molecules';
 import Header, {
   Footer,
   SearchByMealsCategory,
@@ -16,6 +16,7 @@ import LoginForm, {
 
 export default Header;
 export {
+  AwaitReady,
   FavoriteButton,
   FavoriteContent,
   FinishedRecipes,
