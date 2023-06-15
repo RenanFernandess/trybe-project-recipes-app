@@ -20,6 +20,6 @@ export default function recipeMap(recipe) {
     name: strMeal || strDrink,
     nationality: strArea || '',
     type: strMeal ? 'meal' : 'drink',
-    tags: strTags && [strTags.split(', ')],
+    tags: (strTags && strTags.split(', ')) || [],
   };
 }
