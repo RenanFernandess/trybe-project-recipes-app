@@ -25,7 +25,7 @@ export default function RecipeHeader({ icon }) {
     <Header background={ strMealThumb || strDrinkThumb }>
       <RecipeCategory
         icon={ icon }
-        category={ `${strCategory} ${strAlcoholic}` }
+        category={ `${strCategory} ${strAlcoholic || ''}` }
       />
       <Title>{strMeal || strDrink}</Title>
       <Div>

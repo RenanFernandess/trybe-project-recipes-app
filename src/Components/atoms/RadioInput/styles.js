@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const Input = styled.input`
   height: 12px;
   width: 12px;
-  margin: 0;
+  margin: 0 5px 0 0;
+  position: relative;
 
   &::before {
     content: "";
@@ -26,9 +27,6 @@ export default Input;
 
 export const Label = styled.label`
   cursor: pointer;
-  align-items: center;
-  display: flex;
-  font-size: 0.7rem;
-  gap: 5px;
-  justify-content: start;
+  font-size: 0.8rem;
+  padding: 5px 0;
 `;

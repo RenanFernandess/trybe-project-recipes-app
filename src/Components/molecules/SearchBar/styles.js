@@ -34,9 +34,10 @@ const Form = styled.section`
 export default Form;
 
 export const Categories = styled.div`
-  grid-area: categories;
   align-items: center;
   display: flex;
+  grid-area: categories;
   justify-content: space-around;
   gap: 10px;
+  padding: 10px 0;
 `;

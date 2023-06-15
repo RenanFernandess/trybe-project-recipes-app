@@ -10,6 +10,10 @@ const PrimaryButton = styled.button`
   min-width: 240px;
   text-align: center;
   text-transform: uppercase;
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.COLORS.SECONDARY_900};
+  }
 `;
 
 export default PrimaryButton;

@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
+  align-items: center;
   background: none;
   border: none;
-  min-height: 30px;
+  display: flex;
+  font-size: 0.7rem;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: start;
+  min-height: 85px;
   min-width: 30px;
-  max-width: 68px;
+  max-width: 60px;
   padding: 2px;
 `;
 
