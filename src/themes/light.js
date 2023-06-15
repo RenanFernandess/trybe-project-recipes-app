@@ -1,6 +1,7 @@
 export default {
   COLORS: {
     BACKGROUND: '#FFFFFF',
+    BACKGROUND_SECOND: '#D9D9D9',
 
     BORDER: '#797D86',
     LINE: '#B1B1B1',
