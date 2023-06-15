@@ -7,6 +7,7 @@ export default {
 
     PRIMARY: '#41197F',
     SECONDARY: '#FCC436',
+    SECONDARY_900: '#CBB22F',
 
     TEXT_PRIMARY: '#1A1B1C',
     TEXT_SECONDARY: '#FFFFFF',
