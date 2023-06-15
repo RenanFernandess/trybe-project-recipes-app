@@ -30,11 +30,7 @@ export default function DoneRecipeCard({
           <Tags>
             {
               tags.map((tag) => (
-                <p
-                  key={ tag }
-                >
-                  { tag }
-                </p>
+                <p key={ tag }>{ tag }</p>
               ))
             }
           </Tags>

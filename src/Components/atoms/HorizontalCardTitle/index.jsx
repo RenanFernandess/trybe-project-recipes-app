@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Title, { Container } from './styles';
+import Title, { Category, Container } from './styles';
 
 export default function HorizontalCardTitle({ title, nationality, category }) {
   return (
     <Container>
       <Title>{title}</Title>
-      <p>
+      <Category>
         { nationality }
         { nationality && ' - ' }
         { category }
-      </p>
+      </Category>
     </Container>
   );
 }

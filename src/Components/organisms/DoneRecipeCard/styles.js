@@ -33,7 +33,7 @@ export const SectionLink = styled(Link)`
   }
 `;
 
-export const About = styled.p`
+export const About = styled.div`
   grid-area: About;
   display: flex;
   flex-direction: column;
@@ -45,4 +45,12 @@ export const About = styled.p`
 export const Tags = styled.div`
   display: flex;
   gap: 5px;
+
+  p {
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_SECOND};
+    border-radius: 10px;
+    color: ${({ theme }) => theme.COLORS.TEXT_TERTIARY};
+    font-size: 0.6rem;
+    padding: 5px;
+  }
 `;
