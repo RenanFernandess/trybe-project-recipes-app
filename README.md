@@ -38,8 +38,6 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
 * API de comida
 * API de bebida
 
-<p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
-
 ### Construido Com
 
   * [<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -49,7 +47,6 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
   * ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
   * ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
   * ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
- 
  
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
