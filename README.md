@@ -1,22 +1,8 @@
 <a name="readme-top"></a>
 # :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# App de Receitas
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
-
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
-<details>
-  <summary><strong></strong></summary><br />
-
-</details>
--->
+![Gif app de receitas](./assets/demo.gif)
 
 <details>
   <summary>Índice</summary>
@@ -41,16 +27,16 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 </details>
 
 ## Sobre o Projeto
-Foi desenvolvido um app de receitas, utilizando o que há de mais moderno dentro do ecossistema React: Hooks e Context API!
+Foi desenvolvido em grupo, com objetivo de treinar as soft skills, metodologias ágeis e revisar as hard skills, uma aplicação de busca de receitas utilizando React.js no paradigma funcional e realizando testes automatizados para garantir a qualidade.
 
-Nele será possível: ver, buscar, filtrar, favoritar e acompanhar o progresso de preparação de receitas de comidas e bebidas!
+Neste app a pessoa usuária pode pesquisar por receitas de comidas ou bebidas, podendo fazer uma busca por nome da receita, primeira letra e ingredientes que ela utiliza ou selecionar uma categoria. Ao encontrar a receita desejada a pessoa usuária pode ver os detalhes da receita ao clicar sobre o card da receita, na página de detalhes da receita é possível favoritar a receita, compartilhá, e iniciar a receita clicando sobre o botão START RECIPE. Ao iniciar a receita o usuário poderá checar os ingredientes, após checar os ingredientes e clicar no botão FINISH RECIPE será redirecionado para página de receitas feitas.
 
-A base de dados serão 2 APIs distintas, uma para comidas e outra para bebidas.
+[Este](https://www.figma.com/file/g583ReaScBdevPmylIeDcp/%5BProjeto%5D%5BFrontend%5D-Recipes-App-(Copy)?type=design&node-id=0%3A1&t=Tjs8coUvioSRyYqp-1) foi o protótipo no Figma utilizado no desenvolvimento.
+> O layout tem como foco dispositivos móveis, dessa forma todos os protótipos vão estar desenvolvidos em telas menores.
 
-O layout tem como foco dispositivos móveis, dessa forma todos os protótipos vão estar desenvolvidos em telas menores.
-
-
-
+A base de dados são duas APIs distintas, uma de comida e outra de bebida.
+* API de comida
+* API de bebida
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
