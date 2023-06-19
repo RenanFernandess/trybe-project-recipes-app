@@ -41,6 +41,14 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 </details>
 
 ## Sobre o Projeto
+Foi desenvolvido um app de receitas, utilizando o que há de mais moderno dentro do ecossistema React: Hooks e Context API!
+
+Nele será possível: ver, buscar, filtrar, favoritar e acompanhar o progresso de preparação de receitas de comidas e bebidas!
+
+A base de dados serão 2 APIs distintas, uma para comidas e outra para bebidas.
+
+O layout tem como foco dispositivos móveis, dessa forma todos os protótipos vão estar desenvolvidos em telas menores.
+
 
 
 
@@ -51,7 +59,7 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
   * [<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
   * ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
   * ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
-  * [<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />](https://www.w3schools.com/css/)
+  * ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
   * ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
   * ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
   * ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
@@ -95,7 +103,11 @@ Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua cr
 
 ## Contato
 
-* Renan Fernandes - [Linkedin](https://www.linkedin.com/in/orenanfernandes/) - [GitHub](https://github.com/RenanFernandess) - renzinestuods@gmail.com
+* Renan Fernandes - [Linkedin](https://www.linkedin.com/in/orenanfernandes/) - [GitHub](https://github.com/RenanFernandess)
+* Juliana Martinelli - [Linkedin](https://www.linkedin.com/in/julianamartinelliquaglia/) - [GitHub](https://github.com/julianamq)
+* Gustavo Barros Dutra - [Linkedin](https://www.linkedin.com/in/gustavodutradev/) - [GitHub](https://github.com/Gustavo-trybedev)
+* Alexandre - [Linkedin](https://www.linkedin.com/in/alexandre-evangelista-souza-lima/) - [GitHub](https://github.com/LEXW3B)
+* Paulo Henrique - [Linkedin](https://www.linkedin.com/in/paulo-de-assis/) - [GitHub](https://github.com/paulohdeassis)
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
