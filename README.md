@@ -101,6 +101,20 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
 
 ----
 
+<div align="center">
+  <h3>Tela de Comidas</h3>
+  <img src="./assets/meals.gif" alt="Tela de comidas" />
+  <p></p>
+</div>
+
+----
+
+<div align="center">
+  <h3>Tela de Bebidas</h3>
+  <img src="./assets/drinks.gif" alt="Tela de bebidas" />
+  <p></p>
+</div>
+
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
 ## Contato
