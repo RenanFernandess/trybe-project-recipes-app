@@ -95,18 +95,18 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
 
 <table>
   <tr>
-    <td>
+    <td width="50%">
       <div align="center">
         <h3>Tela de Login</h3>
         <img src="./assets/login.png" alt="Tela de login" />
         <p>Tela de login simulada você pode digitar um email e senha fictícios para fazer o login, o botão ENTER fica inicialmente desativado, para ele ativar é nescessario digitar o email e uma senha com no minimo 6 caracteres.</p>
       </div>
     </td>
-    <td>
+    <td width="50%">
       <div align="center">
         <h3>Tela de Comidas</h3>
         <img src="./assets/meals.gif" alt="Tela de comidas" />
-        <p></p>
+        <p>Na página Meals é onde você vai buscar as receitas de comidas, ao clicar sobre o ícone de lupa vai mostrar a barra de pesquisa, onde você pode fazer uma busca por nome da receita, pela primeira letra ou um ingrediente que ela utiliza. Você também pode fazer uma busca por categoria ao clicar sobre alguma das categorias listadas.</p>
       </div>
     </td>
   </tr>
@@ -115,7 +115,7 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
       <div align="center">
         <h3>Tela de Bebidas</h3>
         <img src="./assets/drinks.gif" alt="Tela de bebidas" />
-        <p></p>
+        <p>Na página Drinks é onde você vai buscar as receitas de bebidas, ao clicar sobre o ícone de lupa vai mostrar a barra de pesquisa, onde você pode fazer uma busca por nome da receita, pela primeira letra ou um ingrediente que ela utiliza. Você também pode fazer uma busca por categoria ao clicar sobre alguma das categorias listadas.</p>
       </div>
     </td>
     <td>
