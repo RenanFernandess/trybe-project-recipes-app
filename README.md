@@ -2,7 +2,9 @@
 # :construction: README customizado em construção ! :construction:
 # App de Receitas
 
-![Gif app de receitas](./assets/demo.gif)
+<div align="center">
+  <img src="./assets/demo.gif" alt="Gif app de receitas" />
+</div>
 
 <details>
   <summary>Índice</summary>
@@ -91,7 +93,13 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
  
 ## Uso
 
+<div align="center">
+  <h3>Tela de Login</h3>
+  <img src="./assets/login.png" alt="Tela de login" />
+  <p>Tela de login simulada você pode digitar um email e senha fictícios para fazer o login, o botão ENTER fica inicialmente desativado, para ele ativar é nescessario digitar o email e uma senha com no minimo 6 caracteres.</p>
+</div>
 
+----
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
