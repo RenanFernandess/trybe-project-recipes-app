@@ -147,14 +147,14 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
       <div align="center">
         <h3>Tela de Receitas Feitas</h3>
         <img src="./assets/done-recipes.gif" alt="Tela de receitas feitas" />
-        <p></p>
+        <p>Tela de receitas feitas, nesta você encontra as receitas feitas onde você pode ver a data em que ele foi preparada, também é possível filtrar por comida ou bebida.</p>
       </div>
     </td>
     <td>
       <div align="center">
         <h3>Tela de Receitas Favoritas</h3>
         <img src="./assets/favorite-recipes.gif" alt="Tela de receitas favoritas" />
-        <p></p>
+        <p>Tela de receitas favoritas, nesta você encontra as receitas favoritas, você pode filtrar por comida ou bebida.</p>
       </div>
     </td>
   </tr>
