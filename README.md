@@ -93,27 +93,72 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
  
 ## Uso
 
-<div align="center">
-  <h3>Tela de Login</h3>
-  <img src="./assets/login.png" alt="Tela de login" />
-  <p>Tela de login simulada você pode digitar um email e senha fictícios para fazer o login, o botão ENTER fica inicialmente desativado, para ele ativar é nescessario digitar o email e uma senha com no minimo 6 caracteres.</p>
-</div>
-
-----
-
-<div align="center">
-  <h3>Tela de Comidas</h3>
-  <img src="./assets/meals.gif" alt="Tela de comidas" />
-  <p></p>
-</div>
-
-----
-
-<div align="center">
-  <h3>Tela de Bebidas</h3>
-  <img src="./assets/drinks.gif" alt="Tela de bebidas" />
-  <p></p>
-</div>
+<table>
+  <tr>
+    <td>
+      <div align="center">
+        <h3>Tela de Login</h3>
+        <img src="./assets/login.png" alt="Tela de login" />
+        <p>Tela de login simulada você pode digitar um email e senha fictícios para fazer o login, o botão ENTER fica inicialmente desativado, para ele ativar é nescessario digitar o email e uma senha com no minimo 6 caracteres.</p>
+      </div>
+    </td>
+    <td>
+      <div align="center">
+        <h3>Tela de Comidas</h3>
+        <img src="./assets/meals.gif" alt="Tela de comidas" />
+        <p></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div align="center">
+        <h3>Tela de Bebidas</h3>
+        <img src="./assets/drinks.gif" alt="Tela de bebidas" />
+        <p></p>
+      </div>
+    </td>
+    <td>
+      <div align="center">
+        <h3>Tela de Detalhes da Receita</h3>
+        <img src="./assets/recipe-details.gif" alt="Tela de detalhes da receita" />
+        <p></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div align="center">
+        <h3>Tela de Receita em Progresso</h3>
+        <img src="./assets/recipe-in-progress.gif" alt="Tela da receita em progresso" />
+        <p></p>
+      </div>
+    </td>
+    <td>
+      <div align="center">
+        <h3>Tela do Perfil</h3>
+        <img src="./assets/profile.png" alt="Tela do perfil" />
+        <p></p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div align="center">
+        <h3>Tela de Receitas Feitas</h3>
+        <img src="./assets/done-recipes.gif" alt="Tela de receitas feitas" />
+        <p></p>
+      </div>
+    </td>
+    <td>
+      <div align="center">
+        <h3>Tela de Receitas Favoritas</h3>
+        <img src="./assets/favorite-recipes.gif" alt="Tela de receitas favoritas" />
+        <p></p>
+      </div>
+    </td>
+  </tr>
+</table>
 
 <p align="right">(<a href="#readme-top">voltar ao topo</a>)</p>
 
