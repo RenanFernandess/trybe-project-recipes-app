@@ -38,6 +38,17 @@ A base de dados são duas APIs distintas, uma de comida e outra de bebida.
 * API de comida [TheMealDB](https://www.themealdb.com/)
 * API de bebida [TheCocktailDB](https://www.thecocktaildb.com/)
 
+### Habilidades trabalhadas
+* Comunicação
+* Colaboração
+* Pair programming
+* Metodologias ágeis
+* Atomic design
+* Desenvolvimento orientado a testes
+* Context API
+* React hooks
+
+
 ### Construido Com
 
   * [<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" />](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
