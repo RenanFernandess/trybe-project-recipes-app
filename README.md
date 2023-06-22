@@ -35,8 +35,8 @@ Neste app a pessoa usuária pode pesquisar por receitas de comidas ou bebidas, p
 > O layout tem como foco dispositivos móveis, dessa forma todos os protótipos vão estar desenvolvidos em telas menores.
 
 A base de dados são duas APIs distintas, uma de comida e outra de bebida.
-* API de comida
-* API de bebida
+* API de comida [TheMealDB](https://www.themealdb.com/)
+* API de bebida [TheCocktailDB](https://www.thecocktaildb.com/)
 
 ### Construido Com
 
