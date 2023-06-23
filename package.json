@@ -1,6 +1,6 @@
 {
-  "homepage": "trybe-project-recipes-app/",
-  "name": "recipes-app-test",
+  "homepage": "https://renanfernandess.github.io/trybe-project-recipes-app/",
+  "name": "trybe-project-recipes-app",
   "version": "1.0.0",
   "private": true,
   "engines": {
