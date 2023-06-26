@@ -4,9 +4,8 @@ import { useRouteMatch } from 'react-router-dom';
 import { ButtonIcon } from '../../atoms';
 import { shareIcon } from '../../../assets';
 
-const URL_BASE = document.URL.match(/^\w+:\/\/\w+:\d+/i)[0];
-
 export default function ShareButton({ url }) {
+  const URL_BASE = document.URL.href.match(/^\w+:\/\/\w+:\d+/i)[0];
   const { url: defaultUrl } = useRouteMatch();
   const [linkCopied, setLinkCopied] = useState(false);
 
