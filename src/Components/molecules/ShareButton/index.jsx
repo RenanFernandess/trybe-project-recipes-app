@@ -5,7 +5,7 @@ import { ButtonIcon } from '../../atoms';
 import { shareIcon } from '../../../assets';
 
 export default function ShareButton({ url }) {
-  const URL_BASE = document.URL.match(/^\w+:\/\/\w+:\d+/i)[0];
+  const URL_BASE = window.location.href.match(/^\w+:\/\/\w+:\d+/i)[0];
   const { url: defaultUrl } = useRouteMatch();
   const [linkCopied, setLinkCopied] = useState(false);
 
