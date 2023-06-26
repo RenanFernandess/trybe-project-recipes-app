@@ -29,7 +29,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js,.jsx",
     "lint:styles": "npx stylelint '**/*.css'",
-    "predeploy": "npm run build",
+    "predeploy": "REACT_APP_PAGE_URL=https://renanfernandess.github.io npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
