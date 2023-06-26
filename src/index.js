@@ -8,7 +8,7 @@ import light from './themes/light';
 import './index.css';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/trybe-project-recipes-app">
     <ThemeProvider theme={ light }>
       <RecipeProvider>
         <App />
