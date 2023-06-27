@@ -1,137 +1,86 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import renderWithRouter from './helpers/renderWithRouter';
-import fetchTotal from '../../cypress/mocks/fetch';
-import Meals from '../pages/Meals';
-import Drinks from '../pages/Drinks';
 import App from '../App';
+import renderWithRouter from './helpers/renderWithRouter';
 
-const SEARCH_TOP_BTN_TEST_ID = 'search-top-btn';
+describe('Test o componente Header', () => {
+  let renderReturn;
 
-describe('Testa o Header', () => {
   beforeEach(() => {
-    global.fetch = fetchTotal;
-    jest.spyOn(global, 'fetch');
+    renderReturn = renderWithRouter(<App />);
+    const { history } = renderReturn;
+    history.push('/meals');
   });
 
-  it('Testa se o Header possui um título, botão de busca e botão de perfil', () => {
-    renderWithRouter(<Meals />);
-    expect(screen.getByRole('img', { name: /imagessearch/i })).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: /profile/i })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: /meals/i })).toBeInTheDocument();
+  it('Verifica se possui um elemento header com o titulo Recipesapp', () => {
+    const APP_TITLE = screen.getByRole('heading', { name: /recipes/i });
+
+    expect(APP_TITLE).toBeInTheDocument();
+    expect(APP_TITLE).toHaveTextContent(/recipesapp/i);
   });
-  it('Testa se ao clicar no botão de busca, a barra de busca aparece na tela, e ao clicar novamente, ela desaparece', () => {
-    renderWithRouter(<Meals />);
-    userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
-    expect(screen.getByRole('textbox')).toBeInTheDocument();
-    userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
-    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+
+  it('Verifica se possui um botão com ícone de lupa', () => {
+    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
+    const SEARCH_ICON = within(SEARCH_BUTTON).getByRole('img', { name: /search button/i });
+
+    expect(SEARCH_ICON).toBeInTheDocument();
   });
-  it('Testa se ao selecionar um input de categoria, é realizado um fetch com o endpoint correto', async () => {
-    renderWithRouter(<Meals />);
-    const lupa = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
-    userEvent.click(lupa);
-    await waitFor(() => {
-      expect(screen.getByRole('radio', {
-        name: /ingredientes/i })).toBeInTheDocument();
-      expect(screen.getByRole('radio', {
-        name: /primeira letra/i })).toBeInTheDocument();
-      expect(screen.getByRole('radio', { name: /ingredientes/i })).toBeInTheDocument();
-      userEvent.click(screen.getByRole('img', { name: /imagessearch/i }));
-      expect(screen.getByRole('textbox')).toBeInTheDocument();
-      userEvent.type(screen.getByRole('textbox'));
+
+  it('Verifica se possui um botão ícone de perfil', () => {
+    const PROFILE_BUTTON = screen.getByRole('button', { name: /profile/i });
+    const PROFILE_ICON = within(PROFILE_BUTTON).getByRole('img', { name: /profile/i });
+
+    expect(PROFILE_ICON).toBeInTheDocument();
+  });
+
+  it('Verifica se possui o titulo da pagina', () => {
+    const PAGE_TITLE = screen.getByRole('heading', { name: /meals meals/i });
+
+    expect(PAGE_TITLE).toBeInTheDocument();
+    expect(PAGE_TITLE).toHaveTextContent(/meals/i);
+  });
+
+  describe('Verifica se ao clicar o botão com ícone de lupa mostra a barra de pesquisa', () => {
+    beforeEach(() => {
+      const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
+      userEvent.click(SEARCH_BUTTON);
+    });
+
+    it('A barra de pesquisa deve ter um campo de texto', () => {
+      const INPUT_TEXT = screen.getByRole('textbox');
+
+      expect(INPUT_TEXT).toBeInTheDocument();
+      expect(INPUT_TEXT).toHaveAttribute('placeholder', 'Search');
+    });
+
+    it('Verifica se possui tres inputs radios "Name", "Ingrediente" e "First letter" para selecionar o tipo de busca', () => {
+      const INGREDIENT_INPUT = screen.getByRole('radio', { name: /ingredient/i });
+      const NAME_INPUT = screen.getByRole('radio', { name: /name/i });
+      const FIRST_LETTER = screen.getByRole('radio', { name: /first letter/i });
+
+      expect(INGREDIENT_INPUT).toBeInTheDocument();
+      expect(NAME_INPUT).toBeInTheDocument();
+      expect(FIRST_LETTER).toBeInTheDocument();
+    });
+
+    it('Verifica se possui um botão de pesquisa', () => {
+      const SEARCH_BUTTON = screen.getByRole('button', { name: /^SEARCH$/i });
+
+      expect(SEARCH_BUTTON).toBeInTheDocument();
     });
   });
 
-  it('Testa se ao clicar no botão de perfil, o usuário é redirecionado para a paǵina de perfil', () => {
-    const { history } = renderWithRouter(<Meals />);
-    userEvent.click(screen.getByRole('img', { name: /profile/i }));
+  it('Verifica se ao clicar no botão com ícone de perfil redireciona para a pagina de perfil', () => {
+    const { history } = renderReturn;
+
+    const PROFILE_BUTTON = screen.getByRole('button', { name: /profile/i });
+
+    userEvent.click(PROFILE_BUTTON);
+
+    const PAGE_TITLE = screen.getByRole('heading', { name: /profile profile/i });
+
+    expect(PAGE_TITLE).toBeInTheDocument();
+    expect(PAGE_TITLE).toHaveTextContent(/profile/i);
     expect(history.location.pathname).toBe('/profile');
-  });
-  it('Se é chamado quando clicado no radio Name paginas são chamadas corretamente.', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-
-    const searchTop = screen.getByRole('button', { name: /imagessearch/i });
-    expect(searchTop).toBeInTheDocument();
-    userEvent.click(searchTop);
-
-    const inputSearch = screen.getByTestId('search-input');
-    userEvent.type(inputSearch, 'Arrabiata');
-    expect(inputSearch).toBeInTheDocument();
-    const radioIngrediente = screen.getByText(/Nome/i);
-    userEvent.click(radioIngrediente);
-    expect(radioIngrediente).toBeInTheDocument();
-
-    const busca = screen.getByText(/busca/i);
-    userEvent.click(busca);
-    const path = '/meals/52771';
-    await waitFor(() => {
-      expect(history.location.pathname).toBe(path);
-    });
-  });
-  it('Para ver se aparece na página.', async () => {
-    renderWithRouter(<Drinks />);
-    const lupa = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
-    userEvent.click(lupa);
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { name: /drinks/i })).toBeInTheDocument();
-      expect(screen.getByRole('img', { name: /profile/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /imagessearch/i })).toBeInTheDocument();
-      expect(screen.getByText(/ingredientes/i)).toBeInTheDocument();
-      expect(screen.getByText(/nome/i)).toBeInTheDocument();
-      expect(screen.getByText(/primeira letra/i)).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /busca/i })).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /all/i })).toBeInTheDocument();
-    });
-  });
-
-  it('teste de button icones', () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-
-    const headerTitle = screen.getByTestId('page-title');
-    const searchIcon = screen.getByTestId(SEARCH_TOP_BTN_TEST_ID);
-    const pageTitle = screen.getByTestId('page-title');
-
-    expect(headerTitle).toBeInTheDocument();
-    expect(searchIcon).toBeInTheDocument();
-    expect(pageTitle).toBeInTheDocument();
-
-    userEvent.click(searchIcon);
-
-    const searchInput = screen.getByTestId('search-input');
-    expect(searchInput).toBeInTheDocument();
-  });
-
-  it('teste se é redirecionado', () => {
-    const UserEmail = {
-      email: 'trybe@test.com',
-    };
-    localStorage.setItem('user', JSON.stringify(UserEmail));
-    const { history } = renderWithRouter(<App />);
-    history.push('/meals');
-
-    const profileIcon = screen.getByTestId('profile-top-btn');
-    expect(profileIcon).toBeInTheDocument();
-    userEvent.click(profileIcon);
-    expect(history.location.pathname).toBe('/profile');
-  });
-
-  it('testar os icones das paginas', () => {
-    const { history } = renderWithRouter(<App />);
-
-    history.push('/meals');
-    const mealsIcon = screen.getByRole('heading', { name: /meals/i });
-    expect(mealsIcon).toBeInTheDocument();
-
-    history.push('/drinks');
-    const drinksIcon = screen.getByRole('heading', { name: /drinks/i });
-    expect(drinksIcon).toBeInTheDocument();
-
-    history.push('/profile');
-    const profileIcon = screen.getByRole('button', { name: /profile/i });
-    expect(profileIcon).toBeInTheDocument();
   });
 });
