@@ -6,15 +6,13 @@ import renderWithRouter from './helpers/renderWithRouter';
 
 const EMAIL = 'xablau@gmail.com';
 const SENHA = '1234567';
-const EMAIL_INPUT_TEST_ID = 'email-input';
-const PASSWORD_INPUT_TEST_ID = 'password-input';
 
 describe('Testa a tela de Login', () => {
   it('Verifica se possui um formulario de login', () => {
     renderWithRouter(<App />);
-    const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
-    const password = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
-    const login = screen.getByTestId('login-submit-btn');
+    const email = screen.getByRole('textbox');
+    const password = screen.getByPlaceholderText(/password/i);
+    const login = screen.getByRole('button', { name: /enter/i });
     expect(email).toBeInTheDocument();
     expect(password).toBeInTheDocument();
     expect(login).toBeInTheDocument();
@@ -25,8 +23,8 @@ describe('Testa a tela de Login', () => {
 
     expect(screen.getByRole('button', { name: /enter/i })).toBeDisabled();
 
-    const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
-    const password = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
+    const email = screen.getByRole('textbox');
+    const password = screen.getByPlaceholderText(/password/i);
 
     userEvent.type(email, EMAIL);
     userEvent.type(password, '123456');
@@ -43,13 +41,16 @@ describe('Testa a tela de Login', () => {
 
   it('Verifica se clicar no botão de "Enter" é redirecionado para pagina de Meals', () => {
     const { history } = renderWithRouter(<App />);
-    const email = screen.getByTestId(EMAIL_INPUT_TEST_ID);
-    const password = screen.getByTestId(PASSWORD_INPUT_TEST_ID);
+    const email = screen.getByRole('textbox');
+    const password = screen.getByPlaceholderText(/password/i);
 
     userEvent.type(email, EMAIL);
     userEvent.type(password, SENHA);
     userEvent.click(screen.getByRole('button', { name: /enter/i }));
 
+    const mealsTitle = screen.getByRole('heading', { name: /meals meals/i });
+
     expect(history.location.pathname).toBe('/meals');
+    expect(mealsTitle).toBeInTheDocument();
   });
 });
