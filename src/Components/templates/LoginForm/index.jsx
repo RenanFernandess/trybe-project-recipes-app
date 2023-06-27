@@ -9,20 +9,12 @@ const MIN_PASSWORD_CHARACTERS = 6;
 const REGEXP_EMAIL = /\S+@\S+\.\S+/;
 
 export default function LoginForm() {
-  const [{ email, password }, setLogin] = useState({
-    email: '',
-    password: '',
-  });
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const history = useHistory();
 
-  const handleChange = ({ target: { name, value } }) => {
-    setLogin((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const isValid = (password.length > MIN_PASSWORD_CHARACTERS) && REGEXP_EMAIL.test(email);
+  const buttonIsDisabled = (password.length > MIN_PASSWORD_CHARACTERS)
+    && REGEXP_EMAIL.test(email);
 
   const saveUser = () => {
     saveItem(USER, { email });
@@ -38,17 +30,17 @@ export default function LoginForm() {
         placeholder="Email"
         name="email"
         value={ email }
-        onChange={ handleChange }
+        onChange={ ({ target: { value } }) => setEmail(value) }
       />
       <TextInput
         placeholder="Password"
         type="password"
         name="password"
         value={ password }
-        onChange={ handleChange }
+        onChange={ ({ target: { value } }) => setPassword(value) }
       />
       <Button
-        disabled={ !isValid }
+        disabled={ !buttonIsDisabled }
         onClick={ saveUser }
       >
         Enter
