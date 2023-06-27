@@ -2,36 +2,40 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
-import Meals from '../pages/Meals';
+import App from '../App';
 
 describe('Realiza os testes no componente Footer', () => {
   let returned;
   beforeEach(() => {
-    returned = renderWithRouter(<Meals />);
+    returned = renderWithRouter(<App />);
+    const { history } = returned;
+    history.push('/meals');
   });
 
-  test('Verifica se os elementos esperados existem na tela', () => {
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
-    const footer = screen.getByTestId('footer');
+  test('Verifica se possui um rodapé na pagina com um botão para pagina de bebidas e outro para a de comidas', () => {
+    const drinksButton = screen.getByRole('button', { name: /drinks button/i });
+    const mealsButton = screen.getByRole('button', { name: /meals button/i });
+    const footer = screen.getByRole('contentinfo');
 
-    expect(drinksIcon).toBeInTheDocument();
-    expect(mealsIcon).toBeInTheDocument();
+    expect(drinksButton).toBeInTheDocument();
+    expect(mealsButton).toBeInTheDocument();
     expect(footer).toBeInTheDocument();
-    expect(drinksIcon).toHaveAttribute('src', 'drinkIcon.svg');
-    expect(mealsIcon).toHaveAttribute('src', 'mealIcon.svg');
   });
 
-  test('Verifica o icone de drink faz o redirec correto', () => {
+  test('Verifica se o botão drink redireciona para a pagina de bebidas', () => {
     const { history } = returned;
-    const drinksIcon = screen.getByTestId('drinks-bottom-btn');
-    userEvent.click(drinksIcon);
+
+    const drinksButton = screen.getByRole('button', { name: /drinks button/i });
+    userEvent.click(drinksButton);
     expect(history.location.pathname).toBe('/drinks');
+    expect(screen.getByRole('heading', { name: /drinks drinks/i })).toBeInTheDocument();
   });
-  test('Verifica o icone de drink faz o redirec correto', () => {
+  test('Verifica se o botão meals redireciona para a pagina de comidas', () => {
     const { history } = returned;
-    const mealsIcon = screen.getByTestId('meals-bottom-btn');
-    userEvent.click(mealsIcon);
+
+    const mealsButton = screen.getByRole('button', { name: /meals button/i });
+    userEvent.click(mealsButton);
     expect(history.location.pathname).toBe('/meals');
+    expect(screen.getByRole('heading', { name: /meals meals/i })).toBeInTheDocument();
   });
 });
