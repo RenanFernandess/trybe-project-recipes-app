@@ -34,9 +34,9 @@ describe('Testa o FavoriteRecipes', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/done-recipes');
 
-    const filterByAll = screen.getByTestId('filter-by-all-btn');
-    const filterByMeal = screen.getByTestId('filter-by-meal-btn');
-    const filterByDrink = screen.getByTestId('filter-by-drink-btn');
+    const filterByAll = screen.getByRole('img', { name: /all categories button/i });
+    const filterByMeal = screen.getByRole('img', { name: /meals categories button/i });
+    const filterByDrink = screen.getByRole('img', { name: /drinks categories button/i });
     expect(filterByAll).toBeInTheDocument();
     expect(filterByMeal).toBeInTheDocument();
     expect(filterByDrink).toBeInTheDocument();
@@ -48,30 +48,22 @@ describe('Testa o FavoriteRecipes', () => {
       expect(corba).toBeInTheDocument();
     });
   });
-  it.skip('Se a receita esta favoritada ', async () => {
-    jest.spyOn(global, 'fetch');
+  it('Testa se renderia o carde da receita feita', async () => {
     localStorage.setItem('doneRecipes', JSON.stringify(mockDrink));
     const { history } = renderWithRouter(<App />);
     history.push('/done-recipes');
-    await waitFor(() => {
-      const imagemHorizontal = screen.getByTestId('0-horizontal-image');
-      expect(imagemHorizontal).toBeInTheDocument();
-      expect(imagemHorizontal).toHaveAttribute('src');
+    const imagemHorizontal = screen.getAllByRole('img', { name: /recipe image/i })[0];
+    expect(imagemHorizontal).toBeInTheDocument();
+    expect(imagemHorizontal).toHaveAttribute('src');
 
-      const nameHorizontal = screen.getByTestId('0-horizontal-name');
-      expect(nameHorizontal).toHaveTextContent('GG');
+    const nameHorizontal = screen.getByText(/GG/i);
+    expect(nameHorizontal).toBeInTheDocument();
 
-      const favoriteHorizontal = screen.getByTestId('0-horizontal-favorite-btn');
-      expect(favoriteHorizontal).toBeInTheDocument();
-      userEvent.click(favoriteHorizontal);
-      expect(favoriteHorizontal).toHaveAttribute('src', whiteHeartIcon);
+    const shareButtons = screen.getAllByRole('button', { name: /share button/i });
+    expect(shareButtons.length).toBe(2);
+    expect(shareButtons[0]).toBeInTheDocument();
 
-      const shareHorizontal = screen.getByTestId('0-horizontal-share-btn');
-      expect(shareHorizontal).toBeInTheDocument();
-      expect(shareHorizontal).toHaveAttribute('src');
-
-      const textHorizontal = screen.getByTestId('0-horizontal-top-text');
-      expect(textHorizontal).toBeInTheDocument();
-    });
+    const category = screen.getByText(/Ordinary Drink Optional alcohol/i);
+    expect(category).toBeInTheDocument();
   });
 });
