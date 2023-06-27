@@ -9,6 +9,7 @@ const Container = styled.div`
   grid-template-columns: 12fr 1fr;
   grid-template-areas: "Link Share"
   "Link Share";
+  max-width: 600px;
 `;
 
 export default Container;
