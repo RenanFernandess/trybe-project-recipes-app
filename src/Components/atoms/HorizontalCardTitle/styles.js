@@ -10,7 +10,7 @@ export const Container = styled.div`
   grid-area: Title;
 `;
 
-export const Category = styled.div`
+export const Category = styled.p`
   color: ${({ theme }) => theme.COLORS.TEXT_TERTIARY};
   font-size: 0.7rem;
 `;
