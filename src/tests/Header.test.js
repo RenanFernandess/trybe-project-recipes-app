@@ -83,4 +83,36 @@ describe('Test o componente Header', () => {
     expect(PAGE_TITLE).toHaveTextContent(/profile/i);
     expect(history.location.pathname).toBe('/profile');
   });
+
+  describe('testa se o botão com ícone de lupa aparece nas paginas corretas', () => {
+    it('Verifica se aparece na pagina /meals', () => {
+      const SEARCH_BUTTON = screen.queryByRole('button', { name: /search button/i });
+
+      expect(SEARCH_BUTTON).toBeInTheDocument();
+    });
+    it('Verifica se aparece na pagina /drinks', () => {
+      const { history } = renderReturn;
+      history.push('/drinks');
+
+      const SEARCH_BUTTON = screen.queryByRole('button', { name: /search button/i });
+
+      expect(SEARCH_BUTTON).toBeInTheDocument();
+    });
+    it('Verifica se não aparece na pagina /favorite-recipes', () => {
+      const { history } = renderReturn;
+      history.push('/favorite-recipes');
+
+      const SEARCH_BUTTON = screen.queryByRole('button', { name: /search button/i });
+
+      expect(SEARCH_BUTTON).not.toBeInTheDocument();
+    });
+    it('Verifica se não aparece na pagina /done-recipes', () => {
+      const { history } = renderReturn;
+      history.push('/done-recipes');
+
+      const SEARCH_BUTTON = screen.queryByRole('button', { name: /search button/i });
+
+      expect(SEARCH_BUTTON).not.toBeInTheDocument();
+    });
+  });
 });
