@@ -1,116 +1,106 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
-import App from '../App';
-import fetchTotal from '../../cypress/mocks/fetch';
-import meals from '../../cypress/mocks/meals';
-import drinks from '../../cypress/mocks/drinks';
-import oneDrink from '../../cypress/mocks/oneDrink';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import FAVORITE_RECIPES_MOCK from './mocks/favoriteRecipesMock';
+import { FavoritesProvider } from '../context';
+import { FavoriteRecipes } from '../pages';
 
-const FAVORITE_RECIPES_PATH = '/favorite-recipes';
-
-const mockDrink = [{
-  id: '15997',
-  type: 'drink',
-  nationality: '',
-  alcoholicOrNot: 'Optional alcohol',
-  category: 'Ordinary Drink',
-  name: 'GG',
-  image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-
-}, {
-  alcoholicOrNot: '',
-  category: 'Side',
-  id: '52977',
-  image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-  name: 'Corba',
-  nationality: 'Turkish',
-  type: 'meal',
-},
-
-];
-describe('Testa o FavoriteRecipes', () => {
+describe('Test a pagina FavoriteRecipes', () => {
   beforeEach(() => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(fetchTotal)
-        .mockResolvedValueOnce(meals)
-        .mockResolvedValueOnce(drinks)
-        .mockResolvedValueOnce(oneDrink),
-    });
+    jest.spyOn(Storage.prototype, 'getItem');
+    Storage.prototype.getItem = jest.fn(() => JSON.stringify(FAVORITE_RECIPES_MOCK));
+
+    renderWithRouter(
+      <FavoritesProvider>
+        <FavoriteRecipes />
+      </FavoritesProvider>,
+    );
   });
 
-  afterEach(() => jest.clearAllMocks());
-
-  it('Testa se os botões estão funcionais  ', async () => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
-    const { history } = renderWithRouter(<App />);
-    history.push(FAVORITE_RECIPES_PATH);
-    await waitFor(() => {
-      const pageTitle = screen.getByTestId('page-title');
-      const profileLink = screen.getByRole('button', { name: /profile/i });
-      expect(pageTitle).toBeInTheDocument();
-      expect(profileLink).toBeInTheDocument();
-
-      const filterByAll = screen.getByTestId('filter-by-all-btn');
-      const filterByMeal = screen.getByTestId('filter-by-meal-btn');
-      const filterByDrink = screen.getByTestId('filter-by-drink-btn');
-      expect(filterByAll).toBeInTheDocument();
-      expect(filterByMeal).toBeInTheDocument();
-      expect(filterByDrink).toBeInTheDocument();
-
-      const coracao = screen.getByText(/gg/i);
-      expect(coracao).toBeInTheDocument();
-      userEvent.click(filterByMeal);
-      expect(coracao).not.toBeInTheDocument();
-      userEvent.click(filterByDrink);
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
-  it('Se a receita esta favoritada ', async () => {
-    jest.spyOn(global, 'fetch');
-    localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
-    const { history } = renderWithRouter(<App />);
-    history.push(FAVORITE_RECIPES_PATH);
-    await waitFor(() => {
-      const imagemHorizontal = screen.getByTestId('0-horizontal-image');
-      expect(imagemHorizontal).toBeInTheDocument();
-      expect(imagemHorizontal).toHaveAttribute('src');
 
-      const nameHorizontal = screen.getByTestId('0-horizontal-name');
-      expect(nameHorizontal).toHaveTextContent('GG');
+  it('Verifica se a pagina possui o titulo Favorite Recipe.', () => {
+    const TITLE = screen.getByRole('heading', { name: /favorite recipes favorite recipes/i });
 
-      const favoriteHorizontal = screen.getByTestId('0-horizontal-favorite-btn');
-      expect(favoriteHorizontal).toBeInTheDocument();
-      userEvent.click(favoriteHorizontal);
-      expect(favoriteHorizontal).toHaveAttribute('src', whiteHeartIcon);
-
-      const shareHorizontal = screen.getByTestId('0-horizontal-share-btn');
-      expect(shareHorizontal).toBeInTheDocument();
-      expect(shareHorizontal).toHaveAttribute('src');
-      const textHorizontal = screen.getByTestId('0-horizontal-top-text');
-      expect(textHorizontal).toBeInTheDocument();
-    });
+    expect(TITLE).toBeInTheDocument();
+    expect(TITLE).toHaveTextContent(/Favorite Recipe/i);
   });
-  it('teste', async () => {
-    jest.spyOn(global, 'fetch');
-    localStorage.setItem('favoriteRecipes', JSON.stringify(mockDrink));
-    const { history } = renderWithRouter(<App />);
-    history.push(FAVORITE_RECIPES_PATH);
-    await waitFor(() => {
-      const recoverege = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      console.log(recoverege);
-      const favoriteHorizontal1 = screen.getByTestId('1-horizontal-favorite-btn');
-      expect(favoriteHorizontal1).toBeInTheDocument();
-      userEvent.click(favoriteHorizontal1);
-      expect(favoriteHorizontal1).not.toBeInTheDocument();
-    });
-  });
-  it('testa se dá null', () => {
-    jest.spyOn(global, 'fetch');
 
-    const { history } = renderWithRouter(<App />);
-    history.push(FAVORITE_RECIPES_PATH);
+  it('Verifica se possui test botões "All", "Meals" e "Drinks" para filtrar por tipo da receita.', () => {
+    const BUTTON_ALL = screen.getByRole('button', { name: /all categories button all/i });
+    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
+    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+
+    expect(BUTTON_ALL).toBeInTheDocument();
+    expect(BUTTON_MEALS).toBeInTheDocument();
+    expect(BUTTON_DRINKS).toBeInTheDocument();
+  });
+
+  it('Verifica se renderiza os cartões das receitas.', () => {
+    expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
+    expect(screen.getByText(/bistek/i)).toBeInTheDocument();
+    expect(screen.getByText(/banana daiquiri/i)).toBeInTheDocument();
+    expect(screen.getByText(/boozy snickers milkshake/i)).toBeInTheDocument();
+    expect(screen.getByText(/orange scented hot chocolate/i)).toBeInTheDocument();
+    expect(screen.getByText(/mango orange smoothie/i)).toBeInTheDocument();
+    expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
+    expect(screen.getByText(/smoked haddock kedgeree/i)).toBeInTheDocument();
+    expect(screen.getByText(/beef stroganoff/i)).toBeInTheDocument();
+    expect(screen.getByText(/ayam percik/i)).toBeInTheDocument();
+    expect(screen.getByText(/chicken handi/i)).toBeInTheDocument();
+    expect(screen.getByText(/tamiya/i)).toBeInTheDocument();
+  });
+
+  it('Verifica se ao clica no botão "Meals" de filtrar por tipo comida aparece somente as receitas de comida.', () => {
+    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
+
+    userEvent.click(BUTTON_MEALS);
+
+    expect(screen.getByText(/bistek/i)).toBeInTheDocument();
+    expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
+
+    expect(screen.queryByText(/egg cream/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/banana daiquiri/i)).not.toBeInTheDocument();
+  });
+
+  it('Verifica se ao clica no botão "Drinks" de filtrar por tipo bebida aparece somente as receitas de bebida.', () => {
+    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+
+    userEvent.click(BUTTON_DRINKS);
+
+    expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
+    expect(screen.getByText(/banana daiquiri/i)).toBeInTheDocument();
+
+    expect(screen.queryByText(/bistek/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/lasagne/i)).not.toBeInTheDocument();
+  });
+
+  it('Verifica se ao clicar no botão "All" que limpa o filtro mostra receitas de comida e bebida', () => {
+    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
+    const BUTTON_ALL = screen.getByRole('button', { name: /all categories button all/i });
+
+    userEvent.click(BUTTON_MEALS);
+
+    expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
+    expect(screen.queryByText(/egg cream/i)).not.toBeInTheDocument();
+
+    userEvent.click(BUTTON_ALL);
+
+    expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
+    expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
+
+    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+
+    userEvent.click(BUTTON_DRINKS);
+
+    expect(screen.getByText(/banana daiquiri/i)).toBeInTheDocument();
+    expect(screen.queryByText(/bistek/i)).not.toBeInTheDocument();
+
+    userEvent.click(BUTTON_ALL);
+
+    expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
+    expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
   });
 });
