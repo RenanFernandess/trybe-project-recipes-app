@@ -14,7 +14,7 @@ export default function FavoriteCard({
       <DivLink to={ URL }>
         <HorizontalCardImage
           src={ image }
-          alt="Recipe image"
+          alt={ `${name} image` }
         />
       </DivLink>
       <About to={ URL }>
