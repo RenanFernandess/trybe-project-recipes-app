@@ -1,69 +1,59 @@
-import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
-import fetchTotal from '../../cypress/mocks/fetch';
 import App from '../App';
+import storageGetItemMock from './mocks/storageGetItemMock';
 
-describe('Testa o Profile', () => {
+describe('Testa a pagina Profile', () => {
   beforeEach(() => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(fetchTotal),
-    });
-  });
-  afterEach(() => { localStorage.clear(); });
-  it('Testa se há  ', () => {
-    renderWithRouter(<App />);
-    const email = screen.getByTestId('email-input');
-    const senha = screen.getByTestId('password-input');
-    const butonLogin = screen.getByTestId('login-submit-btn');
+    jest.spyOn(Storage.prototype, 'getItem');
+    Storage.prototype.getItem = storageGetItemMock;
 
     const { history } = renderWithRouter(<App />);
-
-    expect(email).toBeInTheDocument();
-    userEvent.type('trybe@trybe.com.br');
-
-    expect(senha).toBeInTheDocument();
-    userEvent.type('123456');
-    expect(butonLogin).toBeInTheDocument();
-    userEvent.click(butonLogin);
-    history.push('/meals');
-    const profileImage = screen.getByTestId('profile-top-btn');
-    expect(profileImage).toBeInTheDocument();
-
-    const profileBtn = screen.getByTestId('profile-top-btn');
-    expect(profileBtn).toBeInTheDocument();
-    userEvent.click(profileBtn);
-
     history.push('/profile');
-    const profileEmail = screen.getByTestId('profile-email');
-    expect(profileEmail).toBeInTheDocument();
-    const profileDoceRecipes = screen.getByRole('button', { name: /done recipes/i });
-
-    expect(profileDoceRecipes).toBeInTheDocument();
-    userEvent.click(profileDoceRecipes);
-    expect(history.location.pathname).toBe('/done-recipes');
-
-    history.push('/favorite-recipes');
   });
 
-  it('Se é direcionado a pagina de favoritos ', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/profile');
-    const profileFavorite = screen.getByRole('button', { name: /favorite recipes/i });
-    await waitFor(() => {
-      userEvent.click(profileFavorite);
-      expect(history.location.pathname).toBe('/favorite-recipes');
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
-  it('Sair da pagina ', async () => {
-    const { history } = renderWithRouter(<App />);
-    history.push('/profile');
-    const profileLogout = screen.getByRole('button', { name: /logout/i });
-    userEvent.click(profileLogout);
-    await waitFor(() => {
-      expect(history.location.pathname).toBe('/');
-    });
+
+  it('Verifica se possui o titulo Profile', () => {
+    const PAGE_TITLE = screen.getByRole('heading', { name: /profile profile/i });
+    expect(PAGE_TITLE).toHaveTextContent(/profile/i);
+  });
+
+  it('Verifica se possui o e-mail da pessoa usuária', () => {
+    const EMAIL = screen.getByText(/jose_receitas@gmail.com/i);
+    expect(EMAIL).toHaveTextContent('jose_receitas@gmail.com');
+  });
+
+  it('Verifica se possui um botão com o texto "Done Recipe" que oa ser clicado redireciona para a pagina de receitas feitas', () => {
+    const BUTTON = screen.getByRole('button', { name: /done recipes button done recipes/i });
+    expect(BUTTON).toHaveTextContent(/done recipes/i);
+
+    userEvent.click(BUTTON);
+
+    const DONE_RECIPES_TITLE = screen.getByRole('heading', { name: /done recipes done recipes/i });
+    expect(DONE_RECIPES_TITLE).toBeInTheDocument();
+  });
+
+  it('Verifica se possui um botão com o texto "Favorite Recipe" que oa ser clicado redireciona para a pagina de receitas favoritas', () => {
+    const BUTTON = screen.getByRole('button', { name: /favorite recipes button favorite recipes/i });
+    expect(BUTTON).toHaveTextContent(/Favorite Recipe/i);
+
+    userEvent.click(BUTTON);
+
+    const FAVORITE_RECIPES_TITLE = screen.getByRole('heading', { name: /favorite recipes favorite recipes/i });
+    expect(FAVORITE_RECIPES_TITLE).toBeInTheDocument();
+  });
+
+  it('Verifica se possui um botão com o texto "Logout" que oa ser clicado redireciona para a pagina de login', () => {
+    const BUTTON = screen.getByRole('button', { name: /logout button logout/i });
+    expect(BUTTON).toHaveTextContent(/logout/i);
+
+    userEvent.click(BUTTON);
+
+    const LOGIN_TITLE = screen.getByRole('heading', { name: /login/i });
+    expect(LOGIN_TITLE).toBeInTheDocument();
   });
 });
