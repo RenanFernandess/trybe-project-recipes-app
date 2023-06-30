@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
 import { CardImage } from '../../atoms';
 import ContainerLink, { Text } from './styles';
 
 export default function RecipeCard({ name, thumb, id }) {
-  const { location: { pathname } } = useHistory();
   return (
-    <ContainerLink to={ `${pathname}/${id}` }>
+    <ContainerLink to={ ({ pathname }) => `${pathname}/${id}` }>
       <CardImage
         src={ thumb }
         alt={ name }
