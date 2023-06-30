@@ -1,14 +1,14 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
-import FAVORITE_RECIPES_MOCK from './mocks/favoriteRecipesMock';
 import { FavoritesProvider } from '../context';
 import { FavoriteRecipes } from '../pages';
+import storageGetItemMock from './mocks/storageGetItemMock';
 
 describe('Test a pagina FavoriteRecipes', () => {
   beforeEach(() => {
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn(() => JSON.stringify(FAVORITE_RECIPES_MOCK));
+    Storage.prototype.getItem = storageGetItemMock;
 
     renderWithRouter(
       <FavoritesProvider>

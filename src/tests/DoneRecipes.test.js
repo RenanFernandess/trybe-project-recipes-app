@@ -2,12 +2,12 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import { DoneRecipes } from '../pages';
-import DONE_RECIPES_MOCK from './mocks/doneRecipesMock';
+import storageGetItemMock from './mocks/storageGetItemMock';
 
 describe('Test a pagina DoneRecipes', () => {
   beforeEach(() => {
     jest.spyOn(Storage.prototype, 'getItem');
-    Storage.prototype.getItem = jest.fn(() => JSON.stringify(DONE_RECIPES_MOCK));
+    Storage.prototype.getItem = storageGetItemMock;
 
     renderWithRouter(<DoneRecipes />);
   });
