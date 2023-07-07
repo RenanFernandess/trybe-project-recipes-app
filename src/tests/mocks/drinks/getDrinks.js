@@ -12,7 +12,7 @@ export default function getDrinks(url) {
   case `${DRINK_BASE_URL}/list.php?c=list`:
     return Promise.resolve(DRINK_CATEGORIES_MOCK);
 
-  case `${DRINK_BASE_URL}/filter.php?c=Ordinary%20Drink`:
+  case `${DRINK_BASE_URL}/filter.php?c=Ordinary Drink`:
     return Promise.resolve(DRINKS_ORDINARY_DRINK_CATEGORY_MOCK);
 
   case `${DRINK_BASE_URL}/filter.php?c=Cocktail`:
@@ -21,7 +21,7 @@ export default function getDrinks(url) {
   case `${DRINK_BASE_URL}/filter.php?c=Shake`:
     return Promise.resolve(DRINKS_SHAKE_CATEGORY_MOCK);
 
-  case `${DRINK_BASE_URL}/filter.php?c=Other%20/%20Unknown`:
+  case `${DRINK_BASE_URL}/filter.php?c=Other / Unknown`:
     return Promise.resolve(DRINKS_OTHER_OR_UNKNOWN_CATEGORY_MOCK);
 
   case `${DRINK_BASE_URL}/filter.php?c=Cocoa`:
