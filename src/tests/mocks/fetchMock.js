@@ -1,4 +1,4 @@
-import ALL_DRINKS_MOCK, { DRINK_CATEGORIES_MOCK, SHAKE_DRINK_MOCK } from './drinksMock';
+import getDrinks from './drinks';
 import {
   ALL_MEALS_MOCK,
   MEALS_BEEF_CATEGORY,
@@ -12,24 +12,7 @@ import {
   SEARCHED_MEALS_BY_NAME,
 } from './mealsMock';
 
-const DRINK_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 const MEALS_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
-
-function getDrinks(url) {
-  switch (url) {
-  case `${DRINK_BASE_URL}/search.php?s=`:
-    return Promise.resolve(ALL_DRINKS_MOCK);
-
-  case `${DRINK_BASE_URL}/list.php?c=list`:
-    return Promise.resolve(DRINK_CATEGORIES_MOCK);
-
-  case `${DRINK_BASE_URL}/filter.php?c=Shake`:
-    return Promise.resolve(SHAKE_DRINK_MOCK);
-
-  default: return { drinks: [] };
-  }
-}
-
 function getMeals(url) {
   switch (url) {
   case `${MEALS_BASE_URL}/search.php?s=`:
