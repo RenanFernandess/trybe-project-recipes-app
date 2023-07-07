@@ -23,7 +23,7 @@ export default function SearchByMealsCategory() {
   };
 
   const toggleCategory = (value) => {
-    if (category === value) return setAllCategory();
+    if (category === value || value === ALL_CATEGORIES) return setAllCategory();
     setCategory(value);
     searchByCategory(value);
   };
