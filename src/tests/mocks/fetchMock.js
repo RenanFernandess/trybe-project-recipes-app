@@ -1,5 +1,16 @@
 import ALL_DRINKS_MOCK, { DRINK_CATEGORIES_MOCK, SHAKE_DRINK_MOCK } from './drinksMock';
-import { ALL_MEALS_MOCK, MEALS_CATEGORIES, SEARCHED_MEALS_BY_FIRST_LETTER, SEARCHED_MEALS_BY_INGREDIENTES, SEARCHED_MEALS_BY_NAME } from './mealsMock';
+import {
+  ALL_MEALS_MOCK,
+  MEALS_BEEF_CATEGORY,
+  MEALS_BREAKFAST_CATEGORY,
+  MEALS_CATEGORIES,
+  MEALS_CHICKEN_CATEGORY,
+  MEALS_DESSERT_CATEGORY,
+  MEALS_GOAT_CATEGORY,
+  SEARCHED_MEALS_BY_FIRST_LETTER,
+  SEARCHED_MEALS_BY_INGREDIENTES,
+  SEARCHED_MEALS_BY_NAME,
+} from './mealsMock';
 
 const DRINK_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 const MEALS_BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
@@ -36,8 +47,20 @@ function getMeals(url) {
   case `${MEALS_BASE_URL}/search.php?f=H`:
     return Promise.resolve(SEARCHED_MEALS_BY_FIRST_LETTER);
 
-  case `${MEALS_BASE_URL}/filter.php?c=`:
-    return Promise.resolve();
+  case `${MEALS_BASE_URL}/filter.php?c=Beef`:
+    return Promise.resolve(MEALS_BEEF_CATEGORY);
+
+  case `${MEALS_BASE_URL}/filter.php?c=Breakfast`:
+    return Promise.resolve(MEALS_BREAKFAST_CATEGORY);
+
+  case `${MEALS_BASE_URL}/filter.php?c=Chicken`:
+    return Promise.resolve(MEALS_CHICKEN_CATEGORY);
+
+  case `${MEALS_BASE_URL}/filter.php?c=Dessert`:
+    return Promise.resolve(MEALS_DESSERT_CATEGORY);
+
+  case `${MEALS_BASE_URL}/filter.php?c=Goat`:
+    return Promise.resolve(MEALS_GOAT_CATEGORY);
 
   default: return { meals: [] };
   }
