@@ -41,6 +41,66 @@ describe('Testa a page Drinks', () => {
     expect(screen.getByRole('button', { name: /cocoa category button cocoa/i })).toBeInTheDocument();
   });
 
+  it('Verifica se é possível fazer uma busca de recita pelo ingrediente da receita', async () => {
+    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(SEARCH_BUTTON);
+
+    expect(await screen.findByRole('img', { name: /gg/i })).toBeInTheDocument();
+
+    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
+    const INGREDIENTE_RADIO_INPUT = screen.getByRole('radio', { name: /ingredient/i });
+    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+
+    userEvent.type(SEARCH_TEXT_INPUT, 'lime');
+    userEvent.click(INGREDIENTE_RADIO_INPUT);
+    userEvent.click(SEARCH);
+
+    await waitForElementToBeRemoved(screen.queryByRole('img', { name: /gg/i }));
+
+    expect(screen.getByRole('img', { name: /caipirissima/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /caipirinha/i })).toBeInTheDocument();
+  });
+
+  it('Verifica se é possível fazer uma busca de recita pelo nome da receita', async () => {
+    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(SEARCH_BUTTON);
+
+    expect(await screen.findByRole('img', { name: /gg/i })).toBeInTheDocument();
+
+    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
+    const NAME_RADIO_INPUT = screen.getByRole('radio', { name: /name/i });
+    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+
+    userEvent.type(SEARCH_TEXT_INPUT, 'Amaretto');
+    userEvent.click(NAME_RADIO_INPUT);
+    userEvent.click(SEARCH);
+
+    await waitForElementToBeRemoved(screen.queryByRole('img', { name: /gg/i }));
+
+    expect(screen.getByRole('img', { name: /amaretto tea/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /amaretto sunset/i })).toBeInTheDocument();
+  });
+
+  it('Verifica se é possível fazer uma busca de recita pela primeira letra do nome da receita', async () => {
+    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(SEARCH_BUTTON);
+
+    expect(await screen.findByRole('img', { name: /gg/i })).toBeInTheDocument();
+
+    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
+    const FIRST_LETTER_RADIO_INPUT = screen.getByRole('radio', { name: /first letter/i });
+    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+
+    userEvent.type(SEARCH_TEXT_INPUT, 'E');
+    userEvent.click(FIRST_LETTER_RADIO_INPUT);
+    userEvent.click(SEARCH);
+
+    await waitForElementToBeRemoved(screen.queryByRole('img', { name: /^gg$/i }));
+
+    expect(screen.getByRole('img', { name: /egg cream/i })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /espresso martini/i })).toBeInTheDocument();
+  });
+
   describe('Testa os botões de busca por categoria', () => {
     it('Testa o botão de categoria ordinary drink', async () => {
       const ORDINARY_DRINK_BUTTON = await screen.findByRole('button', { name: /ordinary drink category button ordinary drink/i });
