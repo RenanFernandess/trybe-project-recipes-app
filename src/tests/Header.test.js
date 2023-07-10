@@ -2,11 +2,15 @@ import { screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
+import fetchMock from './mocks/fetchMock';
 
 describe('Test o componente Header', () => {
   let renderReturn;
 
   beforeEach(() => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = fetchMock;
+
     renderReturn = renderWithRouter(<App />);
     const { history } = renderReturn;
     history.push('/meals');

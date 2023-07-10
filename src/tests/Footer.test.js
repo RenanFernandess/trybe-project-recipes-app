@@ -3,10 +3,14 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
+import fetchMock from './mocks/fetchMock';
 
 describe('Realiza os testes no componente Footer', () => {
   let returned;
   beforeEach(() => {
+    jest.spyOn(global, 'fetch');
+    global.fetch = fetchMock;
+
     returned = renderWithRouter(<App />);
     const { history } = returned;
     history.push('/meals');
