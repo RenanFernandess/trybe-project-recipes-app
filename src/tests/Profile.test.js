@@ -27,6 +27,13 @@ describe('Testa a pagina Profile', () => {
     expect(EMAIL).toHaveTextContent('jose_receitas@gmail.com');
   });
 
+  it('Verifica se possui um footer com botões para alternar entre a pagina de comidade e bebida', () => {
+    const DRINKS_BUTTON = screen.getByRole('button', { name: /drinks button/i });
+    const MEALS_BUTTON = screen.getByRole('button', { name: /meals button/i });
+    expect(DRINKS_BUTTON).toBeInTheDocument();
+    expect(MEALS_BUTTON).toBeInTheDocument();
+  });
+
   it('Verifica se possui um botão com o texto "Done Recipe" que oa ser clicado redireciona para a pagina de receitas feitas', () => {
     const BUTTON = screen.getByRole('button', { name: /done recipes button done recipes/i });
     expect(BUTTON).toHaveTextContent(/done recipes/i);

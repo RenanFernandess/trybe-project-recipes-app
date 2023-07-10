@@ -38,6 +38,13 @@ describe('Test a pagina FavoriteRecipes', () => {
     expect(BUTTON_DRINKS).toBeInTheDocument();
   });
 
+  it('Verifica se possui um footer com botões para alternar entre a pagina de comidade e bebida', () => {
+    const DRINKS_BUTTON = screen.getByRole('button', { name: /drinks button/i });
+    const MEALS_BUTTON = screen.getByRole('button', { name: /meals button/i });
+    expect(DRINKS_BUTTON).toBeInTheDocument();
+    expect(MEALS_BUTTON).toBeInTheDocument();
+  });
+
   it('Verifica se renderiza os cartões das receitas.', () => {
     expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
     expect(screen.getByText(/bistek/i)).toBeInTheDocument();
