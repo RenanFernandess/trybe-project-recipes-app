@@ -19,7 +19,7 @@ export default function getDrinks(url) {
   case `${DRINK_BASE_URL}/search.php?s=Amaretto`:
     return Promise.resolve(SEARCH_DRINK_BY_NAME_MOCK);
 
-  case `${DRINK_BASE_URL}/search.php?s=E`:
+  case `${DRINK_BASE_URL}/search.php?f=E`:
     return Promise.resolve(SEARCH_DRINK_BY_FIRST_LETTER);
 
   case `${DRINK_BASE_URL}/filter.php?c=Ordinary Drink`:
