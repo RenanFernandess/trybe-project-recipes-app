@@ -27,25 +27,25 @@ describe('Testa o FavoriteCard', () => {
   });
 
   it('Verifica se possui o titulo da receita', () => {
-    const RECIPE_TITLE = screen.getByText(/egg cream/i);
+    const recipeTitle = screen.getByText(/egg cream/i);
 
-    expect(RECIPE_TITLE).toBeInTheDocument();
+    expect(recipeTitle).toBeInTheDocument();
   });
 
   it('Verifica se possui a categoria da receita', () => {
-    const LINK = screen.getByRole('link', { name: /egg cream other \/ unknown non alcoholic/i });
-    const CATEGORY = within(LINK).getByText(/other \/ unknown non alcoholic/i);
+    const link = screen.getByRole('link', { name: /egg cream other \/ unknown non alcoholic/i });
+    const category = within(link).getByText(/other \/ unknown non alcoholic/i);
 
-    expect(CATEGORY).toBeInTheDocument();
+    expect(category).toBeInTheDocument();
   });
 
   it('Verifica se possui um botão de compartilhar', () => {
-    const SHARE_BUTTON = screen.getByRole('button', { name: /share button/i });
-    expect(SHARE_BUTTON).toBeInTheDocument();
+    const shareButton = screen.getByRole('button', { name: /share button/i });
+    expect(shareButton).toBeInTheDocument();
   });
 
   it('Verifica se possui um botão para favoritar a receita', () => {
-    const FAVORITE_BUTTON = screen.getByRole('img', { name: /favorite button/i });
-    expect(FAVORITE_BUTTON).toBeInTheDocument();
+    const favoriteButton = screen.getByRole('img', { name: /favorite button/i });
+    expect(favoriteButton).toBeInTheDocument();
   });
 });

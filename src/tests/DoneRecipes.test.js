@@ -17,27 +17,27 @@ describe('Test a pagina DoneRecipes', () => {
   });
 
   it('Verifica se a pagina possui o titulo Done Recipe.', () => {
-    const TITLE = screen.getByRole('heading', { name: /done recipes done recipes/i });
+    const title = screen.getByRole('heading', { name: /done recipes done recipes/i });
 
-    expect(TITLE).toBeInTheDocument();
-    expect(TITLE).toHaveTextContent(/Done Recipe/i);
+    expect(title).toBeInTheDocument();
+    expect(title).toHaveTextContent(/Done Recipe/i);
   });
 
-  it('Verifica se possui test botões "All", "Meals" e "Drinks" para filtrar por tipo da receita.', () => {
-    const BUTTON_ALL = screen.getByRole('button', { name: /all categories button all/i });
-    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
-    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+  it('Verifica se possui tres botões "All", "Meals" e "Drinks" para filtrar por tipo da receita.', () => {
+    const buttonAll = screen.getByRole('button', { name: /all categories button all/i });
+    const buttonMeals = screen.getByRole('button', { name: /meals categories button meals/i });
+    const buttonDrinks = screen.getByRole('button', { name: /drinks categories button drinks/i });
 
-    expect(BUTTON_ALL).toBeInTheDocument();
-    expect(BUTTON_MEALS).toBeInTheDocument();
-    expect(BUTTON_DRINKS).toBeInTheDocument();
+    expect(buttonAll).toBeInTheDocument();
+    expect(buttonMeals).toBeInTheDocument();
+    expect(buttonDrinks).toBeInTheDocument();
   });
 
   it('Verifica se possui um footer com botões para alternar entre a pagina de comidade e bebida', () => {
-    const DRINKS_BUTTON = screen.getByRole('button', { name: /drinks button/i });
-    const MEALS_BUTTON = screen.getByRole('button', { name: /meals button/i });
-    expect(DRINKS_BUTTON).toBeInTheDocument();
-    expect(MEALS_BUTTON).toBeInTheDocument();
+    const drinksButton = screen.getByRole('button', { name: /drinks button/i });
+    const mealsButton = screen.getByRole('button', { name: /meals button/i });
+    expect(drinksButton).toBeInTheDocument();
+    expect(mealsButton).toBeInTheDocument();
   });
 
   it('Verifica se renderiza os cartões das receitas.', () => {
@@ -55,9 +55,9 @@ describe('Test a pagina DoneRecipes', () => {
   });
 
   it('Verifica se ao clica no botão "Meals" de filtrar por tipo comida aparece somente as receitas de comida.', () => {
-    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
+    const buttonMeals = screen.getByRole('button', { name: /meals categories button meals/i });
 
-    userEvent.click(BUTTON_MEALS);
+    userEvent.click(buttonMeals);
 
     expect(screen.getByText(/bistek/i)).toBeInTheDocument();
     expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
@@ -67,9 +67,9 @@ describe('Test a pagina DoneRecipes', () => {
   });
 
   it('Verifica se ao clica no botão "Drinks" de filtrar por tipo bebida aparece somente as receitas de bebida.', () => {
-    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+    const buttonDrinks = screen.getByRole('button', { name: /drinks categories button drinks/i });
 
-    userEvent.click(BUTTON_DRINKS);
+    userEvent.click(buttonDrinks);
 
     expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
     expect(screen.getByText(/banana daiquiri/i)).toBeInTheDocument();
@@ -79,27 +79,27 @@ describe('Test a pagina DoneRecipes', () => {
   });
 
   it('Verifica se ao clicar no botão "All" que limpa o filtro mostra receitas de comida e bebida', () => {
-    const BUTTON_MEALS = screen.getByRole('button', { name: /meals categories button meals/i });
-    const BUTTON_ALL = screen.getByRole('button', { name: /all categories button all/i });
+    const buttonMeals = screen.getByRole('button', { name: /meals categories button meals/i });
+    const buttonAll = screen.getByRole('button', { name: /all categories button all/i });
 
-    userEvent.click(BUTTON_MEALS);
+    userEvent.click(buttonMeals);
 
     expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
     expect(screen.queryByText(/egg cream/i)).not.toBeInTheDocument();
 
-    userEvent.click(BUTTON_ALL);
+    userEvent.click(buttonAll);
 
     expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
     expect(screen.getByText(/egg cream/i)).toBeInTheDocument();
 
-    const BUTTON_DRINKS = screen.getByRole('button', { name: /drinks categories button drinks/i });
+    const buttonDrinks = screen.getByRole('button', { name: /drinks categories button drinks/i });
 
-    userEvent.click(BUTTON_DRINKS);
+    userEvent.click(buttonDrinks);
 
     expect(screen.getByText(/banana daiquiri/i)).toBeInTheDocument();
     expect(screen.queryByText(/bistek/i)).not.toBeInTheDocument();
 
-    userEvent.click(BUTTON_ALL);
+    userEvent.click(buttonAll);
 
     expect(screen.getByText(/lasagne/i)).toBeInTheDocument();
     expect(screen.getByText(/egg cream/i)).toBeInTheDocument();

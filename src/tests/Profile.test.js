@@ -18,8 +18,8 @@ describe('Testa a pagina Profile', () => {
   });
 
   it('Verifica se possui o titulo Profile', () => {
-    const PAGE_TITLE = screen.getByRole('heading', { name: /profile profile/i });
-    expect(PAGE_TITLE).toHaveTextContent(/profile/i);
+    const pageTitle = screen.getByRole('heading', { name: /profile profile/i });
+    expect(pageTitle).toHaveTextContent(/profile/i);
   });
 
   it('Verifica se possui o e-mail da pessoa usuária', () => {
@@ -28,39 +28,39 @@ describe('Testa a pagina Profile', () => {
   });
 
   it('Verifica se possui um footer com botões para alternar entre a pagina de comidade e bebida', () => {
-    const DRINKS_BUTTON = screen.getByRole('button', { name: /drinks button/i });
-    const MEALS_BUTTON = screen.getByRole('button', { name: /meals button/i });
-    expect(DRINKS_BUTTON).toBeInTheDocument();
-    expect(MEALS_BUTTON).toBeInTheDocument();
+    const drinksButton = screen.getByRole('button', { name: /drinks button/i });
+    const mealsButton = screen.getByRole('button', { name: /meals button/i });
+    expect(drinksButton).toBeInTheDocument();
+    expect(mealsButton).toBeInTheDocument();
   });
 
   it('Verifica se possui um botão com o texto "Done Recipe" que oa ser clicado redireciona para a pagina de receitas feitas', () => {
-    const BUTTON = screen.getByRole('button', { name: /done recipes button done recipes/i });
-    expect(BUTTON).toHaveTextContent(/done recipes/i);
+    const button = screen.getByRole('button', { name: /done recipes button done recipes/i });
+    expect(button).toHaveTextContent(/done recipes/i);
 
-    userEvent.click(BUTTON);
+    userEvent.click(button);
 
-    const DONE_RECIPES_TITLE = screen.getByRole('heading', { name: /done recipes done recipes/i });
-    expect(DONE_RECIPES_TITLE).toBeInTheDocument();
+    const doneRecipesTitle = screen.getByRole('heading', { name: /done recipes done recipes/i });
+    expect(doneRecipesTitle).toBeInTheDocument();
   });
 
   it('Verifica se possui um botão com o texto "Favorite Recipe" que oa ser clicado redireciona para a pagina de receitas favoritas', () => {
-    const BUTTON = screen.getByRole('button', { name: /favorite recipes button favorite recipes/i });
-    expect(BUTTON).toHaveTextContent(/Favorite Recipe/i);
+    const button = screen.getByRole('button', { name: /favorite recipes button favorite recipes/i });
+    expect(button).toHaveTextContent(/Favorite Recipe/i);
 
-    userEvent.click(BUTTON);
+    userEvent.click(button);
 
-    const FAVORITE_RECIPES_TITLE = screen.getByRole('heading', { name: /favorite recipes favorite recipes/i });
-    expect(FAVORITE_RECIPES_TITLE).toBeInTheDocument();
+    const favoriteRecipesTitle = screen.getByRole('heading', { name: /favorite recipes favorite recipes/i });
+    expect(favoriteRecipesTitle).toBeInTheDocument();
   });
 
   it('Verifica se possui um botão com o texto "Logout" que oa ser clicado redireciona para a pagina de login', () => {
-    const BUTTON = screen.getByRole('button', { name: /logout button logout/i });
-    expect(BUTTON).toHaveTextContent(/logout/i);
+    const button = screen.getByRole('button', { name: /logout button logout/i });
+    expect(button).toHaveTextContent(/logout/i);
 
-    userEvent.click(BUTTON);
+    userEvent.click(button);
 
-    const LOGIN_TITLE = screen.getByRole('heading', { name: /login/i });
-    expect(LOGIN_TITLE).toBeInTheDocument();
+    const loginPageTitle = screen.getByRole('heading', { name: /login/i });
+    expect(loginPageTitle).toBeInTheDocument();
   });
 });

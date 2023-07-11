@@ -14,8 +14,8 @@ describe('Testa a pagina Meals', () => {
   });
 
   it('Verifica se possui o titulo Meals', () => {
-    const PAGE_TITLE = screen.getByRole('heading', { name: /meals meals/i });
-    expect(PAGE_TITLE).toHaveTextContent(/meals/i);
+    const pageTitle = screen.getByRole('heading', { name: /meals meals/i });
+    expect(pageTitle).toHaveTextContent(/meals/i);
   });
 
   it('Verifica se as receitas são renderizadas', async () => {
@@ -25,11 +25,11 @@ describe('Testa a pagina Meals', () => {
   });
 
   it('Verifica se possui um footer com botões para alternar entre a pagina de comidade e bebida', () => {
-    const DRINKS_BUTTON = screen.getByRole('button', { name: /drinks button/i });
-    const MEALS_BUTTON = screen.getByRole('button', { name: /meals button/i });
+    const drinksButton = screen.getByRole('button', { name: /drinks button/i });
+    const mealsButton = screen.getByRole('button', { name: /meals button/i });
 
-    expect(DRINKS_BUTTON).toBeInTheDocument();
-    expect(MEALS_BUTTON).toBeInTheDocument();
+    expect(drinksButton).toBeInTheDocument();
+    expect(mealsButton).toBeInTheDocument();
   });
 
   it('Verifica se possui 6 botões de categorias "All", "Beef", "Breakfast", "Chicken", "Dessert" e "Goat"', async () => {
@@ -42,18 +42,18 @@ describe('Testa a pagina Meals', () => {
   });
 
   it('Verifica se é possível fazer uma busca de recita pelo ingrediente da receita', async () => {
-    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
-    userEvent.click(SEARCH_BUTTON);
+    const searchButton = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(searchButton);
 
     expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
 
-    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
-    const INGREDIENTE_RADIO_INPUT = screen.getByRole('radio', { name: /ingredient/i });
-    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+    const searchTextInput = screen.getByRole('textbox');
+    const ingredientRadioInput = screen.getByRole('radio', { name: /ingredient/i });
+    const search = screen.getByRole('button', { name: /^search$/i });
 
-    userEvent.type(SEARCH_TEXT_INPUT, 'lime');
-    userEvent.click(INGREDIENTE_RADIO_INPUT);
-    userEvent.click(SEARCH);
+    userEvent.type(searchTextInput, 'lime');
+    userEvent.click(ingredientRadioInput);
+    userEvent.click(search);
 
     await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
 
@@ -62,18 +62,18 @@ describe('Testa a pagina Meals', () => {
   });
 
   it('Verifica se é possível fazer uma busca de recita pelo nome da receita', async () => {
-    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
-    userEvent.click(SEARCH_BUTTON);
+    const searchButton = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(searchButton);
 
     expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
 
-    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
-    const NAME_RADIO_INPUT = screen.getByRole('radio', { name: /name/i });
-    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+    const searchTextInput = screen.getByRole('textbox');
+    const nameRadioInput = screen.getByRole('radio', { name: /name/i });
+    const search = screen.getByRole('button', { name: /^search$/i });
 
-    userEvent.type(SEARCH_TEXT_INPUT, 'fish');
-    userEvent.click(NAME_RADIO_INPUT);
-    userEvent.click(SEARCH);
+    userEvent.type(searchTextInput, 'fish');
+    userEvent.click(nameRadioInput);
+    userEvent.click(search);
 
     await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
 
@@ -82,18 +82,18 @@ describe('Testa a pagina Meals', () => {
   });
 
   it('Verifica se é possível fazer uma busca de recita pela primeira letra do nome da receita', async () => {
-    const SEARCH_BUTTON = screen.getByRole('button', { name: /search button/i });
-    userEvent.click(SEARCH_BUTTON);
+    const searchButton = screen.getByRole('button', { name: /search button/i });
+    userEvent.click(searchButton);
 
     expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
 
-    const SEARCH_TEXT_INPUT = screen.getByRole('textbox');
-    const FIRST_LETTER_RADIO_INPUT = screen.getByRole('radio', { name: /first letter/i });
-    const SEARCH = screen.getByRole('button', { name: /^SEARCH$/i });
+    const searchTextInput = screen.getByRole('textbox');
+    const firstLetterRadioInput = screen.getByRole('radio', { name: /first letter/i });
+    const search = screen.getByRole('button', { name: /^search$/i });
 
-    userEvent.type(SEARCH_TEXT_INPUT, 'H');
-    userEvent.click(FIRST_LETTER_RADIO_INPUT);
-    userEvent.click(SEARCH);
+    userEvent.type(searchTextInput, 'H');
+    userEvent.click(firstLetterRadioInput);
+    userEvent.click(search);
 
     await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
 
@@ -103,52 +103,52 @@ describe('Testa a pagina Meals', () => {
 
   describe('Testa os botões de busca por categoria', () => {
     it('Testa o botão de categoria beef', async () => {
-      const BEEF_CATEGORY_BUTTON = await screen.findByRole('button', { name: /beef category button beef/i });
-      userEvent.click(BEEF_CATEGORY_BUTTON);
+      const beefCategoryButton = await screen.findByRole('button', { name: /beef category button beef/i });
+      userEvent.click(beefCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /beef asado/i })).toBeInTheDocument();
       expect(screen.getByRole('img', { name: /beef stroganoff/i })).toBeInTheDocument();
     });
 
     it('Testa o botão de categoria breakfast', async () => {
-      const BREAKFAST_CATEGORY_BUTTON = await screen.findByRole('button', { name: /breakfast category button breakfast/i });
-      userEvent.click(BREAKFAST_CATEGORY_BUTTON);
+      const breakfastCategoryButton = await screen.findByRole('button', { name: /breakfast category button breakfast/i });
+      userEvent.click(breakfastCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /full english breakfast/i })).toBeInTheDocument();
       expect(screen.getByRole('img', { name: /smoked haddock kedgeree/i })).toBeInTheDocument();
     });
 
     it('Testa o botão de categoria chicken', async () => {
-      const CHICKEN_CATEGORY_BUTTON = await screen.findByRole('button', { name: /chicken category button chicken/i });
-      userEvent.click(CHICKEN_CATEGORY_BUTTON);
+      const chickenCategoryButton = await screen.findByRole('button', { name: /chicken category button chicken/i });
+      userEvent.click(chickenCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /ayam percik/i })).toBeInTheDocument();
       expect(screen.getByRole('img', { name: /chicken enchilada casserole/i })).toBeInTheDocument();
     });
 
     it('Testa o botão de categoria dessert', async () => {
-      const DESSERT_CATEGORY_BUTTON = await screen.findByRole('button', { name: /dessert category button dessert/i });
-      userEvent.click(DESSERT_CATEGORY_BUTTON);
+      const dessertCategoryButton = await screen.findByRole('button', { name: /dessert category button dessert/i });
+      userEvent.click(dessertCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /blackberry fool/i })).toBeInTheDocument();
       expect(screen.getByRole('img', { name: /carrot cake/i })).toBeInTheDocument();
     });
 
     it('Testa o botão de categoria goat', async () => {
-      const GOAT_CATEGORY_BUTTON = await screen.findByRole('button', { name: /goat category button goat/i });
-      userEvent.click(GOAT_CATEGORY_BUTTON);
+      const goatCategoryButton = await screen.findByRole('button', { name: /goat category button goat/i });
+      userEvent.click(goatCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /mbuzi choma \(roasted goat\)/i })).toBeInTheDocument();
     });
 
     it('Verifica se ao clicar no botão de todas as categorias, todas as receitas são exibidas', async () => {
-      const BEEF_CATEGORY_BUTTON = await screen.findByRole('button', { name: /beef category button beef/i });
-      userEvent.click(BEEF_CATEGORY_BUTTON);
+      const beefCategoryButton = await screen.findByRole('button', { name: /beef category button beef/i });
+      userEvent.click(beefCategoryButton);
       await waitForElementToBeRemoved(screen.queryByRole('img', { name: /corba/i }));
       expect(screen.getByRole('img', { name: /beef asado/i })).toBeInTheDocument();
 
-      const ALL_CATEGORY_BUTTON = screen.getByRole('button', { name: /all category button all/i });
-      userEvent.click(ALL_CATEGORY_BUTTON);
+      const allCategoriesButton = screen.getByRole('button', { name: /all category button all/i });
+      userEvent.click(allCategoriesButton);
       expect(await screen.findByRole('img', { name: /corba/i })).toBeInTheDocument();
     });
   });
