@@ -669,6 +669,7 @@ const ALL_MEALS_MOCK = {
 
 export default ALL_MEALS_MOCK;
 
-export const MEAL_MOCK = {
-  meals: MEALS_RECIPES[1],
+// https://www.themealdb.com/api/json/v1/1/lookup.php?i=53060
+export const MEAL_BUREK_MOCK = {
+  meals: [MEALS_RECIPES[1]],
 };
