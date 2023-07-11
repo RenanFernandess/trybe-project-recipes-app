@@ -5,7 +5,18 @@ import SEARCH_DRINK_BY_INGREDIENTE_MOCK, { SEARCH_DRINK_BY_FIRST_LETTER, SEARCH_
 
 const DRINK_BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1';
 
+const RECIPE_ENDPOINT_REGEX = new RegExp(`${DRINK_BASE_URL}/lookup.php\\?i=\\d+`);
+
+const getDrink = (url) => {
+  const id = getUrlId(url);
+  const drink = ALL_DRINKS_MOCK.drinks.find(({ idDrink }) => idDrink === id);
+  return { drinks: [drink] };
+};
+
 export default function getDrinks(url) {
+  if (RECIPE_ENDPOINT_REGEX.test(url)) {
+    return Promise.resolve(getDrink(url));
+  }
   switch (url) {
   case `${DRINK_BASE_URL}/search.php?s=`:
     return Promise.resolve(ALL_DRINKS_MOCK);
