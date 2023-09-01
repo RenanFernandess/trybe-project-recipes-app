@@ -1,17 +1,20 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import App from '../App';
 import fetchMock from './mocks/fetchMock';
 import { MEAL_BUREK_MOCK } from './mocks/meals/mealsMock';
 
 describe('Testa a pagina RecipeDetails', () => {
+  let renderReturned;
+
   beforeEach(() => {
     jest.spyOn(global, 'fetch');
     global.fetch = fetchMock;
 
-    const { history } = renderWithRouter(<App />);
+    renderReturned = renderWithRouter(<App />);
+    const { history } = renderReturned;
     history.push('/meals/53060');
   });
 
@@ -93,5 +96,29 @@ describe('Testa a pagina RecipeDetails', () => {
     const startRecipeButton = await screen.findByRole('button', { name: /start recipe/i });
     expect(startRecipeButton).toBeInTheDocument();
     expect(startRecipeButton).toHaveTextContent('Start Recipe');
+  });
+
+  it('Verifica se clicar no botão de iniciar receita redireciona para a pagina de preparo', async () => {
+    const startRecipeButton = await screen.findByRole('button', { name: /start recipe/i });
+    expect(startRecipeButton).toBeInTheDocument();
+
+    userEvent.click(startRecipeButton);
+    const { history } = renderReturned;
+    expect(history.location.pathname).toBe('/meals/53060/in-progress');
+  });
+
+  it('Verifica se é possível favoritar a receita', async () => {
+    const favoriteButton = await screen.findByRole('button', { name: /favorite button/i });
+    expect(favoriteButton).toBeInTheDocument();
+
+    userEvent.click(favoriteButton);
+    const { history } = renderReturned;
+    history.push('/favorite-recipes');
+
+    expect(history.location.pathname).toBe('/favorite-recipes');
+
+    const favoriteRecipe = await screen.findByText(/burek/i);
+
+    expect(favoriteRecipe).toBeInTheDocument();
   });
 });
